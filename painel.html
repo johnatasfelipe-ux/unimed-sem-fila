@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Painel de Atendimento — Sem Fila</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-body">
+<header class="dash-top"><div class="container"><div class="brand"><span class="brand-mark">U</span><span class="brand-copy"><strong>Sem Fila</strong><small>Painel do responsável • demonstração</small></span></div><a class="back-link" href="index.html">← Voltar ao protótipo</a></div></header>
+<main class="dash-wrap">
+  <div class="dash-heading">
+    <div><h1>Indicadores de atendimento</h1><p>Visão operacional para acompanhar capacidade, demanda, qualidade e comportamento dos agendamentos.</p></div>
+    <div class="dash-filters"><input id="dashDate" type="date"><select id="sectorFilter"><option value="Todos">Todos os setores</option><option>Financeiro</option><option>Cadastro</option><option>Autorizações</option><option>Atendimento Geral</option></select></div>
+  </div>
+
+  <section class="kpi-grid" id="kpis"></section>
+
+  <section class="dash-grid">
+    <article class="dash-card"><h3>Demanda por setor</h3><p class="sub">Distribuição dos agendamentos no período selecionado.</p><div class="bar-chart" id="sectorBars"></div></article>
+    <article class="dash-card"><h3>Status do atendimento</h3><p class="sub">Agendados, concluídos, faltas e cancelamentos.</p><div class="status-grid" id="statusGrid"></div></article>
+  </section>
+
+  <section class="dash-grid">
+    <article class="dash-card"><h3>Horários mais demandados</h3><p class="sub">Ajuda a ajustar capacidade e dimensionar a equipe.</p><div class="bar-chart" id="hourBars"></div></article>
+    <article class="dash-card"><h3>Preferência nas negociações</h3><p class="sub">Informação antecipada para preparar o atendimento financeiro.</p><div class="payment-chart" id="paymentChart"></div></article>
+  </section>
+
+  <section class="dash-grid">
+    <article class="dash-card"><h3>Agendamentos nos últimos 7 dias</h3><p class="sub">Volume diário para identificar picos de procura.</p><div class="trend" id="trendChart"></div></article>
+    <article class="dash-card"><h3>Quem será atendido?</h3><p class="sub">Proporção de agendamentos feitos para o próprio beneficiário ou para outra pessoa.</p><div class="status-grid" id="recipientGrid"></div></article>
+  </section>
+
+  <section class="dash-card table-card">
+    <h3>Próximos atendimentos</h3><p class="sub">Fila organizada por horário, setor e preparação necessária.</p>
+    <div class="table-wrap"><table class="dash-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Motivo</th><th>Pagamento</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div>
+    <p class="note">Dados demonstrativos. O painel também lê os agendamentos feitos no protótipo no mesmo navegador, para mostrar o reflexo da jornada do beneficiário na visão do responsável.</p>
+  </section>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>

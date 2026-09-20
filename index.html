@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Unimed Divinópolis — Protótipo de Agendamento Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="official-mock">
+  <div class="prototype-ribbon">Protótipo demonstrativo — proposta visual, sem integração com os sistemas oficiais</div>
+
+  <header class="official-header">
+    <div class="official-top container-official">
+      <a class="official-logo" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">
+        <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
+      </a>
+      <a class="channels-link" href="https://www.unimed.coop.br/site/web/divinopolis/canais-de-atendimento" target="_blank" rel="noopener">＋ Canais de atendimento</a>
+      <div class="official-search">⌕ <span>Faça sua busca aqui</span></div>
+      <a class="official-login" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">◉ Login</a>
+    </div>
+    <div class="official-nav container-official">
+      <span>Beneficiário / Empresa / Cooperado</span>
+      <span>Prestador</span>
+      <span>A Unimed</span>
+      <span>Informações Regulatórias</span>
+      <span class="nav-right">⌖ ENCONTRE UM MÉDICO</span>
+      <span>ACESSO RÁPIDO⌄</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="official-carousel" aria-label="Carrossel principal">
+      <div class="carousel-track" id="carouselTrack">
+        <article class="carousel-slide appointment-slide active" data-slide="0">
+          <div class="appointment-inner container-official">
+            <div class="appointment-copy">
+              <span class="appointment-kicker">NOVIDADE • ATENDIMENTO DIGITAL</span>
+              <h1>Agora você pode<br><strong>agendar seu atendimento online.</strong></h1>
+              <p>Evite filas, organize seu tempo e escolha a data e o horário que funcionam melhor para você.</p>
+              <div class="appointment-actions">
+                <a class="appointment-cta" href="agendamento.html">AGENDAR ATENDIMENTO</a>
+                <span class="appointment-note">Rápido • organizado • sem fila</span>
+              </div>
+            </div>
+            <div class="appointment-visual" aria-hidden="true">
+              <div class="visual-ring ring-one"></div>
+              <div class="visual-ring ring-two"></div>
+              <div class="calendar-card">
+                <div class="cal-head"><span>Agendamento</span><b>✓</b></div>
+                <div class="cal-days">
+                  <span>SEG<br><b>21</b></span><span>TER<br><b>22</b></span><span class="picked">QUA<br><b>23</b></span><span>QUI<br><b>24</b></span>
+                </div>
+                <div class="cal-times"><span>09:20</span><span class="picked-time">10:00</span><span>11:20</span><span>13:40</span></div>
+                <div class="cal-ok">Horário reservado para você</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="carousel-slide image-slide" data-slide="1">
+          <img src="assets/slide-fraude.png" alt="Campanha de prevenção a golpes e fraudes da Unimed Divinópolis">
+        </article>
+
+        <article class="carousel-slide image-slide" data-slide="2">
+          <img src="assets/slide-faturas.png" alt="Comunicado da Unimed Divinópolis sobre canais digitais para faturas">
+        </article>
+
+        <article class="carousel-slide image-slide" data-slide="3">
+          <img src="assets/slide-app.png" alt="Divulgação do aplicativo Unimed">
+        </article>
+      </div>
+
+      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Slide anterior">‹</button>
+      <button class="carousel-arrow next" id="carouselNext" aria-label="Próximo slide">›</button>
+      <div class="carousel-dots" id="carouselDots" aria-label="Navegação do carrossel"></div>
+    </section>
+
+    <section class="home-shortcuts container-official">
+      <div class="shortcut-intro">
+        <h2>Acesso rápido</h2>
+        <p>O agendamento online entra como mais uma opção ao lado dos canais digitais já existentes.</p>
+      </div>
+      <div class="shortcut-grid">
+        <a class="shortcut-card highlighted" href="agendamento.html"><span>◷</span><strong>Agendamento online</strong><small>Escolha data e horário</small></a>
+        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/guia-medico" target="_blank" rel="noopener"><span>⌕</span><strong>Guia Médico</strong><small>Encontre a rede</small></a>
+        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/aplicativo" target="_blank" rel="noopener"><span>▣</span><strong>Aplicativo</strong><small>Serviços digitais</small></a>
+        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/canais-de-atendimento" target="_blank" rel="noopener"><span>☏</span><strong>Canais de atendimento</strong><small>Veja outras opções</small></a>
+      </div>
+    </section>
+
+    <section class="prototype-info container-official">
+      <div>
+        <strong>Visão do responsável</strong>
+        <span>O mesmo protótipo possui um painel separado para acompanhar ocupação, faltas, cancelamentos, demanda por setor e negociações.</span>
+      </div>
+      <a href="painel.html">Abrir painel de indicadores →</a>
+    </section>
+  </main>
+
+  <a class="iva-float" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener" title="Abrir o site oficial da Unimed Divinópolis">
+    <span class="iva-avatar">IVA</span>
+    <span>Posso te ajudar?</span>
+    <b>▰</b>
+  </a>
+
+  <script src="site.js"></script>
+</body>
+</html>

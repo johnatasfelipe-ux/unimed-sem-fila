@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sem Fila — Agendamento Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-header">
+    <div class="container app-header-inner">
+      <a class="app-name" href="index.html"><span class="mini-clock"></span>Sem Fila</a>
+      <div class="user-actions"><span class="user-name" id="headerUser">Visitante</span><button id="logoutBtn" type="button">Sair</button></div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="screen active" id="screen-recipient">
+      <div class="panel-card intro-card">
+        <span class="screen-kicker">ANTES DE COMEÇAR</span>
+        <h1>Este agendamento é para quem?</h1>
+        <p class="screen-help">Escolha quem receberá o atendimento. Os dados solicitados na próxima etapa serão da pessoa que será atendida.</p>
+        <div class="recipient-grid">
+          <button class="recipient-card" data-recipient="self">
+            <span class="recipient-icon">☺</span>
+            <strong>Para mim</strong>
+            <small>Vou agendar meu próprio atendimento</small>
+          </button>
+          <button class="recipient-card" data-recipient="other">
+            <span class="recipient-icon">☺＋</span>
+            <strong>Para outra pessoa</strong>
+            <small>Vou agendar para um beneficiário</small>
+          </button>
+        </div>
+        <p class="privacy-reminder">Use apenas os dados necessários para identificar o beneficiário. Este protótipo não consulta nem envia informações reais.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-identification">
+      <div class="login-wrap compact-login">
+        <div class="login-brand"><div class="semfila">Sem Fila</div></div>
+        <div class="panel-card">
+          <button class="small-back" id="backRecipient" type="button">← Voltar</button>
+          <span class="screen-kicker" id="identificationKicker">IDENTIFICAÇÃO DO BENEFICIÁRIO</span>
+          <h2>Como deseja se identificar?</h2>
+          <p class="screen-help">Não é necessário digitar o nome completo. Em um sistema real, o nome seria recuperado após a validação dos dados.</p>
+
+          <div class="id-tabs" role="tablist">
+            <button class="id-tab active" data-method="card" type="button">Carteirinha</button>
+            <button class="id-tab" data-method="cpf" type="button">CPF</button>
+          </div>
+
+          <div id="cardFields" class="id-fields">
+            <label class="field">Número da carteirinha
+              <input id="cardNumber" inputmode="numeric" placeholder="0144.4295.000081234-6" autocomplete="off">
+            </label>
+          </div>
+
+          <div id="cpfFields" class="id-fields hidden">
+            <label class="field">CPF
+              <input id="cpfNumber" inputmode="numeric" placeholder="000.000.000-00" autocomplete="off">
+            </label>
+          </div>
+
+          <label class="field">Data de nascimento
+            <input id="birthDate" type="date">
+          </label>
+
+          <button class="btn btn-primary full-btn" id="loginBtn">Continuar</button>
+          <button class="link-btn" id="demoBtn" type="button">Preencher com dados de exemplo</button>
+          <p class="helper centered-helper">Ambiente demonstrativo: os dados servem apenas para simular o fluxo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-home">
+      <div class="welcome-card">
+        <small id="recipientLabel">Beneficiário identificado</small>
+        <h1 id="welcomeName">Arthur Peixoto Militão</h1>
+        <div class="identity-grid">
+          <div class="identity-item"><span id="identityTypeLabel">CARTEIRINHA</span><b id="homeIdentity">—</b></div>
+          <div class="identity-item"><span>NASCIMENTO</span><b id="homeBirth">—</b></div>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <button class="quick-card" id="startSchedule"><div class="iconbox">▣</div><strong>Agendar atendimento</strong><small>Escolher assunto, data e horário</small></button>
+        <button class="quick-card" id="openMy"><div class="iconbox">◷</div><strong>Meus agendamentos</strong><small>Ver, reagendar ou cancelar</small></button>
+      </div>
+
+      <h3 class="section-label">Próximo atendimento</h3>
+      <div id="nextAppointment" class="empty-box">Nenhum atendimento agendado no momento.</div>
+
+      <h3 class="section-label">Gestão do atendimento</h3>
+      <a class="quick-card management-card" href="painel.html"><strong>Ver painel de indicadores</strong><small>Ocupação, demanda, faltas, cancelamentos e perfil das negociações.</small></a>
+    </section>
+
+    <section class="screen" id="screen-service">
+      <div class="panel-card">
+        <div class="schedule-title"><small>ETAPA 1 DE 3</small><h1>Como podemos ajudar?</h1><p>Escolha o assunto. O setor responsável será direcionado automaticamente.</p></div>
+        <div class="progress"><span class="on"></span><span></span><span></span></div>
+
+        <aside class="iva-tip">
+          <div><strong>Precisa apenas da 2ª via do boleto?</strong><span>Não é necessário ocupar um horário de atendimento. Solicite pela IVA no site oficial.</span></div>
+          <a href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">Abrir IVA ↗</a>
+        </aside>
+
+        <div class="option-grid" id="serviceOptions"></div>
+        <hr class="divider">
+
+        <label class="field">Motivo específico
+          <select id="reasonSelect"><option value="">Escolha primeiro um assunto</option></select>
+        </label>
+
+        <div id="paymentArea" class="payment-area hidden">
+          <span class="input-label">Se houver acordo, como pretende realizar o pagamento?</span>
+          <div class="payment-grid">
+            <button type="button" class="payment-option" data-payment="Boleto"><span>▤</span><strong>Boleto</strong><small>Registrar preferência antes do atendimento</small></button>
+            <button type="button" class="payment-option" data-payment="Cartão"><span>▣</span><strong>Cartão</strong><small>Registrar preferência antes do atendimento</small></button>
+          </div>
+          <p class="helper">A escolha é informativa e ajuda a equipe a preparar a negociação. A condição final depende da análise do atendimento.</p>
+        </div>
+
+        <div class="actions-row"><button class="btn btn-secondary backHome">Voltar</button><button class="btn btn-primary" id="toSchedule" disabled>Continuar</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-schedule">
+      <div class="schedule-title"><small id="scheduleContext">ATENDIMENTO</small><h1>Escolha data e horário</h1><p>As datas mostram os próximos dias úteis. Horários ocupados aparecem indisponíveis e cancelamentos voltam a liberar a vaga.</p></div>
+      <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
+      <div class="date-caption" id="dateCaption"></div>
+      <div class="date-strip" id="dateStrip"></div>
+      <div class="slot-box"><div class="slots" id="slots"></div><div class="legend"><span><i class="dot sel"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occ"></i>Ocupado</span></div></div>
+      <div class="actions-row"><button class="btn btn-secondary" id="backService">Voltar</button><button class="btn btn-primary" id="toReview" disabled>Continuar</button></div>
+    </section>
+
+    <section class="screen" id="screen-review">
+      <div class="panel-card">
+        <div class="schedule-title"><small>ETAPA 3 DE 3</small><h1>Confira antes de confirmar</h1><p>Revise os dados do atendimento.</p></div>
+        <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
+        <div class="summary" id="reviewSummary"></div>
+        <div class="cancel-rule compact-rule"><strong>Cancelamento</strong><span>O cancelamento deverá ser realizado com no mínimo <b>2 horas de antecedência</b>.</span></div>
+        <div class="actions-row"><button class="btn btn-secondary" id="backSchedule">Alterar horário</button><button class="btn btn-primary" id="confirmBtn">Confirmar agendamento</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-success">
+      <div class="panel-card success">
+        <div class="success-badge">✓</div>
+        <h2>Agendamento confirmado</h2>
+        <p class="helper">Seu horário foi reservado neste protótipo.</p>
+        <div class="protocol"><small>Protocolo</small><strong id="protocol">—</strong></div>
+        <div class="summary" id="successSummary"></div>
+        <div class="cancel-rule"><span class="rule-icon">!</span><div><strong>Importante</strong><p>Se precisar cancelar, faça isso com no mínimo <b>2 horas de antecedência</b> do horário agendado.</p></div></div>
+        <div class="actions-row"><button class="btn btn-secondary" id="newSchedule">Novo agendamento</button><button class="btn btn-primary" id="goMy">Meus agendamentos</button></div>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-my">
+      <div class="schedule-title"><small>AGENDA DO BENEFICIÁRIO</small><h1>Meus agendamentos</h1><p>Consulte ou reagende seus horários. Cancelamentos online são permitidos até 2 horas antes.</p></div>
+      <div id="myAppointments" class="appointments-list"></div>
+      <div class="my-footer-actions"><button class="btn btn-secondary backHome">Voltar ao início</button></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button data-go="home"><span class="nav-ico">⌂</span>Início</button>
+    <button data-go="schedule"><span class="nav-ico">▣</span>Agendar</button>
+    <button data-go="my"><span class="nav-ico">◷</span>Agenda</button>
+    <a href="painel.html"><span class="nav-ico">▥</span>Painel</a>
+  </nav>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
