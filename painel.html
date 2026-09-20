@@ -7,11 +7,19 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="dashboard-body">
-<header class="dash-top"><div class="container"><div class="brand"><span class="brand-mark">U</span><span class="brand-copy"><strong>Sem Fila</strong><small>Painel do responsável • demonstração</small></span></div><a class="back-link" href="index.html">← Voltar ao protótipo</a></div></header>
+<header class="dash-top">
+  <div class="container">
+    <div class="brand">
+      <img class="dash-logo" src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
+      <span class="brand-copy"><strong>Sem Fila</strong><small>Painel do responsável • demonstração</small></span>
+    </div>
+    <a class="back-link" href="index.html">← Voltar ao protótipo</a>
+  </div>
+</header>
 <main class="dash-wrap">
   <div class="dash-heading">
     <div><h1>Indicadores de atendimento</h1><p>Visão operacional para acompanhar capacidade, demanda, qualidade e comportamento dos agendamentos.</p></div>
-    <div class="dash-filters"><input id="dashDate" type="date"><select id="sectorFilter"><option value="Todos">Todos os setores</option><option>Financeiro</option><option>Cadastro</option><option>Autorizações</option><option>Atendimento Geral</option></select></div>
+    <div class="dash-filters"><input id="dashDate" type="date"><select id="sectorFilter"><option value="Todos">Todos os setores</option><option>Financeiro</option><option>Cadastro</option><option>Autorizações</option><option>Atendimento Geral</option><option>Intercâmbio</option></select></div>
   </div>
 
   <section class="kpi-grid" id="kpis"></section>
@@ -28,7 +36,7 @@
 
   <section class="dash-grid">
     <article class="dash-card"><h3>Agendamentos nos últimos 7 dias</h3><p class="sub">Volume diário para identificar picos de procura.</p><div class="trend" id="trendChart"></div></article>
-    <article class="dash-card"><h3>Quem será atendido?</h3><p class="sub">Proporção de agendamentos feitos para o próprio beneficiário ou para outra pessoa.</p><div class="status-grid" id="recipientGrid"></div></article>
+    <article class="dash-card"><h3>Perfil dos beneficiários</h3><p class="sub">Quem será atendido e participação de beneficiários de intercâmbio.</p><div class="status-grid" id="recipientGrid"></div></article>
   </section>
 
   <section class="dash-card table-card">

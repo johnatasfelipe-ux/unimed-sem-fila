@@ -10,8 +10,17 @@
 <div class="app-shell">
   <header class="app-header">
     <div class="container app-header-inner">
-      <a class="app-name" href="index.html"><span class="mini-clock"></span>Sem Fila</a>
-      <div class="user-actions"><span class="user-name" id="headerUser">Visitante</span><button id="logoutBtn" type="button">Sair</button></div>
+      <a class="app-brand" href="index.html">
+        <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
+        <div>
+          <strong>Sem Fila</strong>
+          <small>Agendamento online de atendimento</small>
+        </div>
+      </a>
+      <div class="user-actions">
+        <span class="user-name" id="headerUser">Visitante</span>
+        <button id="logoutBtn" type="button">Sair</button>
+      </div>
     </div>
   </header>
 
@@ -30,16 +39,41 @@
           <button class="recipient-card" data-recipient="other">
             <span class="recipient-icon">☺＋</span>
             <strong>Para outra pessoa</strong>
-            <small>Vou agendar para um beneficiário</small>
+            <small>Vou agendar para outro beneficiário</small>
           </button>
         </div>
+
+        <div class="origin-step hidden" id="originStep">
+          <hr class="divider">
+          <span class="screen-kicker">ORIGEM DO BENEFICIÁRIO</span>
+          <h2>Qual é a Unimed da pessoa que será atendida?</h2>
+          <p class="screen-help">Isso ajuda a separar beneficiários locais de atendimentos de intercâmbio.</p>
+          <div class="origin-grid">
+            <button class="origin-card" type="button" data-origin="local">
+              <span class="origin-icon">U</span>
+              <strong>Unimed Divinópolis</strong>
+              <small>Beneficiário da cooperativa local</small>
+            </button>
+            <button class="origin-card" type="button" data-origin="interchange">
+              <span class="origin-icon">↔</span>
+              <strong>Outra Unimed</strong>
+              <small>Atendimento de intercâmbio</small>
+            </button>
+          </div>
+          <div class="interchange-preset hidden" id="interchangePreset">Atendimento de intercâmbio selecionado pelo chatbot.</div>
+        </div>
+
         <p class="privacy-reminder">Use apenas os dados necessários para identificar o beneficiário. Este protótipo não consulta nem envia informações reais.</p>
       </div>
     </section>
 
     <section class="screen" id="screen-identification">
       <div class="login-wrap compact-login">
-        <div class="login-brand"><div class="semfila">Sem Fila</div></div>
+        <div class="login-brand light-brand">
+          <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
+          <div class="semfila light-title">Sem Fila</div>
+          <p>Atendimento online com a identidade visual da Unimed Divinópolis.</p>
+        </div>
         <div class="panel-card">
           <button class="small-back" id="backRecipient" type="button">← Voltar</button>
           <span class="screen-kicker" id="identificationKicker">IDENTIFICAÇÃO DO BENEFICIÁRIO</span>
@@ -63,6 +97,16 @@
             </label>
           </div>
 
+          <div id="originUnimedFields" class="id-fields hidden">
+            <label class="field">Unimed de origem
+              <input id="originUnimed" type="text" placeholder="Ex.: Unimed BH, Unimed Vale do Aço" autocomplete="off">
+            </label>
+            <div class="interchange-note">
+              <strong>Beneficiário de intercâmbio</strong>
+              <span>No sistema real, a validação e os dados exigidos deverão seguir as regras e integrações de intercâmbio disponíveis.</span>
+            </div>
+          </div>
+
           <label class="field">Data de nascimento
             <input id="birthDate" type="date">
           </label>
@@ -78,9 +122,10 @@
       <div class="welcome-card">
         <small id="recipientLabel">Beneficiário identificado</small>
         <h1 id="welcomeName">Arthur Peixoto Militão</h1>
-        <div class="identity-grid">
+        <div class="identity-grid identity-grid-three">
           <div class="identity-item"><span id="identityTypeLabel">CARTEIRINHA</span><b id="homeIdentity">—</b></div>
           <div class="identity-item"><span>NASCIMENTO</span><b id="homeBirth">—</b></div>
+          <div class="identity-item"><span>ORIGEM</span><b id="homeOrigin">—</b></div>
         </div>
       </div>
 
@@ -101,9 +146,13 @@
         <div class="schedule-title"><small>ETAPA 1 DE 3</small><h1>Como podemos ajudar?</h1><p>Escolha o assunto. O setor responsável será direcionado automaticamente.</p></div>
         <div class="progress"><span class="on"></span><span></span><span></span></div>
 
-        <aside class="iva-tip">
+        <aside class="iva-tip" id="boletoTip">
           <div><strong>Precisa apenas da 2ª via do boleto?</strong><span>Não é necessário ocupar um horário de atendimento. Solicite pela IVA no site oficial.</span></div>
           <a href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">Abrir IVA ↗</a>
+        </aside>
+        <aside class="interchange-routing hidden" id="interchangeRouting">
+          <strong>Atendimento de intercâmbio</strong>
+          <span>Neste protótipo, o sistema mostra apenas assuntos atendidos localmente e evita encaminhar negociação ou troca de plano para a fila errada.</span>
         </aside>
 
         <div class="option-grid" id="serviceOptions"></div>
@@ -127,12 +176,17 @@
     </section>
 
     <section class="screen" id="screen-schedule">
-      <div class="schedule-title"><small id="scheduleContext">ATENDIMENTO</small><h1>Escolha data e horário</h1><p>As datas mostram os próximos dias úteis. Horários ocupados aparecem indisponíveis e cancelamentos voltam a liberar a vaga.</p></div>
-      <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
-      <div class="date-caption" id="dateCaption"></div>
-      <div class="date-strip" id="dateStrip"></div>
-      <div class="slot-box"><div class="slots" id="slots"></div><div class="legend"><span><i class="dot sel"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occ"></i>Ocupado</span></div></div>
-      <div class="actions-row"><button class="btn btn-secondary" id="backService">Voltar</button><button class="btn btn-primary" id="toReview" disabled>Continuar</button></div>
+      <div class="panel-card">
+        <div class="schedule-title"><small id="scheduleContext">ATENDIMENTO</small><h1>Escolha data e horário</h1><p>As datas mostram os próximos dias úteis. Horários ocupados aparecem indisponíveis e cancelamentos voltam a liberar a vaga.</p></div>
+        <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
+        <div class="date-caption" id="dateCaption"></div>
+        <div class="date-strip" id="dateStrip"></div>
+        <div class="slot-box">
+          <div class="slots" id="slots"></div>
+          <div class="legend"><span><i class="dot sel"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occ"></i>Ocupado</span></div>
+        </div>
+        <div class="actions-row"><button class="btn btn-secondary" id="backService">Voltar</button><button class="btn btn-primary" id="toReview" disabled>Continuar</button></div>
+      </div>
     </section>
 
     <section class="screen" id="screen-review">
@@ -158,9 +212,11 @@
     </section>
 
     <section class="screen" id="screen-my">
-      <div class="schedule-title"><small>AGENDA DO BENEFICIÁRIO</small><h1>Meus agendamentos</h1><p>Consulte ou reagende seus horários. Cancelamentos online são permitidos até 2 horas antes.</p></div>
-      <div id="myAppointments" class="appointments-list"></div>
-      <div class="my-footer-actions"><button class="btn btn-secondary backHome">Voltar ao início</button></div>
+      <div class="panel-card">
+        <div class="schedule-title"><small>AGENDA DO BENEFICIÁRIO</small><h1>Meus agendamentos</h1><p>Consulte ou reagende seus horários. Cancelamentos online são permitidos até 2 horas antes.</p></div>
+        <div id="myAppointments" class="appointments-list"></div>
+        <div class="my-footer-actions"><button class="btn btn-secondary backHome">Voltar ao início</button></div>
+      </div>
     </section>
   </main>
 

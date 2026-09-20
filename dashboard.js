@@ -1,6 +1,6 @@
 const $=s=>document.querySelector(s);
 function dateISO(d){return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
-const sectors=['Financeiro','Cadastro','Autorizações','Atendimento Geral'];
+const sectors=['Financeiro','Cadastro','Autorizações','Atendimento Geral','Intercâmbio'];
 function saved(){return JSON.parse(localStorage.getItem('semfila_bookings_v3')||'[]')}
 function seeded(date){
   const names=['Mariana Souza','Carlos Henrique','Joana Lima','Rafael Martins','Bianca Alves','Paulo César','Fernanda Ribeiro','Lucas Rocha','Camila Mendes','Ricardo Nunes'];
@@ -8,13 +8,15 @@ function seeded(date){
     'Financeiro':['Negociação de débitos','Renegociação de parcelamento','Dúvida sobre cobrança / valores'],
     'Cadastro':['Troca ou migração de plano','Inclusão de dependente','Alteração cadastral'],
     'Autorizações':['Solicitar autorização','Consultar autorização existente','Enviar documentação'],
-    'Atendimento Geral':['Rede credenciada','Declarações e documentos','Dúvidas gerais']
+    'Atendimento Geral':['Rede credenciada','Declarações e documentos','Dúvidas gerais'],
+    'Intercâmbio':['Orientação sobre atendimento de intercâmbio','Pendência no atendimento de intercâmbio','Rede / direcionamento para atendimento']
   };
   const times=['08:00','08:40','09:20','10:00','10:40','11:20','13:00','13:40','14:20','15:00','15:40','16:20'];
   let arr=[];
   for(let i=0;i<28;i++){
-    const s=sectors[i%4],status=i%13===0?'Cancelado':i%9===0?'Falta':i%3===0?'Concluído':'Agendado';
-    arr.push({id:'D'+i,user:names[i%names.length],sector:s,service:s==='Financeiro'?'Negociação':s==='Cadastro'?'Troca de plano':s==='Autorizações'?'Autorizações':'Outros',reason:reasons[s][i%reasons[s].length],payment:s==='Financeiro'?(i%2===0?'Boleto':'Cartão'):'—',recipient:i%5===0?'other':'self',date,time:times[i%times.length],status,duration:18+(i%6)*3});
+    const isInterchange=i%7===0;
+    const s=isInterchange?'Intercâmbio':sectors[i%4],status=i%13===0?'Cancelado':i%9===0?'Falta':i%3===0?'Concluído':'Agendado';
+    arr.push({id:'D'+i,user:names[i%names.length],origin:isInterchange?'interchange':'local',originUnimed:isInterchange?'Unimed de origem':'Unimed Divinópolis',sector:s,service:s==='Financeiro'?'Negociação':s==='Cadastro'?'Troca de plano':s==='Autorizações'?'Autorizações':s==='Intercâmbio'?'Intercâmbio':'Outros',reason:reasons[s][i%reasons[s].length],payment:s==='Financeiro'?(i%2===0?'Boleto':'Cartão'):'—',recipient:i%5===0?'other':'self',date,time:times[i%times.length],status,duration:18+(i%6)*3});
   }
   return arr;
 }
@@ -44,6 +46,14 @@ function renderStatus(data){const sts=[['Agendados',data.filter(x=>x.status==='A
 function renderHours(data){const bands=[['08–10h',0],['10–12h',0],['13–15h',0],['15–17h',0]];data.forEach(x=>{const h=parseInt(x.time);if(h<10)bands[0][1]++;else if(h<12)bands[1][1]++;else if(h<15)bands[2][1]++;else bands[3][1]++});const max=Math.max(1,...bands.map(x=>x[1]));$('#hourBars').innerHTML=bands.map(x=>`<div class="bar-row"><span>${x[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${x[1]/max*100}%"></div></div><b>${x[1]}</b></div>`).join('')}
 function renderPayments(data){const fin=data.filter(x=>x.sector==='Financeiro'),boleto=fin.filter(x=>x.payment==='Boleto').length,cartao=fin.filter(x=>x.payment==='Cartão').length,total=Math.max(1,boleto+cartao);$('#paymentChart').innerHTML=`<div class="payment-donut" style="--boleto:${Math.round(boleto/total*100)}"><div><strong>${boleto+cartao}</strong><span>negociações</span></div></div><div class="payment-legend"><span><i class="legend-box boleto"></i>Boleto <b>${boleto}</b></span><span><i class="legend-box cartao"></i>Cartão <b>${cartao}</b></span></div>`}
 function renderTrend(){const vals=[18,23,21,28,32,25,30],days=['SEG','TER','QUA','QUI','SEX','SÁB','HOJ'],max=Math.max(...vals);$('#trendChart').innerHTML=vals.map((v,i)=>`<div class="trend-col"><div class="trend-bar" style="height:${v/max*135}px" title="${v} atendimentos"></div><small>${days[i]}</small></div>`).join('')}
-function renderRecipient(data){const own=data.filter(x=>(x.recipient||'self')==='self').length,other=data.length-own;$('#recipientGrid').innerHTML=`<div class="status-card"><span>Para si próprio</span><strong>${own}</strong><br><em class="badge green">${pct(own,data.length)}%</em></div><div class="status-card"><span>Para outra pessoa</span><strong>${other}</strong><br><em class="badge blue">${pct(other,data.length)}%</em></div>`}
+function renderRecipient(data){
+  const own=data.filter(x=>(x.recipient||'self')==='self').length,other=data.length-own;
+  const interchange=data.filter(x=>(x.origin||'local')==='interchange').length,local=data.length-interchange;
+  $('#recipientGrid').innerHTML=`
+    <div class="status-card"><span>Para si próprio</span><strong>${own}</strong><br><em class="badge green">${pct(own,data.length)}%</em></div>
+    <div class="status-card"><span>Para outra pessoa</span><strong>${other}</strong><br><em class="badge blue">${pct(other,data.length)}%</em></div>
+    <div class="status-card"><span>Unimed Divinópolis</span><strong>${local}</strong><br><em class="badge green">${pct(local,data.length)}%</em></div>
+    <div class="status-card"><span>Intercâmbio</span><strong>${interchange}</strong><br><em class="badge blue">${pct(interchange,data.length)}%</em></div>`;
+}
 function renderTable(data){const order={Agendado:0,Concluído:1,Falta:2,Cancelado:3};data=[...data].sort((a,b)=>a.time.localeCompare(b.time)||order[a.status]-order[b.status]);$('#appointmentsTable').innerHTML=data.slice(0,20).map(x=>`<tr><td><b>${x.time}</b></td><td>${x.user}</td><td>${x.sector}</td><td>${x.reason}</td><td>${x.payment||'—'}</td><td><span class="badge ${x.status==='Agendado'?'blue':x.status==='Concluído'?'green':x.status==='Cancelado'?'gray':'red'}">${x.status}</span></td></tr>`).join('')}
 $('#dashDate').value=dateISO(new Date());$('#dashDate').onchange=render;$('#sectorFilter').onchange=render;render();

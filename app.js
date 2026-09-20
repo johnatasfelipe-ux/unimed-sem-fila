@@ -1,12 +1,15 @@
 const services = [
-  {name:'Negociação', sector:'Financeiro', icon:'▤', desc:'Negociação de débitos e acordos financeiros', reasons:['Negociação de débitos','Renegociação de parcelamento','Dúvida sobre cobrança / valores','Quitação / baixa de pagamento'], needsPayment:true},
-  {name:'Troca de plano', sector:'Cadastro', icon:'↻', desc:'Alterações, migração ou informações do plano', reasons:['Troca ou migração de plano','Inclusão de dependente','Exclusão de dependente','Alteração cadastral'], needsPayment:false},
+  {name:'Intercâmbio', sector:'Intercâmbio', icon:'↔', desc:'Orientações e demandas de beneficiários de outra Unimed', reasons:['Orientação sobre atendimento de intercâmbio','Pendência no atendimento de intercâmbio','Rede / direcionamento para atendimento','Outro assunto de intercâmbio'], needsPayment:false, interchangeOnly:true},
+  {name:'Negociação', sector:'Financeiro', localOnly:true, icon:'▤', desc:'Negociação de débitos e acordos financeiros', reasons:['Negociação de débitos','Renegociação de parcelamento','Dúvida sobre cobrança / valores','Quitação / baixa de pagamento'], needsPayment:true},
+  {name:'Troca de plano', sector:'Cadastro', localOnly:true, icon:'↻', desc:'Alterações, migração ou informações do plano', reasons:['Troca ou migração de plano','Inclusão de dependente','Exclusão de dependente','Alteração cadastral'], needsPayment:false},
   {name:'Autorizações', sector:'Autorizações', icon:'✓', desc:'Exames, procedimentos e solicitações', reasons:['Solicitar autorização','Consultar autorização existente','Autorização negada','Enviar documentação'], needsPayment:false},
   {name:'Outros', sector:'Atendimento Geral', icon:'…', desc:'Demais dúvidas e solicitações', reasons:['Rede credenciada','Declarações e documentos','Dúvidas gerais','Outro assunto'], needsPayment:false}
 ];
 
 const baseSlots = ['08:00','08:40','09:20','10:00','10:40','11:20','13:00','13:40','14:20','15:00','15:40','16:20'];
-let state = {recipient:'self', method:'card', user:null, service:null, reason:'', payment:'', date:'', time:'', editingId:null};
+let state = {recipient:'self', origin:'local', originUnimed:'', method:'card', user:null, service:null, reason:'', payment:'', date:'', time:'', editingId:null};
+const presetOrigin = new URLSearchParams(location.search).get('origem');
+if(presetOrigin==='intercambio') state.origin='interchange';
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 
@@ -28,7 +31,24 @@ function canCancel(b){ return bookingDateTime(b).getTime() - Date.now() >= 2*60*
 
 $$('.recipient-card').forEach(btn => btn.addEventListener('click', () => {
   state.recipient = btn.dataset.recipient;
+  $$('.recipient-card').forEach(x=>x.classList.toggle('selected',x===btn));
+  $('#originStep').classList.remove('hidden');
+  if(presetOrigin==='intercambio'){
+    state.origin='interchange';
+    $('#interchangePreset').classList.remove('hidden');
+    $$('.origin-card').forEach(x=>x.classList.toggle('selected',x.dataset.origin==='interchange'));
+  }
+}));
+
+$$('.origin-card').forEach(btn => btn.addEventListener('click', () => {
+  state.origin = btn.dataset.origin;
+  state.originUnimed = '';
+  $$('.origin-card').forEach(x=>x.classList.toggle('selected',x===btn));
   $('#identificationKicker').textContent = state.recipient==='self' ? 'SEUS DADOS DE IDENTIFICAÇÃO' : 'DADOS DA PESSOA QUE SERÁ ATENDIDA';
+  $('#originUnimedFields').classList.toggle('hidden', state.origin!=='interchange');
+  if(state.origin==='interchange'){
+    $('#identificationKicker').textContent += ' · INTERCÂMBIO';
+  }
   show('screen-identification');
 }));
 $('#backRecipient').onclick = () => show('screen-recipient');
@@ -46,31 +66,36 @@ $('#demoBtn').onclick = () => {
   if(state.method==='card') $('#cardNumber').value='0144.4295.00081234-6';
   else $('#cpfNumber').value='123.456.789-00';
   $('#birthDate').value='1998-12-29';
+  if(state.origin==='interchange') $('#originUnimed').value='Unimed BH';
 };
 
 function hydrateUser(){
   const u=JSON.parse(localStorage.getItem('semfila_user_v3')||'null');
   if(!u) return;
-  state.user=u; state.recipient=u.recipient; state.method=u.method;
+  state.user=u; state.recipient=u.recipient; state.method=u.method; state.origin=u.origin||'local'; state.originUnimed=u.originUnimed||'';
   $('#headerUser').textContent=u.name.split(' ')[0];
   $('#welcomeName').textContent=u.name;
   $('#recipientLabel').textContent=u.recipient==='self'?'Agendamento para você':'Agendamento para outra pessoa';
   $('#identityTypeLabel').textContent=u.method==='cpf'?'CPF':'CARTEIRINHA';
   $('#homeIdentity').textContent=maskIdentity(u.identity,u.method);
   $('#homeBirth').textContent=brDate(u.birth);
+  $('#homeOrigin').textContent=(u.origin||'local')==='interchange' ? (u.originUnimed||'Outra Unimed') : 'Unimed Divinópolis';
   renderNext();
 }
 
 $('#loginBtn').onclick = () => {
   const identity = state.method==='card' ? $('#cardNumber').value.trim() : $('#cpfNumber').value.trim();
   const birth=$('#birthDate').value;
+  const originUnimed = state.origin==='interchange' ? $('#originUnimed').value.trim() : 'Unimed Divinópolis';
   const digits=identity.replace(/\D/g,'');
   const validIdentity = state.method==='card' ? digits.length>=12 : digits.length===11;
   if(!validIdentity || !birth){ toast(`Informe ${state.method==='card'?'a carteirinha':'o CPF'} e a data de nascimento.`); return; }
+  if(state.origin==='interchange' && !originUnimed){ toast('Informe a Unimed de origem do beneficiário.'); return; }
   if(birth > dateISO(new Date())){ toast('A data de nascimento não pode ser futura.'); return; }
   const sample = digits.includes('00081234') || digits==='12345678900';
   const name = sample ? 'Arthur Peixoto Militão' : 'Beneficiário identificado';
-  state.user={identity,method:state.method,birth,name,recipient:state.recipient};
+  state.originUnimed=originUnimed;
+  state.user={identity,method:state.method,birth,name,recipient:state.recipient,origin:state.origin,originUnimed};
   localStorage.setItem('semfila_user_v3',JSON.stringify(state.user));
   hydrateUser(); show('screen-home');
 };
@@ -79,7 +104,11 @@ $('#logoutBtn').onclick=()=>{localStorage.removeItem('semfila_user_v3');state.us
 
 function renderServices(){
   const box=$('#serviceOptions'); box.innerHTML='';
-  services.forEach(s=>{
+  const availableServices=services.filter(s=>{
+    if(state.user?.origin==='interchange') return !s.localOnly;
+    return !s.interchangeOnly;
+  });
+  availableServices.forEach(s=>{
     const b=document.createElement('button'); b.className='option'; b.type='button';
     b.innerHTML=`<span class="ico">${s.icon}</span><strong>${s.name}</strong><small>${s.desc}</small>`;
     b.onclick=()=>{
@@ -106,7 +135,7 @@ $$('.payment-option').forEach(btn=>btn.addEventListener('click',()=>{
 
 function startSchedule(){
   state.service=null;state.reason='';state.payment='';state.date='';state.time='';state.editingId=null;
-  renderServices();$('#reasonSelect').innerHTML='<option value="">Escolha primeiro um assunto</option>';$('#paymentArea').classList.add('hidden');$('#toSchedule').disabled=true;show('screen-service');
+  renderServices();$('#reasonSelect').innerHTML='<option value="">Escolha primeiro um assunto</option>';$('#paymentArea').classList.add('hidden');$('#toSchedule').disabled=true;$('#interchangeRouting').classList.toggle('hidden',state.user?.origin!=='interchange');$('#boletoTip').classList.toggle('hidden',state.user?.origin==='interchange');show('screen-service');
 }
 $('#startSchedule').onclick=startSchedule;
 $('#openMy').onclick=()=>{renderMy();show('screen-my');};
@@ -151,6 +180,7 @@ function renderSummary(target){
   const rows=[
     ['Beneficiário',state.user.name],
     ['Agendamento',state.user.recipient==='self'?'Para o próprio beneficiário':'Para outra pessoa'],
+    ['Origem',state.user.origin==='interchange' ? `Intercâmbio · ${state.user.originUnimed}` : 'Unimed Divinópolis'],
     ['Atendimento',state.service.name],['Setor',state.service.sector],['Motivo',state.reason]
   ];
   if(state.service.needsPayment) rows.push(['Preferência de pagamento',state.payment]);
@@ -160,7 +190,7 @@ function renderSummary(target){
 function protocol(){return 'SF-'+Date.now().toString().slice(-9);}
 $('#confirmBtn').onclick=()=>{
   let list=store(); const p=protocol(); if(state.editingId) list=list.filter(b=>b.id!==state.editingId);
-  const booking={id:p,protocol:p,user:state.user.name,identity:state.user.identity,method:state.user.method,recipient:state.user.recipient,service:state.service.name,sector:state.service.sector,reason:state.reason,payment:state.payment||'—',date:state.date,time:state.time,status:'Agendado',created:new Date().toISOString()};
+  const booking={id:p,protocol:p,user:state.user.name,identity:state.user.identity,method:state.user.method,recipient:state.user.recipient,origin:state.user.origin,originUnimed:state.user.originUnimed,service:state.service.name,sector:state.service.sector,reason:state.reason,payment:state.payment||'—',date:state.date,time:state.time,status:'Agendado',created:new Date().toISOString()};
   list.push(booking);save(list);$('#protocol').textContent=p;renderSummary('#successSummary');show('screen-success');
 };
 $('#newSchedule').onclick=startSchedule;
@@ -193,7 +223,7 @@ function renderMy(){
   });
   $$('.rebook').forEach(btn=>btn.onclick=()=>{
     const b=store().find(x=>x.id===btn.dataset.id);if(!b)return;
-    state.editingId=b.id;state.service=services.find(s=>s.name===b.service)||services[3];state.reason=b.reason;state.payment=b.payment==='—'?'':b.payment;state.date='';state.time='';
+    state.editingId=b.id;state.service=services.find(s=>s.name===b.service)||services.find(s=>s.name==='Outros');state.reason=b.reason;state.payment=b.payment==='—'?'':b.payment;state.date='';state.time='';
     $('#scheduleContext').textContent=`Reagendamento · ${state.service.sector}`;renderDates();show('screen-schedule');
   });
 }
@@ -204,5 +234,6 @@ $$('.bottom-nav [data-go]').forEach(btn=>btn.onclick=()=>{
 });
 
 renderServices();
+if(presetOrigin==='intercambio'){ $('#originStep').classList.remove('hidden'); $('#interchangePreset').classList.remove('hidden'); }
 const existing=JSON.parse(localStorage.getItem('semfila_user_v3')||'null');
 if(existing){hydrateUser();if(location.hash==='#meus'){renderMy();show('screen-my');}else show('screen-home');}

@@ -1,38 +1,20 @@
-# Sem Fila — Protótipo v3
+# Unimed Sem Fila — Protótipo v5
 
-Esta versão foi adaptada para simular a inclusão do **Agendamento Online** diretamente no carrossel da home atual da Unimed Divinópolis.
+Atualizações desta versão:
 
-## Páginas
+- chatbot/IVA demonstrativo mais guiado;
+- opção de agendamento diretamente pelo chatbot;
+- atalho específico para beneficiário de outra Unimed;
+- fluxo inicial identifica se o beneficiário é da Unimed Divinópolis ou de intercâmbio;
+- para intercâmbio, registra a Unimed de origem no protótipo;
+- painel do responsável passa a acompanhar participação de atendimentos de intercâmbio;
+- mantém identificação por carteirinha ou CPF + data de nascimento;
+- mantém regra de cancelamento com 2 horas de antecedência.
 
-- `index.html` — mock da home com o novo slide “Agora você pode agendar seu atendimento online” inserido no carrossel.
-- `agendamento.html` — fluxo completo do beneficiário.
-- `painel.html` — painel de indicadores para o responsável pelo atendimento.
+## Observação
 
-## Alterações desta versão
+Os campos e regras do fluxo de intercâmbio são demonstrativos. Em implantação real, devem ser validados conforme integrações e regras operacionais disponíveis.
 
-1. Novo slide de chamada no carrossel da home.
-2. Pergunta inicial: “Este agendamento é para você ou outra pessoa?”.
-3. Identificação por **Carteirinha + nascimento** ou **CPF + nascimento**.
-4. Remoção do campo “Nome completo”. Em uma solução real, o nome viria do cadastro após validação.
-5. Segunda via de boleto retirada dos motivos de agendamento; o protótipo orienta a utilizar a IVA.
-6. Negociação financeira exige informar previamente a preferência entre **Boleto** e **Cartão**.
-7. Agenda com próximos dias úteis e horários de 40 em 40 minutos, mostrando disponíveis e ocupados.
-8. Aviso e regra de cancelamento com antecedência mínima de **2 horas**.
-9. Painel gestor com ocupação, faltas, cancelamentos, duração média, demanda por setor, horários de pico, preferência de pagamento e agendamentos para si/outra pessoa.
+## Atualização no GitHub Pages
 
-## Como testar
-
-1. Abra `index.html`.
-2. No primeiro slide do carrossel, clique em **AGENDAR ATENDIMENTO**.
-3. Escolha “Para mim” ou “Para outra pessoa”.
-4. Escolha Carteirinha ou CPF e clique em **Preencher com dados de exemplo**.
-5. Conclua o fluxo.
-6. Abra `painel.html` para ver o agendamento refletido na visão do gestor (no mesmo navegador).
-
-## Publicação no GitHub Pages
-
-Envie todos os arquivos e a pasta `assets` para a raiz do repositório. Em **Settings > Pages**, selecione a branch `main` e a pasta `/ (root)`.
-
-## Importante
-
-Protótipo demonstrativo. Não possui autenticação real, banco de dados, integração com a Unimed, validação de CPF/carteirinha nem armazenamento seguro de dados pessoais. Para produção seria necessário backend, autenticação, autorização, auditoria, LGPD, integrações, regras de negócio e infraestrutura adequada.
+Substitua os arquivos da versão anterior pelos arquivos desta pasta. A pasta `assets` deve continuar publicada.

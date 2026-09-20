@@ -97,11 +97,42 @@
     </section>
   </main>
 
-  <a class="iva-float" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener" title="Abrir o site oficial da Unimed Divinópolis">
-    <span class="iva-avatar">IVA</span>
-    <span>Posso te ajudar?</span>
-    <b>▰</b>
-  </a>
+  <div class="chatbot-widget" id="chatbotWidget">
+    <div class="chatbot-panel hidden" id="chatbotPanel">
+      <button class="chatbot-close" id="chatbotClose" aria-label="Fechar chatbot">×</button>
+      <div class="chatbot-header">
+        <div class="chatbot-avatar">IVA</div>
+        <div>
+          <strong>Olá! Sou a IVA.</strong>
+          <small>Posso ajudar você a encontrar o canal certo para sua necessidade.</small>
+        </div>
+      </div>
+
+      <div class="chatbot-conversation" id="chatbotConversation">
+        <div class="bot-message">Como posso ajudar?</div>
+      </div>
+
+      <div class="chatbot-quick-actions" id="chatbotQuickActions">
+        <button type="button" class="chat-chip chat-chip-primary" data-action="schedule">Agendamento online</button>
+        <button type="button" class="chat-chip" data-action="boleto">2ª via de boleto</button>
+        <button type="button" class="chat-chip" data-action="guide">Guia Médico</button>
+        <button type="button" class="chat-chip" data-action="authorization">Autorizações</button>
+        <button type="button" class="chat-chip" data-action="channels">Outros canais</button>
+      </div>
+
+      <div class="chatbot-input-row">
+        <input id="chatbotInput" type="text" placeholder="Escreva sua mensagem..." />
+        <button type="button" class="chat-send" id="chatbotSend">➜</button>
+      </div>
+      <p class="chatbot-hint">Protótipo: as opções demonstram como a IVA pode orientar o beneficiário.</p>
+    </div>
+
+    <button type="button" class="chatbot-launch" id="chatbotLaunch">
+      <span class="chatbot-bubble-text">Posso te ajudar? 👉</span>
+      <span class="chatbot-launch-avatar">IVA</span>
+      <span class="chatbot-launch-icon">💬</span>
+    </button>
+  </div>
 
   <script src="site.js"></script>
 </body>
