@@ -103,21 +103,23 @@
         <div class="iva-status"><i></i><span>Nós normalmente respondemos dentro de alguns minutos.</span></div>
       </div>
       <div class="iva-chat-body">
-        <div class="iva-messages" id="ivaMessages"></div>
-        <div class="iva-topics hidden" id="ivaTopics">
-          <button class="iva-topic featured" type="button" data-topic="agendamento">Agendamento Online <small>Novo</small></button>
-          <button class="iva-topic" type="button" data-topic="comercial">Comercial</button>
-          <button class="iva-topic" type="button" data-topic="financeiro">Financeiro</button>
-          <button class="iva-topic" type="button" data-topic="autorizacao">Autorização Guias</button>
-          <button class="iva-topic" type="button" data-topic="dprh">DP/RH</button>
-          <button class="iva-topic" type="button" data-topic="demonstrativos">Demonstrativos</button>
-          <button class="iva-topic" type="button" data-topic="guia">Guia Médico</button>
-          <button class="iva-topic" type="button" data-topic="manifestacoes">Manifestações</button>
-          <button class="iva-topic" type="button" data-topic="reembolso">Reembolso</button>
-          <button class="iva-topic" type="button" data-topic="orcamento">Orçamento</button>
-          <button class="iva-topic" type="button" data-topic="finalizar">Finalizar</button>
+        <div class="iva-scroll" id="ivaScroll">
+          <div class="iva-messages" id="ivaMessages"></div>
+          <div class="iva-topics hidden" id="ivaTopics">
+            <button class="iva-topic featured" type="button" data-topic="agendamento">Agendamento Online <small>Novo</small></button>
+            <button class="iva-topic" type="button" data-topic="comercial">Comercial</button>
+            <button class="iva-topic" type="button" data-topic="financeiro">Financeiro</button>
+            <button class="iva-topic" type="button" data-topic="autorizacao">Autorização Guias</button>
+            <button class="iva-topic" type="button" data-topic="dprh">DP/RH</button>
+            <button class="iva-topic" type="button" data-topic="demonstrativos">Demonstrativos</button>
+            <button class="iva-topic" type="button" data-topic="guia">Guia Médico</button>
+            <button class="iva-topic" type="button" data-topic="manifestacoes">Manifestações</button>
+            <button class="iva-topic" type="button" data-topic="reembolso">Reembolso</button>
+            <button class="iva-topic" type="button" data-topic="orcamento">Orçamento</button>
+            <button class="iva-topic" type="button" data-topic="finalizar">Finalizar</button>
+          </div>
+          <div class="iva-attachment-list" id="ivaAttachmentList"></div>
         </div>
-        <div class="iva-attachment-list" id="ivaAttachmentList"></div>
         <div class="iva-compose">
           <textarea id="ivaInput" rows="1" placeholder="Escreva a sua mensagem..."></textarea>
           <div class="iva-tools">

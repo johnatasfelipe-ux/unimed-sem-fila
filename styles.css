@@ -209,3 +209,157 @@ body.high-contrast{filter:contrast(1.12)}
 @media(max-width:760px){
   .accessibility-stack{top:210px;}
 }
+
+
+/* v8.5 — chat alinhado ao portal: uma única rolagem e sem cobrir acessibilidade */
+.iva-widget{
+  right:18px;
+  bottom:18px;
+}
+
+/* Quando aberto, o chat deixa uma faixa lateral livre para os botões azuis. */
+.iva-chat{
+  position:fixed;
+  right:54px;
+  bottom:18px;
+  width:370px;
+  height:min(570px, calc(100vh - 36px));
+  max-height:none;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 22px 60px rgba(0,0,0,.22);
+}
+
+.iva-chat-head{
+  flex:0 0 auto;
+  min-height:0;
+  padding:28px 28px 22px;
+}
+.iva-chat-head h2{
+  font-size:38px;
+  line-height:1.05;
+  margin:0 0 22px;
+}
+.iva-chat-head p{
+  margin:0 0 24px;
+}
+
+/* Depois que o ChatBot assume, o cabeçalho diminui como no portal oficial. */
+.iva-chat.bot-active .iva-chat-head{
+  padding:24px 26px 16px;
+}
+.iva-chat.bot-active .iva-chat-head h2{
+  font-size:21px;
+  line-height:1.18;
+  margin:0 0 18px;
+}
+.iva-chat.bot-active .iva-status{
+  font-size:13px;
+}
+
+.iva-chat-body{
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  background:#fff;
+}
+
+/* ÚNICA barra de rolagem da conversa:
+   mensagens + respostas + opções + anexos. */
+.iva-scroll{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:#9aa19e transparent;
+  padding:0;
+}
+.iva-scroll::-webkit-scrollbar{width:7px}
+.iva-scroll::-webkit-scrollbar-track{background:transparent}
+.iva-scroll::-webkit-scrollbar-thumb{
+  background:#9aa19e;
+  border-radius:999px;
+}
+
+.iva-messages{
+  max-height:none;
+  overflow:visible;
+  display:grid;
+  gap:10px;
+  padding:16px 26px 8px;
+}
+
+.iva-topics{
+  max-height:none;
+  overflow:visible;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  padding:5px 20px 16px;
+}
+
+.iva-attachment-list{
+  padding:0 26px 12px;
+}
+
+/* Campo de digitação permanece sempre fixo no rodapé do chat. */
+.iva-compose{
+  flex:0 0 auto;
+  border-top:1px solid #dfe5e2;
+  background:#fff;
+  padding:10px 22px 14px;
+  z-index:2;
+}
+
+/* O launcher não fica atrás/por baixo do painel quando o chat está aberto. */
+.iva-widget.chat-open .iva-launch-wrap{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+/* Os botões de acessibilidade continuam à direita do chat. */
+.accessibility-stack{
+  z-index:90;
+  right:0;
+}
+.iva-chat{
+  z-index:80;
+}
+
+/* Primeiro estado: o texto verde do WhatsApp faz parte da mesma área rolável. */
+.intro-card{
+  margin:-8px -26px 6px;
+  max-width:none;
+}
+
+/* Evita que o seletor de emoji crie outra barra interna do chat. */
+.emoji-picker{
+  max-height:min(300px,50vh);
+}
+.emoji-grid{
+  max-height:210px;
+  overflow-y:auto;
+}
+
+/* Em telas menores, o chat continua cabendo e preserva a faixa dos botões. */
+@media(max-width:760px){
+  .iva-chat{
+    right:48px;
+    bottom:10px;
+    width:min(370px, calc(100vw - 62px));
+    height:min(570px, calc(100vh - 20px));
+  }
+}
+@media(max-width:480px){
+  .iva-chat{
+    right:44px;
+    width:calc(100vw - 52px);
+  }
+  .iva-chat-head h2{font-size:32px}
+}
