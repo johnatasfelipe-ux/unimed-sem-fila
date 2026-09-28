@@ -10,35 +10,35 @@ const onlineServices=[
   {
     name:'2ª via de boleto',
     icon:'▤',
-    desc:'Consulte ou emita sua fatura sem reservar horário.',
+    desc:'Consulte ou emita sua fatura de forma rápida pelos canais digitais.',
     sector:'Financeiro',
     url:'https://www.unimed.coop.br/site/web/divinopolis'
   },
   {
     name:'Autorização de guias',
     icon:'✓',
-    desc:'Acesse as opções digitais de autorização disponíveis no portal.',
+    desc:'Consulte as opções digitais de autorização disponíveis no portal.',
     sector:'Autorizações',
     url:'https://www.unimed.coop.br/site/web/divinopolis'
   },
   {
     name:'Extrato de utilização',
     icon:'≡',
-    desc:'Consulte informações e demonstrativos disponíveis nos canais digitais.',
+    desc:'Acesse informações e demonstrativos disponíveis nos canais digitais.',
     sector:'Atendimento Geral',
     url:'https://www.unimed.coop.br/site/web/divinopolis'
   },
   {
     name:'Orçamento de exames',
     icon:'⌕',
-    desc:'Consulte o canal digital antes de reservar um atendimento presencial.',
+    desc:'Veja as opções digitais disponíveis para orçamento de exames.',
     sector:'Atendimento Geral',
     url:'https://www.unimed.coop.br/site/web/divinopolis'
   },
   {
     name:'Guia Médico',
     icon:'✚',
-    desc:'Pesquise médicos e rede de atendimento diretamente no Guia Médico.',
+    desc:'Pesquise médicos e a rede de atendimento diretamente no Guia Médico.',
     sector:'Atendimento Geral',
     url:'https://www.unimed.coop.br/site/web/divinopolis/guia-medico'
   }
