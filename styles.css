@@ -363,3 +363,103 @@ body.high-contrast{filter:contrast(1.12)}
   }
   .iva-chat-head h2{font-size:32px}
 }
+
+
+/* v8.6 — botões de acessibilidade reconstruídos com base no oficial */
+.accessibility-stack{
+  position:fixed !important;
+  right:0 !important;
+  top:246px !important;
+  z-index:95 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-end !important;
+  gap:1px !important;
+}
+
+.accessibility-stack .accessibility-btn{
+  position:relative !important;
+  width:46px !important;
+  min-width:46px !important;
+  max-width:none !important;
+  height:44px !important;
+  margin:0 !important;
+  padding:0 9px 0 12px !important;
+  border:1px solid #ffffff !important;
+  border-right:0 !important;
+  border-radius:10px 0 0 10px !important;
+  background:#003087 !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  overflow:hidden !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:8px !important;
+  color:#fff !important;
+  cursor:pointer !important;
+  transition:width .20s ease !important;
+}
+
+.accessibility-stack .accessibility-btn:hover,
+.accessibility-stack .accessibility-btn:focus-visible{
+  width:158px !important;
+  min-width:158px !important;
+  outline:none !important;
+}
+
+.accessibility-stack .access-label{
+  position:absolute !important;
+  left:10px !important;
+  right:43px !important;
+  top:0 !important;
+  bottom:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  color:#ffffff !important;
+  font:700 11px Arial,Helvetica,sans-serif !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  opacity:0 !important;
+  transform:none !important;
+  pointer-events:none !important;
+  transition:opacity .12s ease !important;
+}
+
+.accessibility-stack .accessibility-btn:hover .access-label,
+.accessibility-stack .accessibility-btn:focus-visible .access-label{
+  opacity:1 !important;
+}
+
+.accessibility-stack .access-icon-img{
+  display:block !important;
+  width:29px !important;
+  height:34px !important;
+  object-fit:contain !important;
+  flex:0 0 29px !important;
+  margin:0 !important;
+  padding:0 !important;
+  filter:none !important;
+}
+
+.accessibility-stack .libras-clean-btn .access-icon-img{
+  width:31px !important;
+  height:32px !important;
+  flex-basis:31px !important;
+}
+
+.accessibility-stack .accessibility-btn::before,
+.accessibility-stack .accessibility-btn::after{
+  display:none !important;
+  content:none !important;
+}
+
+@media(max-width:760px){
+  .accessibility-stack{
+    top:210px !important;
+  }
+  .accessibility-stack .accessibility-btn:hover,
+  .accessibility-stack .accessibility-btn:focus-visible{
+    width:158px !important;
+  }
+}
