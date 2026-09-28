@@ -151,3 +151,61 @@ body.high-contrast{filter:contrast(1.12)}
   .accessibility-btn:focus-visible{width:158px;}
   .access-label{font-size:11px;left:12px;right:42px;}
 }
+
+
+/* v8.4 — botões de acessibilidade usando EXATAMENTE as imagens de referência */
+.accessibility-stack{
+  position:fixed;
+  right:0;
+  top:246px;
+  z-index:85;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:2px;
+}
+.accessibility-stack .accessibility-btn{
+  display:block;
+  min-width:0;
+  max-width:none;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  overflow:hidden;
+  background-color:transparent;
+  background-repeat:no-repeat;
+  background-position:right center;
+  cursor:pointer;
+  transition:width .20s ease;
+}
+.accessibility-stack .accessibility-btn::before,
+.accessibility-stack .accessibility-btn::after{
+  content:none !important;
+}
+.accessibility-stack .assistive-image-btn{
+  width:46px;
+  height:48px;
+  background-image:url('assets/btn-recursos-assistivos.png');
+  background-size:158px 48px;
+}
+.accessibility-stack .assistive-image-btn:hover,
+.accessibility-stack .assistive-image-btn:focus-visible{
+  width:158px;
+  outline:none;
+}
+.accessibility-stack .libras-image-btn{
+  width:46px;
+  height:44px;
+  background-image:url('assets/btn-libras.png');
+  background-size:157px 44px;
+}
+.accessibility-stack .libras-image-btn:hover,
+.accessibility-stack .libras-image-btn:focus-visible{
+  width:157px;
+  outline:none;
+}
+@media(max-width:760px){
+  .accessibility-stack{top:210px;}
+}
