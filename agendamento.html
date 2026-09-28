@@ -6,200 +6,199 @@
   <title>Sem Fila — Agendamento Online</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-<div class="app-shell white-app">
+<body class="app-page">
   <header class="app-header">
-    <div class="container app-header-inner">
+    <div class="app-container app-header-inner">
       <a class="app-brand" href="index.html">
-        <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
-        <div>
-          <strong>Sem Fila</strong>
-          <small>Agendamento online de atendimento</small>
-        </div>
+        <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
+        <div><strong>Sem Fila</strong><small>Agendamento online de atendimento</small></div>
       </a>
-      <div class="user-actions">
-        <span class="user-name" id="headerUser">Visitante</span>
-        <button id="logoutBtn" type="button">Sair</button>
+      <div class="app-header-actions">
+        <button id="myBookingsTop" type="button" class="header-link">Meus agendamentos</button>
+        <span id="headerUser">Visitante</span>
+        <button id="logoutBtn" type="button" class="header-outline">Sair</button>
       </div>
     </div>
   </header>
 
-  <main class="app-main linear-main">
-    <div class="journey-bar compact-journey"><span class="active">1. Identificação</span><span>2. Assuntos</span><span>3. Agenda</span><span>4. Confirmação</span></div>
+  <main class="app-container app-main">
+    <div class="app-progress" id="appProgress">
+      <div class="progress-step active"><span>1</span><b>Identificação</b></div>
+      <div class="progress-connector"></div>
+      <div class="progress-step"><span>2</span><b>Assuntos</b></div>
+      <div class="progress-connector"></div>
+      <div class="progress-step"><span>3</span><b>Agenda</b></div>
+      <div class="progress-connector"></div>
+      <div class="progress-step"><span>4</span><b>Confirmação</b></div>
+    </div>
 
     <section class="screen active" id="screen-identification">
-      <div class="login-wrap compact-login login-entry-correct">
-        <div class="login-brand light-brand refined-brand entry-brand">
-          <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
-          <div class="semfila light-title">Sem Fila</div>
-          <p>Agendamento online com identidade visual da Unimed Divinópolis.</p>
-          <div class="brand-info-tile"><strong>Importante</strong><span>Você pode agendar para si mesmo, para outro beneficiário e também para intercâmbio de outra Unimed.</span></div>
-        </div>
+      <div class="entry-shell">
+        <aside class="entry-brand-panel">
+          <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
+          <div class="entry-sem-fila">Sem Fila</div>
+          <h1>Seu atendimento começa aqui.</h1>
+          <p>Identifique o beneficiário para seguirmos com segurança e preparar o atendimento.</p>
+          <div class="entry-info-card">
+            <b>Antes de continuar</b>
+            <span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+          </div>
+        </aside>
 
-        <div class="panel-card elevated-card entry-card-panel">
-          <span class="screen-kicker" id="identificationKicker">SEUS DADOS DE IDENTIFICAÇÃO</span>
+        <div class="entry-form-panel">
+          <span class="eyebrow">SEUS DADOS DE IDENTIFICAÇÃO</span>
           <h2>Como deseja se identificar?</h2>
-          <p class="screen-help">Não é necessário digitar o nome completo. Em um cenário real, o nome será recuperado após a validação dos dados.</p>
+          <p class="muted">Não é necessário digitar o nome completo. Em um cenário real, o nome será recuperado após a validação dos dados.</p>
 
-          <div class="mini-group">
-            <label class="mini-label">Este agendamento é para:</label>
-            <div class="pill-row" id="recipientRow">
-              <button type="button" class="choice-pill selected" data-recipient="self">Para mim</button>
-              <button type="button" class="choice-pill" data-recipient="other">Para outra pessoa</button>
+          <div class="form-section">
+            <label class="group-label">Este agendamento é para:</label>
+            <div class="segmented" id="recipientRow">
+              <button type="button" class="segmented-btn selected" data-recipient="self">Para mim</button>
+              <button type="button" class="segmented-btn" data-recipient="other">Para outra pessoa</button>
             </div>
           </div>
 
-          <div class="mini-group">
-            <label class="mini-label">Origem do beneficiário:</label>
-            <div class="pill-row" id="originRow">
-              <button type="button" class="choice-pill selected" data-origin="local">Unimed Divinópolis</button>
-              <button type="button" class="choice-pill" data-origin="interchange">Outra Unimed</button>
+          <div class="form-section">
+            <label class="group-label">Beneficiário:</label>
+            <div class="segmented" id="originRow">
+              <button type="button" class="segmented-btn selected" data-origin="local">Unimed Divinópolis</button>
+              <button type="button" class="segmented-btn" data-origin="interchange">Outra Unimed / Intercâmbio</button>
             </div>
           </div>
 
-          <div class="id-tabs" role="tablist">
-            <button class="id-tab active" data-method="card" type="button">Carteirinha</button>
-            <button class="id-tab" data-method="cpf" type="button">CPF</button>
+          <div class="form-section">
+            <label class="group-label">Identificação:</label>
+            <div class="segmented compact-segmented" id="methodRow">
+              <button class="segmented-btn selected" data-method="card" type="button">Carteirinha</button>
+              <button class="segmented-btn" data-method="cpf" type="button">CPF</button>
+            </div>
           </div>
 
-          <div id="cardFields" class="id-fields">
-            <label class="field">Número da carteirinha
-              <input id="cardNumber" inputmode="numeric" placeholder="0144.4295.00081234-6" autocomplete="off">
-            </label>
-          </div>
-
-          <div id="cpfFields" class="id-fields hidden">
-            <label class="field">CPF
-              <input id="cpfNumber" inputmode="numeric" placeholder="000.000.000-00" autocomplete="off">
-            </label>
-          </div>
-
-          <div id="originUnimedFields" class="id-fields hidden">
-            <label class="field">Unimed de origem
-              <input id="originUnimed" type="text" placeholder="Ex.: Unimed BH" autocomplete="off">
-            </label>
-          </div>
-
+          <label class="field" id="cardField">Número da carteirinha
+            <input id="cardNumber" inputmode="numeric" placeholder="0144.4295.00081234-6" autocomplete="off">
+          </label>
+          <label class="field hidden" id="cpfField">CPF
+            <input id="cpfNumber" inputmode="numeric" placeholder="000.000.000-00" autocomplete="off">
+          </label>
+          <label class="field hidden" id="originUnimedField">Unimed de origem
+            <input id="originUnimed" type="text" placeholder="Ex.: Unimed BH" autocomplete="off">
+          </label>
           <label class="field">Data de nascimento
             <input id="birthDate" type="date">
           </label>
 
-          <div class="lgpd-box" id="lgpdBox">
-            Agendamentos em nome de terceiros são permitidos para organizar o atendimento. Entretanto, informações do plano e atendimento presencial deverão ser fornecidos apenas ao titular do plano ou responsável autorizado, com documentação e carteirinha.
+          <div class="third-party-alert hidden" id="thirdPartyAlert">
+            <b>Agendamento realizado por terceiro</b>
+            <p>O agendamento pode ser feito por outra pessoa. Porém, o atendimento presencial e o fornecimento de informações serão realizados diretamente ao <strong>beneficiário agendado</strong> ou ao <strong>responsável pelo plano</strong>. No atendimento, será necessária a apresentação de documento de identificação e carteirinha.</p>
+            <label class="consent-line"><input type="checkbox" id="lgpdConsent"> <span>Li e estou ciente das condições de atendimento e acesso às informações.</span></label>
           </div>
 
-          <button class="btn btn-primary full-btn" id="loginBtn">Continuar</button>
-          <button class="link-btn" id="demoBtn" type="button">Preencher com dados de exemplo</button>
-          <p class="helper centered-helper">Ambiente demonstrativo: os dados servem apenas para simular o fluxo.</p>
+          <div class="minor-alert hidden" id="minorAlert">
+            <b>Beneficiário menor de idade</b>
+            <span>O atendimento deverá ocorrer com o responsável pelo plano ou responsável autorizado, com a documentação necessária.</span>
+          </div>
+
+          <button class="primary-btn full" id="loginBtn" type="button">Continuar</button>
+          <button class="demo-link" id="demoBtn" type="button">Preencher com dados de exemplo</button>
         </div>
       </div>
     </section>
 
     <section class="screen" id="screen-service">
-      <div class="panel-card elevated-card service-card-better">
-        <div class="schedule-title"><small>ETAPA 2 DE 4</small><h1>Selecione o assunto do atendimento</h1><p>Escolha o primeiro assunto principal. Depois, se desejar, adicione um segundo assunto no mesmo atendimento para reservar mais tempo.</p></div>
-        <div class="progress"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+      <div class="content-card wide-card">
+        <div class="screen-head">
+          <span class="eyebrow">ASSUNTOS DO ATENDIMENTO</span>
+          <h2>O que você precisa resolver?</h2>
+          <p class="muted">Nossos guichês atendem os assuntos de forma geral. Selecione o que precisa tratar para reservarmos o tempo adequado.</p>
+        </div>
 
-        <aside class="iva-tip" id="boletoTip">
-          <div><strong>Precisa apenas da 2ª via do boleto?</strong><span>Não é necessário ocupar um horário. A IVA já resolve esse caso no portal.</span></div>
-          <a href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">Abrir IVA ↗</a>
-        </aside>
-        <aside class="interchange-routing hidden" id="interchangeRouting">
-          <strong>Beneficiário de intercâmbio</strong>
-          <span>Para intercâmbio, o fluxo exibe apenas assuntos compatíveis com esse tipo de atendimento.</span>
-        </aside>
+        <div class="digital-route" id="boletoTip">
+          <div><b>Precisa apenas da 2ª via do boleto?</b><span>Esse serviço já pode ser resolvido pela IVA e não precisa ocupar um horário da agenda.</span></div>
+          <a href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">Resolver pela IVA ↗</a>
+        </div>
+        <div class="interchange-route hidden" id="interchangeRouting"><b>Intercâmbio</b><span>O protótipo apresenta apenas assuntos compatíveis com atendimento a beneficiários de outra Unimed.</span></div>
 
-        <div class="option-grid" id="serviceOptions"></div>
-
-        <label class="field">Motivo específico do primeiro assunto
-          <select id="reasonSelect"><option value="">Escolha primeiro um assunto</option></select>
+        <h3 class="section-title">1º assunto</h3>
+        <div class="service-grid" id="serviceOptions"></div>
+        <label class="field">Motivo específico
+          <select id="reasonSelect"><option value="">Selecione primeiro um assunto</option></select>
         </label>
 
-        <div id="paymentArea" class="payment-area hidden">
-          <span class="input-label">Se houver negociação, como pretende realizar o pagamento?</span>
-          <div class="payment-grid">
-            <button type="button" class="payment-option" data-payment="Boleto"><span>▤</span><strong>Boleto</strong><small>Preferência para adiantar o processo</small></button>
-            <button type="button" class="payment-option" data-payment="Cartão"><span>▣</span><strong>Cartão</strong><small>Preferência para adiantar o processo</small></button>
+        <div class="payment-area hidden" id="paymentArea">
+          <label class="group-label">Em caso de negociação, como pretende pagar?</label>
+          <div class="payment-options">
+            <button class="payment-btn" data-payment="Boleto" type="button"><span>▤</span><b>Boleto</b><small>Preferência para adiantar o processo</small></button>
+            <button class="payment-btn" data-payment="Cartão" type="button"><span>▣</span><b>Cartão</b><small>Preferência para adiantar o processo</small></button>
           </div>
         </div>
 
-        <div class="extra-service-box">
-          <span class="input-label">Deseja tratar outro assunto neste mesmo atendimento?</span>
-          <div class="pill-row" id="extraChoiceRow">
-            <button type="button" class="choice-pill selected" data-extra="no">Não, apenas este</button>
-            <button type="button" class="choice-pill" data-extra="yes">Sim, adicionar outro</button>
+        <div class="extra-service-panel">
+          <div class="extra-title"><div><span class="eyebrow">TEM MAIS ALGUMA DEMANDA?</span><h3>Deseja incluir outro assunto neste mesmo atendimento?</h3></div><div class="duration-badge"><span>Tempo reservado</span><b id="durationBadge">40 min</b></div></div>
+          <div class="segmented" id="extraChoiceRow">
+            <button class="segmented-btn selected" data-extra="no" type="button">Não, apenas este</button>
+            <button class="segmented-btn" data-extra="yes" type="button">Sim, adicionar outro assunto</button>
           </div>
-
-          <div id="extraServiceArea" class="hidden extra-form-grid">
-            <label class="field">Segundo assunto
+          <div class="second-service hidden" id="extraServiceArea">
+            <h3 class="section-title">2º assunto</h3>
+            <label class="field">Assunto
               <select id="extraServiceSelect"><option value="">Selecione o segundo assunto</option></select>
             </label>
-            <label class="field">Motivo específico do segundo assunto
-              <select id="extraReasonSelect"><option value="">Escolha o segundo motivo</option></select>
+            <label class="field">Motivo específico
+              <select id="extraReasonSelect"><option value="">Selecione o motivo</option></select>
             </label>
           </div>
         </div>
 
-        <div class="duration-hint" id="durationHint">Tempo estimado do atendimento: 40 minutos</div>
-
-        <div class="actions-row"><button class="btn btn-secondary" id="backToId">Voltar</button><button class="btn btn-primary" id="toSchedule" disabled>Continuar</button></div>
+        <div class="step-actions"><button class="secondary-btn" id="backToId" type="button">Voltar</button><button class="primary-btn" id="toSchedule" type="button" disabled>Escolher data e horário</button></div>
       </div>
     </section>
 
     <section class="screen" id="screen-schedule">
-      <div class="panel-card elevated-card">
-        <div class="schedule-title"><small>ETAPA 3 DE 4</small><h1>Escolha data e horário</h1><p>Os horários abaixo consideram o tempo reservado para o atendimento completo.</p></div>
-        <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
-        <div class="duration-hint schedule-duration" id="scheduleDuration"></div>
+      <div class="content-card wide-card">
+        <div class="screen-head schedule-head-row"><div><span class="eyebrow">DATA E HORÁRIO</span><h2>Escolha o melhor horário</h2><p class="muted">A agenda verifica se existe capacidade contínua para todo o tempo reservado.</p></div><div class="duration-badge larger"><span>Tempo reservado</span><b id="scheduleDuration">40 min</b></div></div>
         <div class="date-caption" id="dateCaption"></div>
         <div class="date-strip" id="dateStrip"></div>
-        <div class="slot-box">
+        <div class="slots-panel">
           <div class="slots" id="slots"></div>
-          <div class="legend"><span><i class="dot sel"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occ"></i>Ocupado</span></div>
+          <div class="legend"><span><i class="dot selected-dot"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occupied-dot"></i>Ocupado</span></div>
         </div>
-        <div class="actions-row"><button class="btn btn-secondary" id="backService">Voltar</button><button class="btn btn-primary" id="toReview" disabled>Continuar</button></div>
+        <div class="step-actions"><button class="secondary-btn" id="backService" type="button">Voltar</button><button class="primary-btn" id="toReview" type="button" disabled>Revisar agendamento</button></div>
       </div>
     </section>
 
     <section class="screen" id="screen-review">
-      <div class="panel-card elevated-card">
-        <div class="schedule-title"><small>ETAPA 4 DE 4</small><h1>Confira antes de confirmar</h1><p>Revise os dados do atendimento.</p></div>
-        <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      <div class="content-card review-card">
+        <div class="screen-head"><span class="eyebrow">CONFIRMAÇÃO</span><h2>Confira seu agendamento</h2><p class="muted">Revise as informações antes de confirmar.</p></div>
         <div class="summary" id="reviewSummary"></div>
-        <div class="cancel-rule compact-rule"><strong>Cancelamento</strong><span>O cancelamento deverá ser realizado com no mínimo <b>2 horas de antecedência</b>.</span></div>
-        <div class="actions-row"><button class="btn btn-secondary" id="backSchedule">Alterar horário</button><button class="btn btn-primary" id="confirmBtn">Confirmar agendamento</button></div>
+        <div class="attendance-rule"><b>Para o atendimento</b><span>O atendimento e o repasse de informações serão realizados ao beneficiário agendado ou ao responsável pelo plano. Leve documento de identificação e carteirinha.</span></div>
+        <div class="cancel-rule"><b>Cancelamento</b><span>Se precisar cancelar, faça isso com no mínimo <strong>2 horas de antecedência</strong>.</span></div>
+        <div class="step-actions"><button class="secondary-btn" id="backSchedule" type="button">Alterar horário</button><button class="primary-btn" id="confirmBtn" type="button">Confirmar agendamento</button></div>
       </div>
     </section>
 
     <section class="screen" id="screen-success">
-      <div class="panel-card success elevated-card">
-        <div class="success-badge">✓</div>
-        <h2>Agendamento confirmado</h2>
-        <p class="helper">Seu horário foi reservado neste protótipo.</p>
-        <div class="protocol"><small>Protocolo</small><strong id="protocol">—</strong></div>
+      <div class="content-card success-card">
+        <div class="success-check">✓</div>
+        <span class="eyebrow">AGENDAMENTO CONCLUÍDO</span>
+        <h2>Seu horário foi reservado</h2>
+        <p class="muted">Guarde o protocolo e observe as orientações para o atendimento.</p>
+        <div class="protocol-box"><span>Protocolo</span><b id="protocol">—</b></div>
         <div class="summary" id="successSummary"></div>
-        <div class="cancel-rule"><span class="rule-icon">!</span><div><strong>Importante</strong><p>Se precisar cancelar, faça isso com no mínimo <b>2 horas de antecedência</b> do horário agendado.</p></div></div>
-        <div class="actions-row"><button class="btn btn-secondary" id="newSchedule">Novo agendamento</button><button class="btn btn-primary" id="goMy">Meus agendamentos</button></div>
+        <div class="attendance-rule"><b>Importante</b><span>Atendimento e informações somente ao beneficiário agendado ou responsável pelo plano, mediante documentação e carteirinha. Cancelamentos: mínimo de 2 horas de antecedência.</span></div>
+        <div class="step-actions"><button class="secondary-btn" id="newSchedule" type="button">Novo agendamento</button><button class="primary-btn" id="goMy" type="button">Meus agendamentos</button></div>
       </div>
     </section>
 
     <section class="screen" id="screen-my">
-      <div class="panel-card elevated-card">
-        <div class="schedule-title"><small>MINHA AGENDA</small><h1>Meus agendamentos</h1><p>Consulte, reagende ou cancele seus horários. Cancelamentos online são permitidos até 2 horas antes.</p></div>
-        <div id="myAppointments" class="appointments-list"></div>
-        <div class="my-footer-actions"><button class="btn btn-secondary" id="backMyToService">Voltar</button></div>
+      <div class="content-card wide-card">
+        <div class="screen-head"><span class="eyebrow">MINHA AGENDA</span><h2>Meus agendamentos</h2><p class="muted">Consulte e cancele seus horários. O cancelamento online é permitido até 2 horas antes.</p></div>
+        <div class="appointments-list" id="myAppointments"></div>
+        <div class="step-actions single"><button class="secondary-btn" id="backMy" type="button">Voltar</button></div>
       </div>
     </section>
   </main>
 
-  <nav class="bottom-nav">
-    <button data-go="home"><span class="nav-ico">⌂</span>Início</button>
-    <button data-go="schedule"><span class="nav-ico">▣</span>Agendar</button>
-    <button data-go="my"><span class="nav-ico">◷</span>Agenda</button>
-    <a href="painel.html"><span class="nav-ico">▥</span>Painel</a>
-  </nav>
-</div>
-<div class="toast" id="toast"></div>
-<script src="app.js"></script>
+  <div class="app-toast" id="toast"></div>
+  <script src="app.js"></script>
 </body>
 </html>

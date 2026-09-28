@@ -3,48 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Painel de Atendimento — Sem Fila</title>
+  <title>Sem Fila — Painel de Indicadores</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dashboard-body">
-<header class="dash-top">
-  <div class="container">
-    <div class="brand">
-      <img class="dash-logo" src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
-      <span class="brand-copy"><strong>Sem Fila</strong><small>Painel do responsável • demonstração</small></span>
-    </div>
-    <a class="back-link" href="index.html">← Voltar ao protótipo</a>
-  </div>
-</header>
-<main class="dash-wrap">
-  <div class="dash-heading">
-    <div><h1>Indicadores de atendimento</h1><p>Visão operacional para acompanhar capacidade, demanda, qualidade e comportamento dos agendamentos.</p></div>
-    <div class="dash-filters"><input id="dashDate" type="date"><select id="sectorFilter"><option value="Todos">Todos os setores</option><option>Financeiro</option><option>Cadastro</option><option>Autorizações</option><option>Atendimento Geral</option><option>Intercâmbio</option></select></div>
-  </div>
+<body class="dashboard-page">
+  <header class="dashboard-header"><div class="dashboard-container dashboard-header-inner"><div class="dashboard-brand"><img src="assets/unimed-logo.png" alt="Unimed Divinópolis"><div><strong>Sem Fila</strong><small>Painel de acompanhamento da modalidade</small></div></div><a href="index.html">← Voltar ao protótipo</a></div></header>
+  <main class="dashboard-container dashboard-main">
+    <div class="dashboard-title-row"><div><span class="eyebrow">GESTÃO DO ATENDIMENTO</span><h1>Indicadores do agendamento online</h1><p>Acompanhe adesão, perfil dos beneficiários, capacidade e comportamento da modalidade.</p></div><div class="dashboard-filters"><input id="dashDate" type="date"><select id="ageFilter"><option value="Todos">Todas as faixas etárias</option><option value="0-17">0–17 anos</option><option value="18-29">18–29 anos</option><option value="30-44">30–44 anos</option><option value="45-59">45–59 anos</option><option value="60+">60 anos ou mais</option></select></div></div>
 
-  <section class="kpi-grid" id="kpis"></section>
+    <section class="kpi-grid" id="kpis"></section>
 
-  <section class="dash-grid">
-    <article class="dash-card"><h3>Demanda por setor</h3><p class="sub">Distribuição dos agendamentos no período selecionado.</p><div class="bar-chart" id="sectorBars"></div></article>
-    <article class="dash-card"><h3>Status do atendimento</h3><p class="sub">Agendados, concluídos, faltas e cancelamentos.</p><div class="status-grid" id="statusGrid"></div></article>
-  </section>
+    <section class="dashboard-grid">
+      <article class="dashboard-card age-card"><h3>Adesão por faixa etária</h3><p>Perfil dos beneficiários que utilizam o agendamento online.</p><div class="bar-chart" id="ageBars"></div></article>
+      <article class="dashboard-card"><h3>Perfil dos beneficiários</h3><p>Origem do beneficiário e grupos relevantes para acompanhamento.</p><div class="profile-grid" id="profileGrid"></div></article>
+    </section>
 
-  <section class="dash-grid">
-    <article class="dash-card"><h3>Horários mais demandados</h3><p class="sub">Ajuda a ajustar capacidade e dimensionar a equipe.</p><div class="bar-chart" id="hourBars"></div></article>
-    <article class="dash-card"><h3>Preferência nas negociações</h3><p class="sub">Informação antecipada para preparar o atendimento financeiro.</p><div class="payment-chart" id="paymentChart"></div></article>
-  </section>
+    <section class="dashboard-grid">
+      <article class="dashboard-card"><h3>Assuntos mais procurados</h3><p>Ajuda a entender quais demandas mais utilizam a modalidade.</p><div class="bar-chart" id="serviceBars"></div></article>
+      <article class="dashboard-card"><h3>Horários mais demandados</h3><p>Volume de procura ao longo do dia.</p><div class="bar-chart" id="hourBars"></div></article>
+    </section>
 
-  <section class="dash-grid">
-    <article class="dash-card"><h3>Agendamentos nos últimos 7 dias</h3><p class="sub">Volume diário para identificar picos de procura.</p><div class="trend" id="trendChart"></div></article>
-    <article class="dash-card"><h3>Perfil dos beneficiários</h3><p class="sub">Quem será atendido e participação de beneficiários de intercâmbio.</p><div class="status-grid" id="recipientGrid"></div></article>
-  </section>
+    <section class="dashboard-grid">
+      <article class="dashboard-card"><h3>Utilização da capacidade</h3><p>Relação entre horários programados e tempo efetivamente reservado.</p><div class="capacity-panel" id="capacityPanel"></div></article>
+      <article class="dashboard-card"><h3>Negociações financeiras</h3><p>Preferência informada previamente para acelerar o atendimento.</p><div class="profile-grid" id="paymentGrid"></div></article>
+    </section>
 
-  <section class="dash-card table-card">
-    <h3>Próximos atendimentos</h3><p class="sub">Fila organizada por horário, setor e preparação necessária.</p>
-    <div class="table-wrap"><table class="dash-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Motivo</th><th>Pagamento</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div>
-    <p class="note">Dados demonstrativos. O painel também lê os agendamentos feitos no protótipo no mesmo navegador, para mostrar o reflexo da jornada do beneficiário na visão do responsável.</p>
-  </section>
-</main>
-<script src="dashboard.js"></script>
+    <section class="dashboard-card table-card"><h3>Próximos atendimentos</h3><p>Visão consolidada dos horários, perfil e tempo reservado.</p><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Faixa etária</th><th>Origem</th><th>Assunto</th><th>Tempo</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></section>
+  </main>
+  <script src="dashboard.js"></script>
 </body>
 </html>

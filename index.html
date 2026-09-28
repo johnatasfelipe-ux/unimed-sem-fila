@@ -6,92 +6,136 @@
   <title>Unimed Divinópolis — Sem Fila</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="official-mock">
-  <div class="prototype-ribbon">Protótipo demonstrativo — proposta visual para o portal, sem integração com os sistemas oficiais</div>
+<body class="portal-page">
+  <div class="prototype-ribbon">Protótipo demonstrativo — proposta visual, sem integração com os sistemas oficiais</div>
 
-  <header class="official-header">
-    <div class="official-top container-official">
-      <a class="official-logo" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">
-        <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
+  <header class="portal-header">
+    <div class="portal-header-row portal-container">
+      <a class="portal-logo" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">
+        <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
       </a>
-      <a class="channels-link" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">＋ Canais de atendimento</a>
-      <div class="official-search">⌕ <span>Faça sua busca aqui</span></div>
-      <a class="official-login" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">◉ Login</a>
+      <a class="channels-link" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener"><b>＋</b> Canais de atendimento</a>
+      <div class="portal-search"><span>⌕</span><span>Faça sua busca aqui</span></div>
+      <a class="portal-login" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener"><span>◉</span> Login</a>
     </div>
-    <div class="official-nav container-official">
-      <span>Beneficiário / Empresa / Cooperado</span>
-      <span>Prestador</span>
-      <span>A Unimed</span>
-      <span>Informações Regulatórias</span>
-      <span class="nav-right">⌖ ENCONTRE UM MÉDICO</span>
-      <span>ACESSO RÁPIDO⌄</span>
-    </div>
+    <nav class="portal-nav portal-container">
+      <div class="portal-nav-left">
+        <a href="#">Beneficiário / Empresa / Cooperado</a>
+        <a href="#">Prestador</a>
+        <a href="#">A Unimed</a>
+        <a href="#">Informações Regulatórias</a>
+      </div>
+      <div class="portal-nav-right">
+        <a href="#">⌖ &nbsp; ENCONTRE UM MÉDICO</a>
+        <span class="divider-v"></span>
+        <a href="#">ACESSO RÁPIDO⌄</a>
+      </div>
+    </nav>
   </header>
 
   <main>
-    <section class="official-carousel real-carousel" aria-label="Carrossel principal">
+    <section class="portal-carousel" aria-label="Carrossel principal">
       <div class="carousel-track" id="carouselTrack">
-        <article class="carousel-slide image-slide active" data-slide="0"><img src="assets/slide-app-real.png" alt="Novo aplicativo Unimed"></article>
-        <article class="carousel-slide image-slide" data-slide="1"><img src="assets/slide-fraude-real.jpg" alt="Campanha de golpes e fraudes"></article>
-        <article class="carousel-slide image-slide" data-slide="2"><img src="assets/slide-faturas-real.png" alt="Atraso no recebimento de faturas"></article>
-        <article class="carousel-slide image-slide" data-slide="3"><img src="assets/slide-cnpj-real.png" alt="Comunicado sobre CNPJ ativo"></article>
+        <article class="carousel-slide image-slide active" data-slide="0">
+          <img src="assets/slide-app.png" alt="Novo aplicativo Unimed">
+        </article>
+        <article class="carousel-slide schedule-promo-slide" data-slide="1">
+          <div class="schedule-promo-inner portal-container">
+            <div class="schedule-promo-copy">
+              <span class="schedule-kicker">NOVO • AGENDAMENTO ONLINE</span>
+              <h1>Organize seu tempo.<br><strong>Atendimento sem fila.</strong></h1>
+              <p>Escolha o assunto, reserve o tempo necessário e selecione a melhor data e horário para seu atendimento.</p>
+              <a class="schedule-promo-btn" href="agendamento.html">AGENDAR ATENDIMENTO</a>
+            </div>
+            <div class="schedule-promo-card" aria-hidden="true">
+              <div class="promo-card-title"><span>Sem Fila</span><b>✓</b></div>
+              <div class="promo-service">Atendimento online</div>
+              <div class="promo-days"><span>SEG<br><b>14</b></span><span class="chosen">TER<br><b>15</b></span><span>QUA<br><b>16</b></span></div>
+              <div class="promo-times"><span>09:20</span><span class="chosen">10:00</span><span>13:40</span></div>
+              <small>Horário reservado conforme o tempo do atendimento</small>
+            </div>
+          </div>
+        </article>
+        <article class="carousel-slide image-slide" data-slide="2"><img src="assets/slide-fraude.jpg" alt="Campanha contra golpes e fraudes"></article>
+        <article class="carousel-slide image-slide" data-slide="3"><img src="assets/slide-faturas.png" alt="Comunicado sobre recebimento de faturas"></article>
+        <article class="carousel-slide image-slide" data-slide="4"><img src="assets/slide-cnpj.png" alt="Comunicado sobre regularização de CNPJ"></article>
       </div>
-      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Slide anterior">‹</button>
-      <button class="carousel-arrow next" id="carouselNext" aria-label="Próximo slide">›</button>
+      <button class="carousel-arrow carousel-prev" id="carouselPrev" type="button" aria-label="Slide anterior">‹</button>
+      <button class="carousel-arrow carousel-next" id="carouselNext" type="button" aria-label="Próximo slide">›</button>
       <div class="carousel-dots" id="carouselDots"></div>
     </section>
 
-    <section class="semfila-banner container-official">
-      <div class="semfila-banner-box">
-        <div>
-          <small>NOVIDADE DIGITAL</small>
-          <h2>Agora você pode realizar agendamento online</h2>
-          <p>Evite filas, organize seu tempo e escolha o melhor horário para tratar do seu atendimento na Unimed Divinópolis.</p>
-        </div>
-        <a class="semfila-main-cta" href="agendamento.html">AGENDAR ATENDIMENTO</a>
+    <section class="portal-shortcuts-snapshot portal-container" aria-label="Acessos rápidos do portal">
+      <div class="shortcuts-snapshot-wrap">
+        <img src="assets/home-links-ref.png" alt="Acessos rápidos do portal da Unimed Divinópolis">
+        <a class="shortcut-overlay shortcut-overlay-1" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener" aria-label="Abrir portal Cooperado / Credenciado"></a>
+        <a class="shortcut-overlay shortcut-overlay-2" href="https://www.unimed.coop.br/site/web/divinopolis/guia-medico" target="_blank" rel="noopener" aria-label="Abrir Guia Médico"></a>
+        <a class="shortcut-overlay shortcut-overlay-3" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener" aria-label="Abrir Portal do Colaborador"></a>
+        <a class="shortcut-overlay shortcut-overlay-4" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener" aria-label="Abrir Fale conosco"></a>
       </div>
-    </section>
-
-    <section class="links-preview-section container-official">
-      <img class="links-preview-image" src="assets/home-links-ref.png" alt="Serviços rápidos do portal da Unimed Divinópolis">
     </section>
   </main>
 
-  <div class="chatbot-widget" id="chatbotWidget">
-    <div class="chatbot-panel hidden official-panel-like" id="chatbotPanel">
-      <button class="chatbot-close official-close" id="chatbotClose" aria-label="Fechar">×</button>
-      <div class="official-chat-hero">
-        <h2>Vamos<br>conversar?</h2>
-        <p>Bem vindo ao nosso Chat.<br>Eu sou a Iva. Estou aqui<br>para ajudá-lo.</p>
-        <div class="official-status"><span class="red-dot"></span> Nós normalmente respondemos dentro de alguns minutos.</div>
-      </div>
-      <div class="official-chat-body">
-        <div class="official-chat-prompt">Escreva a sua mensagem...</div>
-        <div class="official-chat-footer">
-          <span>☺</span>
-          <span>📎</span>
-          <span class="powered">POWERED BY</span>
-          <button class="send-round" type="button" id="chatbotSendVisual">➤</button>
-        </div>
-        <div class="chatbot-actions">
-          <button type="button" class="chat-suggestion" data-action="agendamento">Agendamento</button>
-          <button type="button" class="chat-suggestion" data-action="boleto">2ª via de boleto</button>
-          <button type="button" class="chat-suggestion" data-action="intercambio">Intercâmbio</button>
-          <button type="button" class="chat-suggestion" data-action="guia">Guia Médico</button>
-        </div>
-      </div>
-    </div>
+  <div class="accessibility-stack" aria-label="Recursos de acessibilidade">
+    <button class="accessibility-btn" id="assistiveBtn" type="button"><span class="access-symbol">⚑</span><span class="access-label">Recursos Assistivos</span></button>
+    <button class="accessibility-btn" id="librasBtn" type="button"><span class="access-symbol">☝</span><span class="access-label">Acessível em Libras</span></button>
+  </div>
 
-    <div class="chatbot-launch-wrap">
-      <img class="chatbot-mascot" src="assets/iva-mascot.png" alt="IVA">
-      <button type="button" class="chatbot-launch" id="chatbotLaunch">
-        <span class="chatbot-bubble-text">Posso te ajudar? 👉</span>
-        <span class="chatbot-launch-icon chat-icon">💬</span>
-        <span class="chatbot-launch-icon edit-icon">✎</span>
+  <div class="iva-widget" id="ivaWidget">
+    <section class="iva-chat hidden" id="ivaChat" aria-label="Chat IVA">
+      <button class="iva-close" id="ivaClose" type="button" aria-label="Fechar chat">×</button>
+      <div class="iva-chat-head" id="ivaChatHead">
+        <h2 id="ivaHeadTitle">Vamos<br>conversar?</h2>
+        <p id="ivaHeadSubtitle">Bem vindo ao nosso Chat.<br>Eu sou a Iva. Estou aqui<br>para ajudá-lo.</p>
+        <div class="iva-status"><i></i><span>Nós normalmente respondemos dentro de alguns minutos.</span></div>
+      </div>
+      <div class="iva-chat-body">
+        <div class="iva-messages" id="ivaMessages"></div>
+        <div class="iva-topics hidden" id="ivaTopics">
+          <button class="iva-topic featured" type="button" data-topic="agendamento">Agendamento Online <small>Novo</small></button>
+          <button class="iva-topic" type="button" data-topic="comercial">Comercial</button>
+          <button class="iva-topic" type="button" data-topic="financeiro">Financeiro</button>
+          <button class="iva-topic" type="button" data-topic="autorizacao">Autorização Guias</button>
+          <button class="iva-topic" type="button" data-topic="dprh">DP/RH</button>
+          <button class="iva-topic" type="button" data-topic="demonstrativos">Demonstrativos</button>
+          <button class="iva-topic" type="button" data-topic="guia">Guia Médico</button>
+          <button class="iva-topic" type="button" data-topic="manifestacoes">Manifestações</button>
+          <button class="iva-topic" type="button" data-topic="reembolso">Reembolso</button>
+          <button class="iva-topic" type="button" data-topic="orcamento">Orçamento</button>
+          <button class="iva-topic" type="button" data-topic="finalizar">Finalizar</button>
+        </div>
+        <div class="iva-attachment-list" id="ivaAttachmentList"></div>
+        <div class="iva-compose">
+          <textarea id="ivaInput" rows="1" placeholder="Escreva a sua mensagem..."></textarea>
+          <div class="iva-tools">
+            <div class="emoji-anchor">
+              <button class="iva-tool" id="emojiBtn" type="button" aria-label="Inserir emoji">☺</button>
+              <div class="emoji-picker hidden" id="emojiPicker" role="dialog" aria-label="Emojis">
+                <div class="emoji-picker-head">Escolha um emoji</div>
+                <div class="emoji-grid" id="emojiGrid"></div>
+              </div>
+            </div>
+            <button class="iva-tool clip-tool" id="clipBtn" type="button" aria-label="Anexar arquivo">⌕</button>
+            <input id="fileInput" type="file" hidden multiple accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt">
+            <span class="powered">POWERED BY</span>
+            <span class="powered-mark">◆</span>
+            <button class="iva-send" id="ivaSend" type="button" aria-label="Enviar mensagem">➤</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="iva-launch-wrap">
+      <img class="iva-character" src="assets/iva-helper.png" alt="IVA, assistente virtual da Unimed Divinópolis">
+      <button class="iva-launch" id="ivaLaunch" type="button">
+        <span class="iva-bubble">Posso te ajudar? 👉</span>
+        <span class="iva-launch-circle iva-chat-icon">▰</span>
+        <span class="iva-launch-circle iva-pencil-icon">✎</span>
       </button>
     </div>
   </div>
 
+  <div class="site-toast" id="siteToast"></div>
   <script src="site.js"></script>
 </body>
 </html>
