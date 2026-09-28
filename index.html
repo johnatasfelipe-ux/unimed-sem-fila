@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Unimed Divinópolis — Protótipo de Agendamento Online</title>
+  <title>Unimed Divinópolis — Sem Fila</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="official-mock">
-  <div class="prototype-ribbon">Protótipo demonstrativo — proposta visual, sem integração com os sistemas oficiais</div>
+  <div class="prototype-ribbon">Protótipo demonstrativo — proposta visual para o portal, sem integração com os sistemas oficiais</div>
 
   <header class="official-header">
     <div class="official-top container-official">
       <a class="official-logo" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">
         <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
       </a>
-      <a class="channels-link" href="https://www.unimed.coop.br/site/web/divinopolis/canais-de-atendimento" target="_blank" rel="noopener">＋ Canais de atendimento</a>
+      <a class="channels-link" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">＋ Canais de atendimento</a>
       <div class="official-search">⌕ <span>Faça sua busca aqui</span></div>
       <a class="official-login" href="https://www.unimed.coop.br/site/web/divinopolis" target="_blank" rel="noopener">◉ Login</a>
     </div>
@@ -29,101 +29,61 @@
   </header>
 
   <main>
-    <section class="official-carousel" aria-label="Carrossel principal">
+    <section class="official-carousel real-carousel" aria-label="Carrossel principal">
       <div class="carousel-track" id="carouselTrack">
-        <article class="carousel-slide appointment-slide active" data-slide="0">
-          <div class="appointment-inner container-official">
-            <div class="appointment-copy">
-              <span class="appointment-kicker">NOVIDADE • ATENDIMENTO DIGITAL</span>
-              <h1>Agora você pode<br><strong>agendar seu atendimento online.</strong></h1>
-              <p>Evite filas, organize seu tempo, escolha a melhor data e reserve o tempo necessário para o seu atendimento.</p>
-              <div class="appointment-actions">
-                <a class="appointment-cta" href="agendamento.html">AGENDAR ATENDIMENTO</a>
-                <span class="appointment-note">Rápido • organizado • sem fila</span>
-              </div>
-            </div>
-            <div class="appointment-visual" aria-hidden="true">
-              <div class="visual-ring ring-one"></div>
-              <div class="visual-ring ring-two"></div>
-              <div class="calendar-card">
-                <div class="cal-head"><span>Agendamento</span><b>✓</b></div>
-                <div class="cal-days">
-                  <span>SEG<br><b>21</b></span><span>TER<br><b>22</b></span><span class="picked">QUA<br><b>23</b></span><span>QUI<br><b>24</b></span>
-                </div>
-                <div class="cal-times"><span>09:20</span><span class="picked-time">10:00</span><span>11:20</span><span>13:40</span></div>
-                <div class="cal-ok">Horário reservado para você</div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="carousel-slide image-slide" data-slide="1">
-          <img src="assets/slide-fraude.png" alt="Campanha de prevenção a golpes e fraudes da Unimed Divinópolis">
-        </article>
-
-        <article class="carousel-slide image-slide" data-slide="2">
-          <img src="assets/slide-faturas.png" alt="Comunicado da Unimed Divinópolis sobre canais digitais para faturas">
-        </article>
-
-        <article class="carousel-slide image-slide" data-slide="3">
-          <img src="assets/slide-app.png" alt="Divulgação do aplicativo Unimed">
-        </article>
+        <article class="carousel-slide image-slide active" data-slide="0"><img src="assets/slide-app-real.png" alt="Novo aplicativo Unimed"></article>
+        <article class="carousel-slide image-slide" data-slide="1"><img src="assets/slide-fraude-real.jpg" alt="Campanha de golpes e fraudes"></article>
+        <article class="carousel-slide image-slide" data-slide="2"><img src="assets/slide-faturas-real.png" alt="Atraso no recebimento de faturas"></article>
+        <article class="carousel-slide image-slide" data-slide="3"><img src="assets/slide-cnpj-real.png" alt="Comunicado sobre CNPJ ativo"></article>
       </div>
-
       <button class="carousel-arrow prev" id="carouselPrev" aria-label="Slide anterior">‹</button>
       <button class="carousel-arrow next" id="carouselNext" aria-label="Próximo slide">›</button>
-      <div class="carousel-dots" id="carouselDots" aria-label="Navegação do carrossel"></div>
+      <div class="carousel-dots" id="carouselDots"></div>
     </section>
 
-    <section class="home-shortcuts container-official">
-      <div class="shortcut-intro">
-        <h2>Acesso rápido</h2>
-        <p>O agendamento online entra como mais uma opção ao lado dos canais digitais já existentes.</p>
-      </div>
-      <div class="shortcut-grid">
-        <a class="shortcut-card highlighted" href="agendamento.html"><span>◷</span><strong>Agendamento online</strong><small>Escolha data e horário</small></a>
-        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/guia-medico" target="_blank" rel="noopener"><span>⌕</span><strong>Guia Médico</strong><small>Encontre a rede</small></a>
-        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/aplicativo" target="_blank" rel="noopener"><span>▣</span><strong>Aplicativo</strong><small>Serviços digitais</small></a>
-        <a class="shortcut-card" href="https://www.unimed.coop.br/site/web/divinopolis/canais-de-atendimento" target="_blank" rel="noopener"><span>☏</span><strong>Canais de atendimento</strong><small>Veja outras opções</small></a>
+    <section class="semfila-banner container-official">
+      <div class="semfila-banner-box">
+        <div>
+          <small>NOVIDADE DIGITAL</small>
+          <h2>Agora você pode realizar agendamento online</h2>
+          <p>Evite filas, organize seu tempo e escolha o melhor horário para tratar do seu atendimento na Unimed Divinópolis.</p>
+        </div>
+        <a class="semfila-main-cta" href="agendamento.html">AGENDAR ATENDIMENTO</a>
       </div>
     </section>
 
-    <section class="prototype-info container-official">
-      <div>
-        <strong>Visão do responsável</strong>
-        <span>O mesmo protótipo possui um painel separado para acompanhar ocupação, faltas, cancelamentos, demanda por setor, faixa etária e negociações.</span>
-      </div>
-      <a href="painel.html">Abrir painel de indicadores →</a>
+    <section class="links-preview-section container-official">
+      <img class="links-preview-image" src="assets/home-links-ref.png" alt="Serviços rápidos do portal da Unimed Divinópolis">
     </section>
   </main>
 
   <div class="chatbot-widget" id="chatbotWidget">
-    <div class="chatbot-panel hidden" id="chatbotPanel">
-      <button class="chatbot-close" id="chatbotClose" aria-label="Fechar chatbot">×</button>
-      <div class="chatbot-header official-chat-header">
-        <div>
-          <strong>Você está sendo atendido<br>pelo nosso ChatBot</strong>
-          <p><span class="chat-dot"></span>Nós normalmente respondemos dentro de alguns minutos.</p>
+    <div class="chatbot-panel hidden official-panel-like" id="chatbotPanel">
+      <button class="chatbot-close official-close" id="chatbotClose" aria-label="Fechar">×</button>
+      <div class="official-chat-hero">
+        <h2>Vamos<br>conversar?</h2>
+        <p>Bem vindo ao nosso Chat.<br>Eu sou a Iva. Estou aqui<br>para ajudá-lo.</p>
+        <div class="official-status"><span class="red-dot"></span> Nós normalmente respondemos dentro de alguns minutos.</div>
+      </div>
+      <div class="official-chat-body">
+        <div class="official-chat-prompt">Escreva a sua mensagem...</div>
+        <div class="official-chat-footer">
+          <span>☺</span>
+          <span>📎</span>
+          <span class="powered">POWERED BY</span>
+          <button class="send-round" type="button" id="chatbotSendVisual">➤</button>
+        </div>
+        <div class="chatbot-actions">
+          <button type="button" class="chat-suggestion" data-action="agendamento">Agendamento</button>
+          <button type="button" class="chat-suggestion" data-action="boleto">2ª via de boleto</button>
+          <button type="button" class="chat-suggestion" data-action="intercambio">Intercâmbio</button>
+          <button type="button" class="chat-suggestion" data-action="guia">Guia Médico</button>
         </div>
       </div>
-
-      <div class="chatbot-stage-chip-wrap">
-        <button class="chat-main-chip" type="button" id="pfBtn">Pessoa Física (PF)</button>
-      </div>
-
-      <div class="chatbot-conversation official-conversation" id="chatbotConversation">
-        <div class="bot-message large-bot-message">Para dar sequência no seu atendimento com segurança, vou precisar de algumas informações! Você pode parar o processo a qualquer momento digitando "sair". <br><br><strong>Digite:</strong><br>• agendamento → para reservar um horário<br>• boleto → para 2ª via<br>• intercâmbio → para beneficiário de outra Unimed<br>• guia médico → para busca de rede</div>
-      </div>
-
-      <div class="chatbot-input-row official-chat-input-row">
-        <input id="chatbotInput" type="text" placeholder="Escreva a sua mensagem..." />
-        <button type="button" class="chat-send" id="chatbotSend">➜</button>
-      </div>
-      <p class="chatbot-hint">Protótipo: o fluxo abaixo demonstra como a IVA pode orientar e encaminhar o beneficiário.</p>
     </div>
 
-    <div class="chatbot-launch-wrap" id="chatbotLaunchWrap">
-      <img class="chatbot-mascot" src="assets/iva-mascot.png" alt="IVA, assistente virtual da Unimed">
+    <div class="chatbot-launch-wrap">
+      <img class="chatbot-mascot" src="assets/iva-mascot.png" alt="IVA">
       <button type="button" class="chatbot-launch" id="chatbotLaunch">
         <span class="chatbot-bubble-text">Posso te ajudar? 👉</span>
         <span class="chatbot-launch-icon chat-icon">💬</span>
