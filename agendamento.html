@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app-shell">
+<div class="app-shell refined-app">
   <header class="app-header">
     <div class="container app-header-inner">
       <a class="app-brand" href="index.html">
@@ -25,18 +25,37 @@
   </header>
 
   <main class="app-main">
+    <div class="journey-bar"><span class="active">1. Identificação</span><span>2. Assuntos</span><span>3. Agenda</span><span>4. Confirmação</span></div>
+
     <section class="screen active" id="screen-recipient">
-      <div class="panel-card intro-card">
-        <span class="screen-kicker">ANTES DE COMEÇAR</span>
-        <h1>Este agendamento é para quem?</h1>
-        <p class="screen-help">Escolha quem receberá o atendimento. Os dados solicitados na próxima etapa serão da pessoa que será atendida.</p>
-        <div class="recipient-grid">
-          <button class="recipient-card" data-recipient="self">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="screen-kicker">ANTES DE COMEÇAR</span>
+          <h1>Quem será atendido?</h1>
+          <p>Escolha o beneficiário do atendimento. O sistema vai adaptar as próximas etapas para tornar o agendamento mais rápido, seguro e alinhado à operação da unidade.</p>
+          <ul class="hero-bullets">
+            <li>Agende para você ou outra pessoa</li>
+            <li>Atenda beneficiários locais ou de intercâmbio</li>
+            <li>Receba orientação sobre documentos e regras de atendimento</li>
+          </ul>
+        </div>
+        <div class="hero-sidebox">
+          <div class="hero-side-title">Como funciona</div>
+          <div class="hero-mini-step"><b>1</b><span>Identificação do beneficiário</span></div>
+          <div class="hero-mini-step"><b>2</b><span>Escolha dos assuntos</span></div>
+          <div class="hero-mini-step"><b>3</b><span>Definição automática do tempo</span></div>
+          <div class="hero-mini-step"><b>4</b><span>Escolha do melhor horário</span></div>
+        </div>
+      </div>
+
+      <div class="panel-card intro-card enhanced-intro">
+        <div class="recipient-grid refined-cards">
+          <button class="recipient-card recipient-strong" data-recipient="self">
             <span class="recipient-icon">☺</span>
             <strong>Para mim</strong>
             <small>Vou agendar meu próprio atendimento</small>
           </button>
-          <button class="recipient-card" data-recipient="other">
+          <button class="recipient-card recipient-strong" data-recipient="other">
             <span class="recipient-icon">☺＋</span>
             <strong>Para outra pessoa</strong>
             <small>Vou agendar para outro beneficiário</small>
@@ -63,18 +82,19 @@
           <div class="interchange-preset hidden" id="interchangePreset">Atendimento de intercâmbio selecionado pelo chatbot.</div>
         </div>
 
-        <p class="privacy-reminder">Use apenas os dados necessários para identificar o beneficiário. Este protótipo não consulta nem envia informações reais.</p>
+        <p class="privacy-reminder strong-privacy">Use apenas os dados necessários para identificar o beneficiário. Este protótipo não consulta nem envia informações reais.</p>
       </div>
     </section>
 
     <section class="screen" id="screen-identification">
       <div class="login-wrap compact-login">
-        <div class="login-brand light-brand">
+        <div class="login-brand light-brand refined-brand">
           <img src="assets/unimed-divinopolis-logo.png" alt="Unimed Divinópolis">
           <div class="semfila light-title">Sem Fila</div>
-          <p>Atendimento online com a identidade visual da Unimed Divinópolis.</p>
+          <p>Atendimento online com identidade visual da Unimed Divinópolis, respeitando triagem, regras de atendimento e canais digitais existentes.</p>
+          <div class="brand-info-tile"><strong>Dica</strong><span>Se for um caso simples e já resolvido por outro canal, o sistema indicará o melhor caminho antes de consumir um horário da agenda.</span></div>
         </div>
-        <div class="panel-card">
+        <div class="panel-card elevated-card">
           <button class="small-back" id="backRecipient" type="button">← Voltar</button>
           <span class="screen-kicker" id="identificationKicker">IDENTIFICAÇÃO DO BENEFICIÁRIO</span>
           <h2>Como deseja se identificar?</h2>
@@ -119,7 +139,7 @@
     </section>
 
     <section class="screen" id="screen-home">
-      <div class="welcome-card">
+      <div class="welcome-card refined-welcome">
         <small id="recipientLabel">Beneficiário identificado</small>
         <h1 id="welcomeName">Arthur Peixoto Militão</h1>
         <div class="identity-grid identity-grid-three">
@@ -129,7 +149,7 @@
         </div>
       </div>
 
-      <div class="quick-grid">
+      <div class="quick-grid refined-quick-grid">
         <button class="quick-card" id="startSchedule"><div class="iconbox">▣</div><strong>Agendar atendimento</strong><small>Escolher assunto, data e horário</small></button>
         <button class="quick-card" id="openMy"><div class="iconbox">◷</div><strong>Meus agendamentos</strong><small>Ver, reagendar ou cancelar</small></button>
       </div>
@@ -138,12 +158,12 @@
       <div id="nextAppointment" class="empty-box">Nenhum atendimento agendado no momento.</div>
 
       <h3 class="section-label">Gestão do atendimento</h3>
-      <a class="quick-card management-card" href="painel.html"><strong>Ver painel de indicadores</strong><small>Ocupação, demanda, faltas, cancelamentos e perfil das negociações.</small></a>
+      <a class="quick-card management-card" href="painel.html"><strong>Ver painel de indicadores</strong><small>Ocupação, demanda, faltas, cancelamentos, perfil etário e negociações.</small></a>
     </section>
 
     <section class="screen" id="screen-service">
-      <div class="panel-card">
-        <div class="schedule-title"><small>ETAPA 1 DE 3</small><h1>Como podemos ajudar?</h1><p>Escolha o assunto. O setor responsável será direcionado automaticamente.</p></div>
+      <div class="panel-card elevated-card">
+        <div class="schedule-title"><small>ETAPA 1 DE 3</small><h1>Como podemos ajudar?</h1><p>Escolha o assunto. O sistema pode permitir mais de um tema no mesmo atendimento e calcular o tempo necessário.</p></div>
         <div class="progress"><span class="on"></span><span></span><span></span></div>
 
         <aside class="iva-tip" id="boletoTip">
@@ -176,7 +196,7 @@
     </section>
 
     <section class="screen" id="screen-schedule">
-      <div class="panel-card">
+      <div class="panel-card elevated-card">
         <div class="schedule-title"><small id="scheduleContext">ATENDIMENTO</small><h1>Escolha data e horário</h1><p>As datas mostram os próximos dias úteis. Horários ocupados aparecem indisponíveis e cancelamentos voltam a liberar a vaga.</p></div>
         <div class="progress"><span class="on"></span><span class="on"></span><span></span></div>
         <div class="date-caption" id="dateCaption"></div>
@@ -190,7 +210,7 @@
     </section>
 
     <section class="screen" id="screen-review">
-      <div class="panel-card">
+      <div class="panel-card elevated-card">
         <div class="schedule-title"><small>ETAPA 3 DE 3</small><h1>Confira antes de confirmar</h1><p>Revise os dados do atendimento.</p></div>
         <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span></div>
         <div class="summary" id="reviewSummary"></div>
@@ -200,7 +220,7 @@
     </section>
 
     <section class="screen" id="screen-success">
-      <div class="panel-card success">
+      <div class="panel-card success elevated-card">
         <div class="success-badge">✓</div>
         <h2>Agendamento confirmado</h2>
         <p class="helper">Seu horário foi reservado neste protótipo.</p>
@@ -212,7 +232,7 @@
     </section>
 
     <section class="screen" id="screen-my">
-      <div class="panel-card">
+      <div class="panel-card elevated-card">
         <div class="schedule-title"><small>AGENDA DO BENEFICIÁRIO</small><h1>Meus agendamentos</h1><p>Consulte ou reagende seus horários. Cancelamentos online são permitidos até 2 horas antes.</p></div>
         <div id="myAppointments" class="appointments-list"></div>
         <div class="my-footer-actions"><button class="btn btn-secondary backHome">Voltar ao início</button></div>

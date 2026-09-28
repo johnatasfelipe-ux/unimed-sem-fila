@@ -10,7 +10,6 @@ slides.forEach((_, i) => {
   dot.addEventListener('click', () => goTo(i, true));
   dotsBox.appendChild(dot);
 });
-
 function render() {
   slides.forEach((slide, i) => slide.classList.toggle('active', i === current));
   [...dotsBox.children].forEach((dot, i) => dot.classList.toggle('active', i === current));
@@ -29,7 +28,6 @@ document.getElementById('carouselNext').addEventListener('click', () => goTo(cur
 render();
 startAuto();
 
-// Chatbot demonstrativo guiado
 const widget = document.getElementById('chatbotWidget');
 const panel = document.getElementById('chatbotPanel');
 const launch = document.getElementById('chatbotLaunch');
@@ -37,117 +35,76 @@ const closeBtn = document.getElementById('chatbotClose');
 const input = document.getElementById('chatbotInput');
 const sendBtn = document.getElementById('chatbotSend');
 const conversation = document.getElementById('chatbotConversation');
-const quickActions = document.getElementById('chatbotQuickActions');
+const pfBtn = document.getElementById('pfBtn');
 
 function openPanel() {
   panel.classList.remove('hidden');
   widget.classList.add('open');
+  input?.focus();
 }
 function closePanel() {
   panel.classList.add('hidden');
   widget.classList.remove('open');
 }
-function botMessage(text){
-  const p=document.createElement('div');
-  p.className='bot-message';
-  p.textContent=text;
-  conversation.appendChild(p);
-  conversation.scrollTop=conversation.scrollHeight;
+function appendMessage(text, type = 'bot') {
+  const div = document.createElement('div');
+  div.className = `${type}-message`;
+  if (type === 'bot') div.classList.add('large-bot-message');
+  div.innerHTML = text;
+  conversation.appendChild(div);
+  conversation.scrollTop = conversation.scrollHeight;
 }
-function userMessage(text){
-  const p=document.createElement('div');
-  p.className='user-message';
-  p.textContent=text;
-  conversation.appendChild(p);
-  conversation.scrollTop=conversation.scrollHeight;
-}
-function setActions(actions){
-  quickActions.innerHTML='';
-  actions.forEach(a=>{
-    const b=document.createElement('button');
-    b.type='button';
-    b.className='chat-chip'+(a.primary?' chat-chip-primary':'');
-    b.textContent=a.label;
-    b.onclick=a.onClick;
-    quickActions.appendChild(b);
-  });
-}
-function initialActions(){
-  setActions([
-    {label:'Agendamento online',primary:true,onClick:()=>handleAction('schedule')},
-    {label:'2ª via de boleto',onClick:()=>handleAction('boleto')},
-    {label:'Guia Médico',onClick:()=>handleAction('guide')},
-    {label:'Autorizações',onClick:()=>handleAction('authorization')},
-    {label:'Outros canais',onClick:()=>handleAction('channels')}
-  ]);
-}
-function handleAction(action){
-  if(action==='schedule'){
-    userMessage('Agendamento online');
-    botMessage('Claro. Você pode reservar data e horário pelo Sem Fila. Se o beneficiário for de outra Unimed, também há opção de atendimento de intercâmbio.');
-    setActions([
-      {label:'Agendar — Unimed Divinópolis',primary:true,onClick:()=>location.href='agendamento.html'},
-      {label:'Agendar — outra Unimed (intercâmbio)',onClick:()=>location.href='agendamento.html?origem=intercambio'},
-      {label:'Meus agendamentos',onClick:()=>location.href='agendamento.html#meus'},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+function handleIntent(raw) {
+  const text = raw.toLowerCase();
+  if (text.includes('sair')) {
+    appendMessage(raw, 'user');
+    appendMessage('Atendimento encerrado. Se precisar, é só me chamar novamente.', 'bot');
+    return;
   }
-  if(action==='boleto'){
-    userMessage('2ª via de boleto');
-    botMessage('A 2ª via pode ser resolvida pela IVA, sem necessidade de reservar um horário de atendimento.');
-    setActions([
-      {label:'Continuar no portal oficial',primary:true,onClick:()=>window.open('https://www.unimed.coop.br/site/web/divinopolis','_blank','noopener')},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+  if (text.includes('agend') || text.includes('horário') || text.includes('horario')) {
+    appendMessage('Quero realizar um agendamento.', 'user');
+    appendMessage('Perfeito! Vou encaminhar você para o <strong>Sem Fila</strong>. Se o beneficiário for de outra Unimed, escolha a opção de <strong>intercâmbio</strong> no início do fluxo.', 'bot');
+    setTimeout(() => { window.location.href = 'agendamento.html'; }, 900);
+    return;
   }
-  if(action==='guide'){
-    userMessage('Guia Médico');
-    botMessage('Posso encaminhar você ao Guia Médico da Unimed Divinópolis.');
-    setActions([
-      {label:'Abrir Guia Médico',primary:true,onClick:()=>window.open('https://www.unimed.coop.br/site/web/divinopolis/guia-medico','_blank','noopener')},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+  if (text.includes('boleto') || text.includes('fatura')) {
+    appendMessage('Preciso de 2ª via de boleto.', 'user');
+    appendMessage('Esse caso pode ser resolvido sem reservar horário. Vou abrir o portal oficial para você continuar com a IVA.', 'bot');
+    setTimeout(() => { window.open('https://www.unimed.coop.br/site/web/divinopolis', '_blank', 'noopener'); }, 900);
+    return;
   }
-  if(action==='authorization'){
-    userMessage('Autorizações');
-    botMessage('Se precisar conversar com a equipe sobre uma autorização, você pode agendar um atendimento.');
-    setActions([
-      {label:'Agendar atendimento',primary:true,onClick:()=>location.href='agendamento.html'},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+  if (text.includes('intercâmbio') || text.includes('intercambio') || text.includes('outra unimed')) {
+    appendMessage('Sou beneficiário de outra Unimed.', 'user');
+    appendMessage('Certo! Vou direcionar você para o fluxo com identificação de <strong>intercâmbio</strong>.', 'bot');
+    setTimeout(() => { window.location.href = 'agendamento.html?origem=intercambio'; }, 900);
+    return;
   }
-  if(action==='channels'){
-    userMessage('Outros canais');
-    botMessage('Você também pode consultar os demais canais de atendimento disponíveis no portal oficial.');
-    setActions([
-      {label:'Ver canais de atendimento',primary:true,onClick:()=>window.open('https://www.unimed.coop.br/site/web/divinopolis/canais-de-atendimento','_blank','noopener')},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+  if (text.includes('guia') || text.includes('médico') || text.includes('medico')) {
+    appendMessage('Quero acessar o Guia Médico.', 'user');
+    appendMessage('Sem problema. Vou abrir o Guia Médico da Unimed Divinópolis.', 'bot');
+    setTimeout(() => { window.open('https://www.unimed.coop.br/site/web/divinopolis/guia-medico', '_blank', 'noopener'); }, 900);
+    return;
   }
+  appendMessage(raw, 'user');
+  appendMessage('Posso ajudar com <strong>agendamento</strong>, <strong>boleto</strong>, <strong>intercâmbio</strong> e <strong>Guia Médico</strong>. Digite uma dessas opções para continuar.', 'bot');
 }
 if (launch) launch.addEventListener('click', openPanel);
 if (closeBtn) closeBtn.addEventListener('click', closePanel);
-document.querySelectorAll('[data-action]').forEach(btn=>btn.addEventListener('click',()=>handleAction(btn.dataset.action)));
-
-function sendChat() {
-  const raw=(input?.value||'').trim();
-  const text=raw.toLowerCase();
-  if(!text) return;
-  userMessage(raw);
-  input.value='';
-  if(text.includes('agend') || text.includes('horário') || text.includes('horario')) return handleAction('schedule');
-  if(text.includes('boleto') || text.includes('fatura')) return handleAction('boleto');
-  if(text.includes('médico') || text.includes('medico') || text.includes('guia')) return handleAction('guide');
-  if(text.includes('autoriza')) return handleAction('authorization');
-  if(text.includes('intercâmbio') || text.includes('intercambio') || text.includes('outra unimed')){
-    botMessage('Para beneficiário de outra Unimed, use o fluxo de intercâmbio.');
-    return setActions([
-      {label:'Agendar atendimento de intercâmbio',primary:true,onClick:()=>location.href='agendamento.html?origem=intercambio'},
-      {label:'Voltar',onClick:initialActions}
-    ]);
+if (pfBtn) pfBtn.addEventListener('click', () => {
+  appendMessage('Pessoa Física (PF)', 'user');
+  appendMessage('Perfeito. Agora me diga o que você precisa: <strong>agendamento</strong>, <strong>boleto</strong>, <strong>intercâmbio</strong> ou <strong>guia médico</strong>.', 'bot');
+});
+if (sendBtn) sendBtn.addEventListener('click', () => {
+  const raw = (input?.value || '').trim();
+  if (!raw) return;
+  input.value = '';
+  handleIntent(raw);
+});
+if (input) input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const raw = (input?.value || '').trim();
+    if (!raw) return;
+    input.value = '';
+    handleIntent(raw);
   }
-  botMessage('Posso ajudar com agendamento online, 2ª via de boleto, Guia Médico, autorizações ou outros canais.');
-  initialActions();
-}
-if(sendBtn) sendBtn.addEventListener('click',sendChat);
-if(input) input.addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+});

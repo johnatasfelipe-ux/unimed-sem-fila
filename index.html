@@ -36,7 +36,7 @@
             <div class="appointment-copy">
               <span class="appointment-kicker">NOVIDADE • ATENDIMENTO DIGITAL</span>
               <h1>Agora você pode<br><strong>agendar seu atendimento online.</strong></h1>
-              <p>Evite filas, organize seu tempo e escolha a data e o horário que funcionam melhor para você.</p>
+              <p>Evite filas, organize seu tempo, escolha a melhor data e reserve o tempo necessário para o seu atendimento.</p>
               <div class="appointment-actions">
                 <a class="appointment-cta" href="agendamento.html">AGENDAR ATENDIMENTO</a>
                 <span class="appointment-note">Rápido • organizado • sem fila</span>
@@ -91,7 +91,7 @@
     <section class="prototype-info container-official">
       <div>
         <strong>Visão do responsável</strong>
-        <span>O mesmo protótipo possui um painel separado para acompanhar ocupação, faltas, cancelamentos, demanda por setor e negociações.</span>
+        <span>O mesmo protótipo possui um painel separado para acompanhar ocupação, faltas, cancelamentos, demanda por setor, faixa etária e negociações.</span>
       </div>
       <a href="painel.html">Abrir painel de indicadores →</a>
     </section>
@@ -100,38 +100,36 @@
   <div class="chatbot-widget" id="chatbotWidget">
     <div class="chatbot-panel hidden" id="chatbotPanel">
       <button class="chatbot-close" id="chatbotClose" aria-label="Fechar chatbot">×</button>
-      <div class="chatbot-header">
-        <div class="chatbot-avatar">IVA</div>
+      <div class="chatbot-header official-chat-header">
         <div>
-          <strong>Olá! Sou a IVA.</strong>
-          <small>Posso ajudar você a encontrar o canal certo para sua necessidade.</small>
+          <strong>Você está sendo atendido<br>pelo nosso ChatBot</strong>
+          <p><span class="chat-dot"></span>Nós normalmente respondemos dentro de alguns minutos.</p>
         </div>
       </div>
 
-      <div class="chatbot-conversation" id="chatbotConversation">
-        <div class="bot-message">Como posso ajudar?</div>
+      <div class="chatbot-stage-chip-wrap">
+        <button class="chat-main-chip" type="button" id="pfBtn">Pessoa Física (PF)</button>
       </div>
 
-      <div class="chatbot-quick-actions" id="chatbotQuickActions">
-        <button type="button" class="chat-chip chat-chip-primary" data-action="schedule">Agendamento online</button>
-        <button type="button" class="chat-chip" data-action="boleto">2ª via de boleto</button>
-        <button type="button" class="chat-chip" data-action="guide">Guia Médico</button>
-        <button type="button" class="chat-chip" data-action="authorization">Autorizações</button>
-        <button type="button" class="chat-chip" data-action="channels">Outros canais</button>
+      <div class="chatbot-conversation official-conversation" id="chatbotConversation">
+        <div class="bot-message large-bot-message">Para dar sequência no seu atendimento com segurança, vou precisar de algumas informações! Você pode parar o processo a qualquer momento digitando "sair". <br><br><strong>Digite:</strong><br>• agendamento → para reservar um horário<br>• boleto → para 2ª via<br>• intercâmbio → para beneficiário de outra Unimed<br>• guia médico → para busca de rede</div>
       </div>
 
-      <div class="chatbot-input-row">
-        <input id="chatbotInput" type="text" placeholder="Escreva sua mensagem..." />
+      <div class="chatbot-input-row official-chat-input-row">
+        <input id="chatbotInput" type="text" placeholder="Escreva a sua mensagem..." />
         <button type="button" class="chat-send" id="chatbotSend">➜</button>
       </div>
-      <p class="chatbot-hint">Protótipo: as opções demonstram como a IVA pode orientar o beneficiário.</p>
+      <p class="chatbot-hint">Protótipo: o fluxo abaixo demonstra como a IVA pode orientar e encaminhar o beneficiário.</p>
     </div>
 
-    <button type="button" class="chatbot-launch" id="chatbotLaunch">
-      <span class="chatbot-bubble-text">Posso te ajudar? 👉</span>
-      <span class="chatbot-launch-avatar">IVA</span>
-      <span class="chatbot-launch-icon">💬</span>
-    </button>
+    <div class="chatbot-launch-wrap" id="chatbotLaunchWrap">
+      <img class="chatbot-mascot" src="assets/iva-mascot.png" alt="IVA, assistente virtual da Unimed">
+      <button type="button" class="chatbot-launch" id="chatbotLaunch">
+        <span class="chatbot-bubble-text">Posso te ajudar? 👉</span>
+        <span class="chatbot-launch-icon chat-icon">💬</span>
+        <span class="chatbot-launch-icon edit-icon">✎</span>
+      </button>
+    </div>
   </div>
 
   <script src="site.js"></script>

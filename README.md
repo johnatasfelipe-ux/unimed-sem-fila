@@ -1,20 +1,14 @@
-# Unimed Sem Fila — Protótipo v5
+# Unimed Sem Fila — Protótipo v6
 
-Atualizações desta versão:
+Melhorias desta versão:
 
-- chatbot/IVA demonstrativo mais guiado;
-- opção de agendamento diretamente pelo chatbot;
-- atalho específico para beneficiário de outra Unimed;
-- fluxo inicial identifica se o beneficiário é da Unimed Divinópolis ou de intercâmbio;
-- para intercâmbio, registra a Unimed de origem no protótipo;
-- painel do responsável passa a acompanhar participação de atendimentos de intercâmbio;
-- mantém identificação por carteirinha ou CPF + data de nascimento;
-- mantém regra de cancelamento com 2 horas de antecedência.
+- chatbot/IVA refinado visualmente e mais próximo do portal oficial;
+- bonequinho da IVA estático ao lado do botão flutuante;
+- ao passar o mouse sobre o balão, o ícone muda para lápis, como no portal;
+- painel do chat mais parecido com o oficial;
+- tela inicial do agendamento reformulada com hero visual e cards mais fortes;
+- melhora visual das demais telas do fluxo;
+- mantidas as regras de intercâmbio, identificação por CPF/carteirinha, cancelamento e painel.
 
-## Observação
-
-Os campos e regras do fluxo de intercâmbio são demonstrativos. Em implantação real, devem ser validados conforme integrações e regras operacionais disponíveis.
-
-## Atualização no GitHub Pages
-
-Substitua os arquivos da versão anterior pelos arquivos desta pasta. A pasta `assets` deve continuar publicada.
+## Publicação
+Substitua os arquivos da versão anterior por esta nova versão e mantenha a pasta `assets/`.
