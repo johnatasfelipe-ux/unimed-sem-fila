@@ -8,6 +8,36 @@ function saved(){
   return JSON.parse(localStorage.getItem('semfila_bookings_v8')||'[]');
 }
 
+function savedDigital(){
+  return JSON.parse(localStorage.getItem('semfila_digital_routes_v8')||'[]');
+}
+
+function seededDigital(date){
+  const services=[
+    ['2ª via de boleto','Financeiro'],
+    ['Autorização de guias','Autorizações'],
+    ['Guia Médico','Atendimento Geral'],
+    ['Extrato de utilização','Atendimento Geral'],
+    ['Orçamento de exames','Atendimento Geral'],
+    ['2ª via de boleto','Financeiro'],
+    ['Guia Médico','Atendimento Geral']
+  ];
+  return services.map((x,i)=>({
+    id:'DG'+i,
+    date,
+    service:x[0],
+    sector:x[1],
+    source:i%2?'assuntos':'identificacao'
+  }));
+}
+
+function digitalFor(date){
+  return [
+    ...seededDigital(date),
+    ...savedDigital().filter(x=>x.date===date)
+  ];
+}
+
 function ageBand(age){
   if(age<18)return'0-17';
   if(age<30)return'18-29';
@@ -90,12 +120,14 @@ function render(){
   const date=$('#dashDate').value;
   const sector=$('#sectorFilter').value;
   let data=allFor(date);
+  let digital=digitalFor(date);
 
   if(sector!=='Todos'){
     data=data.filter(x=>String(x.sector||'').includes(sector));
+    digital=digital.filter(x=>String(x.sector||'').includes(sector));
   }
 
-  renderKpis(data);
+  renderKpis(data,digital);
   renderAge(data);
   renderProfile(data);
   renderServices(data);
@@ -105,7 +137,7 @@ function render(){
   renderTable(data);
 }
 
-function renderKpis(data){
+function renderKpis(data,digital){
   const active=data.filter(x=>x.status!=='Cancelado');
   const multi=active.filter(x=>(x.duration||20)>20);
   const cancel=data.filter(x=>x.status==='Cancelado').length;
@@ -118,7 +150,8 @@ function renderKpis(data){
     ['Múltiplos assuntos',pct(multi.length,active.length)+'%',multi.length+' atendimento(s)'],
     ['Tempo médio',avg+' min','tempo reservado'],
     ['Faltas',pct(noShow,active.length)+'%',noShow+' ocorrência(s)'],
-    ['Cancelamentos',cancel,'vagas liberadas']
+    ['Cancelamentos',cancel,'vagas liberadas'],
+    ['Direcionamentos digitais',digital.length,'demandas encaminhadas a serviços online']
   ];
 
   $('#kpis').innerHTML=k.map(x=>`

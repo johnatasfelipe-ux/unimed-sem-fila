@@ -5,6 +5,77 @@ const services=[
 {name:'Autorizações',icon:'✓',desc:'Exames, procedimentos e solicitações',reasons:['Solicitar autorização','Consultar autorização existente','Autorização negada','Enviar documentação']},
 {name:'Outros',icon:'…',desc:'Demais dúvidas e solicitações',reasons:['Rede credenciada','Declarações e documentos','Dúvidas gerais','Outro assunto']}
 ];
+
+const onlineServices=[
+  {
+    name:'2ª via de boleto',
+    icon:'▤',
+    desc:'Consulte ou emita sua fatura sem reservar horário.',
+    sector:'Financeiro',
+    url:'https://www.unimed.coop.br/site/web/divinopolis'
+  },
+  {
+    name:'Autorização de guias',
+    icon:'✓',
+    desc:'Acesse as opções digitais de autorização disponíveis no portal.',
+    sector:'Autorizações',
+    url:'https://www.unimed.coop.br/site/web/divinopolis'
+  },
+  {
+    name:'Extrato de utilização',
+    icon:'≡',
+    desc:'Consulte informações e demonstrativos disponíveis nos canais digitais.',
+    sector:'Atendimento Geral',
+    url:'https://www.unimed.coop.br/site/web/divinopolis'
+  },
+  {
+    name:'Orçamento de exames',
+    icon:'⌕',
+    desc:'Consulte o canal digital antes de reservar um atendimento presencial.',
+    sector:'Atendimento Geral',
+    url:'https://www.unimed.coop.br/site/web/divinopolis'
+  },
+  {
+    name:'Guia Médico',
+    icon:'✚',
+    desc:'Pesquise médicos e rede de atendimento diretamente no Guia Médico.',
+    sector:'Atendimento Geral',
+    url:'https://www.unimed.coop.br/site/web/divinopolis/guia-medico'
+  }
+];
+const digitalStorageKey='semfila_digital_routes_v8';
+
+function digitalEvents(){
+  return JSON.parse(localStorage.getItem(digitalStorageKey)||'[]');
+}
+function saveDigitalEvent(service,source){
+  const list=digitalEvents();
+  list.push({
+    date:dateISO(new Date()),
+    service:service.name,
+    sector:service.sector,
+    source,
+    created:new Date().toISOString()
+  });
+  localStorage.setItem(digitalStorageKey,JSON.stringify(list));
+}
+function renderOnlineServices(target,source){
+  const box=$(target);
+  if(!box)return;
+  box.innerHTML='';
+  onlineServices.forEach(service=>{
+    const card=document.createElement('button');
+    card.type='button';
+    card.className='online-service-card';
+    card.innerHTML=`<span class="online-service-icon">${service.icon}</span><div><b>${service.name}</b><small>${service.desc}</small><em>Resolver online ↗</em></div>`;
+    card.onclick=()=>{
+      saveDigitalEvent(service,source);
+      window.open(service.url,'_blank','noopener');
+    };
+    box.appendChild(card);
+  });
+}
+
 const slotGroups=[['08:00','08:20','08:40','09:00','09:20','09:40','10:00','10:20','10:40','11:00','11:20','11:40'],['13:00','13:20','13:40','14:00','14:20','14:40','15:00','15:20','15:40','16:00','16:20','16:40']];
 const baseSlots=slotGroups.flat();
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
@@ -62,7 +133,16 @@ $$('.payment-btn').forEach(btn=>btn.onclick=()=>{state.payment=btn.dataset.payme
 $$('#extraChoiceRow .segmented-btn').forEach(btn=>btn.onclick=()=>{state.wantsExtra=btn.dataset.extra==='yes';$$('#extraChoiceRow .segmented-btn').forEach(x=>x.classList.toggle('selected',x===btn));$('#extraServiceArea').classList.toggle('hidden',!state.wantsExtra);if(!state.wantsExtra){state.extraService=null;state.extraReason='';$('#extraServiceSelect').value=''}updateDuration();validateService()});
 $('#extraServiceSelect').onchange=e=>{state.extraService=availableServices().find(s=>s.name===e.target.value)||null;state.extraReason='';$('#extraReasonSelect').innerHTML='<option value="">Selecione o motivo</option>'+(state.extraService?state.extraService.reasons.map(r=>`<option>${escapeHtml(r)}</option>`).join(''):'');updateDuration();validateService()};
 $('#extraReasonSelect').onchange=e=>{state.extraReason=e.target.value;validateService()};
-function startSchedule(){state.service=null;state.reason='';state.payment='';state.wantsExtra=false;state.extraService=null;state.extraReason='';state.date='';state.time='';renderServices();$('#reasonSelect').innerHTML='<option value="">Selecione primeiro um assunto</option>';$('#paymentArea').classList.add('hidden');$('#extraServiceArea').classList.add('hidden');$$('#extraChoiceRow .segmented-btn').forEach(x=>x.classList.toggle('selected',x.dataset.extra==='no'));$('#boletoTip').classList.toggle('hidden',state.user.origin==='interchange');$('#interchangeRouting').classList.toggle('hidden',state.user.origin!=='interchange');updateDuration();validateService();show('screen-service',2)}
+
+renderOnlineServices('#onlineIntroList','identificacao');
+renderOnlineServices('#onlineServiceList','assuntos');
+
+$('#openOnlineIntro').onclick=()=>$('#onlineIntroPanel').classList.remove('hidden');
+$('#closeOnlineIntro').onclick=()=>$('#onlineIntroPanel').classList.add('hidden');
+$('#openOnlineService').onclick=()=>$('#onlineServicePanel').classList.remove('hidden');
+$('#closeOnlineService').onclick=()=>$('#onlineServicePanel').classList.add('hidden');
+
+function startSchedule(){state.service=null;state.reason='';state.payment='';state.wantsExtra=false;state.extraService=null;state.extraReason='';state.date='';state.time='';renderServices();$('#reasonSelect').innerHTML='<option value="">Selecione primeiro um assunto</option>';$('#paymentArea').classList.add('hidden');$('#extraServiceArea').classList.add('hidden');$$('#extraChoiceRow .segmented-btn').forEach(x=>x.classList.toggle('selected',x.dataset.extra==='no'));$('#onlineDigitalTip').classList.toggle('hidden',state.user.origin==='interchange');$('#onlineServicePanel').classList.add('hidden');$('#interchangeRouting').classList.toggle('hidden',state.user.origin!=='interchange');updateDuration();validateService();show('screen-service',2)}
 $('#backToId').onclick=()=>show('screen-identification',1);
 $('#toSchedule').onclick=()=>{renderDates();show('screen-schedule',3)};
 
