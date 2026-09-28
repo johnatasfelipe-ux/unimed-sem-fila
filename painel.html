@@ -1,70 +1,86 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sem Fila — Painel de Indicadores</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Sem Fila — Painel de Indicadores</title>
+<link href="styles.css" rel="stylesheet"/>
 </head>
-<body class="dashboard-page">
-  <header class="dashboard-header"><div class="dashboard-container dashboard-header-inner"><div class="dashboard-brand"><img src="assets/unimed-logo.png" alt="Unimed Divinópolis"><div><strong>Sem Fila</strong><small>Painel de acompanhamento da modalidade</small></div></div><a href="index.html">← Voltar ao protótipo</a></div></header>
-  <main class="dashboard-container dashboard-main">
-    <div class="dashboard-title-row"><div><span class="eyebrow">GESTÃO DO ATENDIMENTO</span><h1>Indicadores do agendamento online</h1><p>Acompanhe adesão, perfil dos beneficiários, capacidade e comportamento da modalidade.</p></div><div class="dashboard-filters">
-      <input id="dashDate" type="date">
-      <select id="sectorFilter">
-        <option value="Todos">Todos os setores</option>
-        <option value="Financeiro">Financeiro</option>
-        <option value="Cadastro">Cadastro</option>
-        <option value="Autorizações">Autorizações</option>
-        <option value="Intercâmbio">Intercâmbio</option>
-        <option value="Atendimento Geral">Atendimento Geral</option>
-      </select>
-    </div></div>
+<body class="dashboard-page"><div class="dashboard-shell"><aside class="dashboard-sidebar">
+<a class="dashboard-sidebar-logo" href="index.html">
+<span class="semfila-logo-card dashboard-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</span>
+</a>
+<nav class="dashboard-nav">
+<a class="active" href="painel.html"><span>▥</span> Painel de indicadores</a>
+<a href="agendamento.html"><span>▣</span> Agendamentos</a>
+<a href="#ageBars"><span>◎</span> Beneficiários</a>
+<a href="#digitalPerformance"><span>▤</span> Serviços online</a>
+<a href="#appointmentsTable"><span>▧</span> Relatórios</a>
+</nav>
+<div class="dashboard-sidebar-footer">
+<img alt="Unimed Divinópolis" src="assets/unimed-logo.png"/>
+<small>Cuidado de verdade para uma vida melhor.</small>
+</div>
+</aside><div class="dashboard-workspace"><header class="dashboard-header dashboard-topbar">
+<div class="dashboard-header-inner">
+<div>
+<strong>Painel de indicadores</strong>
+<small>Acompanhamento da modalidade</small>
+</div>
+<a href="index.html">← Voltar ao protótipo</a>
+</div>
+</header><main class="dashboard-container dashboard-main">
+<div class="dashboard-title-row"><div><span class="eyebrow">GESTÃO DO ATENDIMENTO</span><h1>Indicadores do agendamento online</h1><p>Acompanhe adesão, perfil dos beneficiários, capacidade e comportamento da modalidade.</p></div><div class="dashboard-filters">
+<input id="dashDate" type="date"/>
+<select id="sectorFilter">
+<option value="Todos">Todos os setores</option>
+<option value="Financeiro">Financeiro</option>
+<option value="Cadastro">Cadastro</option>
+<option value="Autorizações">Autorizações</option>
+<option value="Intercâmbio">Intercâmbio</option>
+<option value="Atendimento Geral">Atendimento Geral</option>
+</select>
+</div></div>
+<section class="kpi-grid" id="kpis"></section>
+<section class="dashboard-card digital-performance-card">
+<div class="digital-performance-head">
+<div>
+<span class="eyebrow">CANAIS DIGITAIS</span>
+<h3>Eficiência dos direcionamentos digitais</h3>
+<p>Acompanhe quantas demandas foram orientadas para serviços online e quantas tiveram resolução registrada.</p>
+</div>
+</div>
+<div class="digital-performance-grid" id="digitalPerformance"></div>
+<div class="digital-detail-grid">
+<div>
+<h4>Direcionamentos por serviço</h4>
+<div class="bar-chart" id="digitalServiceBars"></div>
+</div>
+<div>
+<h4>Origem do direcionamento</h4>
+<div class="profile-grid" id="digitalSourceGrid"></div>
+</div>
+</div>
+<p class="digital-note">No protótipo, os resultados de resolução são demonstrativos. Em produção, a confirmação de resolução dependerá do retorno ou integração do canal digital utilizado.</p>
+</section>
+<section class="dashboard-grid">
+<article class="dashboard-card age-card"><h3>Adesão por faixa etária</h3><p>Perfil dos beneficiários que utilizam o agendamento online.</p><div class="bar-chart" id="ageBars"></div></article>
+<article class="dashboard-card"><h3>Origem dos beneficiários</h3><p>Participação de beneficiários locais e de intercâmbio.</p><div class="profile-grid" id="profileGrid"></div></article>
+</section>
+<section class="dashboard-grid">
+<article class="dashboard-card"><h3>Assuntos mais procurados</h3><p>Ajuda a entender quais demandas mais utilizam a modalidade.</p><div class="bar-chart" id="serviceBars"></div></article>
+<article class="dashboard-card"><h3>Horários mais demandados</h3><p>Volume de procura ao longo do dia.</p><div class="bar-chart" id="hourBars"></div></article>
+</section>
+<section class="dashboard-grid">
+<article class="dashboard-card"><h3>Utilização da capacidade</h3><p>Relação entre horários programados e tempo efetivamente reservado.</p><div class="capacity-panel" id="capacityPanel"></div></article>
+<article class="dashboard-card"><h3>Negociações financeiras</h3><p>Preferência informada previamente para acelerar o atendimento.</p><div class="profile-grid" id="paymentGrid"></div></article>
+</section>
+<section class="dashboard-card table-card"><h3>Próximos atendimentos</h3><p>Visão operacional por setor, horário e tempo reservado.</p><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Origem</th><th>Assunto</th><th>Tempo</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></section>
+</main></div></div>
 
-    <section class="kpi-grid" id="kpis"></section>
 
-    <section class="dashboard-card digital-performance-card">
-      <div class="digital-performance-head">
-        <div>
-          <span class="eyebrow">CANAIS DIGITAIS</span>
-          <h3>Eficiência dos direcionamentos digitais</h3>
-          <p>Acompanhe quantas demandas foram orientadas para serviços online e quantas tiveram resolução registrada.</p>
-        </div>
-      </div>
-
-      <div class="digital-performance-grid" id="digitalPerformance"></div>
-
-      <div class="digital-detail-grid">
-        <div>
-          <h4>Direcionamentos por serviço</h4>
-          <div class="bar-chart" id="digitalServiceBars"></div>
-        </div>
-        <div>
-          <h4>Origem do direcionamento</h4>
-          <div class="profile-grid" id="digitalSourceGrid"></div>
-        </div>
-      </div>
-
-      <p class="digital-note">No protótipo, os resultados de resolução são demonstrativos. Em produção, a confirmação de resolução dependerá do retorno ou integração do canal digital utilizado.</p>
-    </section>
-
-    <section class="dashboard-grid">
-      <article class="dashboard-card age-card"><h3>Adesão por faixa etária</h3><p>Perfil dos beneficiários que utilizam o agendamento online.</p><div class="bar-chart" id="ageBars"></div></article>
-      <article class="dashboard-card"><h3>Origem dos beneficiários</h3><p>Participação de beneficiários locais e de intercâmbio.</p><div class="profile-grid" id="profileGrid"></div></article>
-    </section>
-
-    <section class="dashboard-grid">
-      <article class="dashboard-card"><h3>Assuntos mais procurados</h3><p>Ajuda a entender quais demandas mais utilizam a modalidade.</p><div class="bar-chart" id="serviceBars"></div></article>
-      <article class="dashboard-card"><h3>Horários mais demandados</h3><p>Volume de procura ao longo do dia.</p><div class="bar-chart" id="hourBars"></div></article>
-    </section>
-
-    <section class="dashboard-grid">
-      <article class="dashboard-card"><h3>Utilização da capacidade</h3><p>Relação entre horários programados e tempo efetivamente reservado.</p><div class="capacity-panel" id="capacityPanel"></div></article>
-      <article class="dashboard-card"><h3>Negociações financeiras</h3><p>Preferência informada previamente para acelerar o atendimento.</p><div class="profile-grid" id="paymentGrid"></div></article>
-    </section>
-
-    <section class="dashboard-card table-card"><h3>Próximos atendimentos</h3><p>Visão operacional por setor, horário e tempo reservado.</p><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Origem</th><th>Assunto</th><th>Tempo</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></section>
-  </main>
-  <script src="dashboard.js"></script>
+<script src="dashboard.js"></script>
 </body>
 </html>

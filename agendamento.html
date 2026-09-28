@@ -1,238 +1,261 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sem Fila — Agendamento Online</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Sem Fila — Agendamento Online</title>
+<link href="styles.css" rel="stylesheet"/>
 </head>
 <body class="app-page">
-  <header class="app-header">
-    <div class="app-container app-header-inner">
-      <a class="app-brand" href="index.html">
-        <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
-        <div><strong>Sem Fila</strong><small>Agendamento online de atendimento</small></div>
-      </a>
-      <div class="app-header-actions">
-        <button id="myBookingsTop" type="button" class="header-link">Meus agendamentos</button>
-        <button id="panelTop" type="button" class="header-link visible">Painel</button>
-        <span id="headerUser">Visitante</span>
-        <button id="logoutBtn" type="button" class="header-outline">Sair</button>
-      </div>
-    </div>
-  </header>
+<header class="app-header">
+<div class="app-container app-header-inner">
+<a class="app-brand" href="index.html"><img alt="Unimed Sem Fila" class="app-sem-fila-logo" src="assets/unimed-sem-fila-logo.png"/></a>
+<div class="app-header-actions">
+<button class="header-link" id="myBookingsTop" type="button">Meus agendamentos</button>
+<button class="header-link visible" id="panelTop" type="button">Painel</button>
+<span id="headerUser">Visitante</span>
+<button class="header-outline" id="logoutBtn" type="button">Sair</button>
+</div>
+</div>
+</header>
+<main class="app-container app-main">
+<div class="app-progress" id="appProgress">
+<div class="progress-step active"><span>1</span><b>Identificação</b></div>
+<div class="progress-connector"></div>
+<div class="progress-step"><span>2</span><b>Assuntos</b></div>
+<div class="progress-connector"></div>
+<div class="progress-step"><span>3</span><b>Agenda</b></div>
+<div class="progress-connector"></div>
+<div class="progress-step"><span>4</span><b>Confirmação</b></div>
+</div>
+<section class="screen active" id="screen-identification">
+<div class="entry-shell">
+<aside class="entry-brand-panel"><div class="semfila-logo-card"><img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/></div>
 
-  <main class="app-container app-main">
-    <div class="app-progress" id="appProgress">
-      <div class="progress-step active"><span>1</span><b>Identificação</b></div>
-      <div class="progress-connector"></div>
-      <div class="progress-step"><span>2</span><b>Assuntos</b></div>
-      <div class="progress-connector"></div>
-      <div class="progress-step"><span>3</span><b>Agenda</b></div>
-      <div class="progress-connector"></div>
-      <div class="progress-step"><span>4</span><b>Confirmação</b></div>
-    </div>
 
-    <section class="screen active" id="screen-identification">
-      <div class="entry-shell">
-        <aside class="entry-brand-panel">
-          <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
-          <div class="entry-sem-fila">Sem Fila</div>
-          <h1>Seu atendimento começa aqui.</h1>
-          <p>Identifique o beneficiário para seguirmos com segurança e preparar o atendimento.</p>
-          <div class="entry-info-card">
-            <b>Antes de continuar</b>
-            <span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
-          </div>
-        </aside>
+<h1>Seu atendimento começa aqui.</h1>
+<p>Identifique o beneficiário para seguirmos com segurança e preparar o atendimento.</p>
+<div class="entry-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside>
+<div class="entry-form-panel">
+<span class="eyebrow">SEUS DADOS DE IDENTIFICAÇÃO</span>
+<h2>Como deseja se identificar?</h2>
+<p class="muted">Não é necessário digitar o nome completo. Em um cenário real, o nome será recuperado após a validação dos dados.</p>
+<div class="online-precheck">
+<div>
+<b>Antes de agendar, consulte nossos serviços online</b>
+<span>Algumas solicitações podem ser resolvidas de forma rápida e prática pelos canais digitais, sem necessidade de deslocamento.</span>
+</div>
+<button class="online-precheck-btn" id="openOnlineIntro" type="button">Ver serviços online</button>
+</div>
+<div class="online-services-panel hidden" id="onlineIntroPanel">
+<div class="online-panel-head">
+<div>
+<span class="eyebrow">SERVIÇOS DIGITAIS</span>
+<h3>Talvez você não precise agendar</h3>
+</div>
+<button class="online-close-btn" id="closeOnlineIntro" type="button">Continuar com agendamento</button>
+</div>
+<div class="online-services-grid" id="onlineIntroList"></div>
+</div>
+<div class="form-section">
+<label class="group-label">Este agendamento é para:</label>
+<div class="segmented" id="recipientRow">
+<button class="segmented-btn selected" data-recipient="self" type="button">Para mim</button>
+<button class="segmented-btn" data-recipient="other" type="button">Para outra pessoa</button>
+</div>
+</div>
+<div class="form-section">
+<label class="group-label">Beneficiário:</label>
+<div class="segmented" id="originRow">
+<button class="segmented-btn selected" data-origin="local" type="button">Unimed Divinópolis</button>
+<button class="segmented-btn" data-origin="interchange" type="button">Outra Unimed / Intercâmbio</button>
+</div>
+</div>
+<div class="form-section">
+<label class="group-label">Identificação:</label>
+<div class="segmented compact-segmented" id="methodRow">
+<button class="segmented-btn selected" data-method="card" type="button">Carteirinha</button>
+<button class="segmented-btn" data-method="cpf" type="button">CPF</button>
+</div>
+</div>
+<label class="field" id="cardField">Número da carteirinha
+            <input autocomplete="off" id="cardNumber" inputmode="numeric" placeholder="0144.4295.00081234-6"/>
+</label>
+<label class="field hidden" id="cpfField">CPF
+            <input autocomplete="off" id="cpfNumber" inputmode="numeric" placeholder="000.000.000-00"/>
+</label>
+<label class="field hidden" id="originUnimedField">Unimed de origem
+            <input autocomplete="off" id="originUnimed" placeholder="Ex.: Unimed BH" type="text"/>
+</label>
+<label class="field">Data de nascimento
+            <input id="birthDate" type="date"/>
+</label>
+<div class="third-party-alert hidden" id="thirdPartyAlert">
+<b>Agendamento realizado por terceiro</b>
+<p>O agendamento pode ser feito por outra pessoa. Porém, o atendimento presencial e o fornecimento de informações serão realizados diretamente ao <strong>beneficiário agendado</strong> ou ao <strong>responsável pelo plano</strong>. No atendimento, será necessária a apresentação de documento de identificação e carteirinha.</p>
+<label class="consent-line"><input id="lgpdConsent" type="checkbox"/> <span>Li e estou ciente das condições de atendimento e acesso às informações.</span></label>
+</div>
+<div class="minor-alert hidden" id="minorAlert">
+<b>Beneficiário menor de idade</b>
+<span>O atendimento deverá ocorrer com o responsável pelo plano ou responsável autorizado, com a documentação necessária.</span>
+</div>
+<button class="primary-btn full" id="loginBtn" type="button">Continuar</button>
+<button class="demo-link" id="demoBtn" type="button">Preencher com dados de exemplo</button>
+</div>
+</div>
+</section>
+<section class="screen" id="screen-service">
 
-        <div class="entry-form-panel">
-          <span class="eyebrow">SEUS DADOS DE IDENTIFICAÇÃO</span>
-          <h2>Como deseja se identificar?</h2>
-          <p class="muted">Não é necessário digitar o nome completo. Em um cenário real, o nome será recuperado após a validação dos dados.</p>
-
-          <div class="online-precheck">
-            <div>
-              <b>Antes de agendar, consulte nossos serviços online</b>
-              <span>Algumas solicitações podem ser resolvidas de forma rápida e prática pelos canais digitais, sem necessidade de deslocamento.</span>
-            </div>
-            <button class="online-precheck-btn" id="openOnlineIntro" type="button">Ver serviços online</button>
-          </div>
-
-          <div class="online-services-panel hidden" id="onlineIntroPanel">
-            <div class="online-panel-head">
-              <div>
-                <span class="eyebrow">SERVIÇOS DIGITAIS</span>
-                <h3>Talvez você não precise agendar</h3>
-              </div>
-              <button class="online-close-btn" id="closeOnlineIntro" type="button">Continuar com agendamento</button>
-            </div>
-            <div class="online-services-grid" id="onlineIntroList"></div>
-          </div>
-
-          <div class="form-section">
-            <label class="group-label">Este agendamento é para:</label>
-            <div class="segmented" id="recipientRow">
-              <button type="button" class="segmented-btn selected" data-recipient="self">Para mim</button>
-              <button type="button" class="segmented-btn" data-recipient="other">Para outra pessoa</button>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <label class="group-label">Beneficiário:</label>
-            <div class="segmented" id="originRow">
-              <button type="button" class="segmented-btn selected" data-origin="local">Unimed Divinópolis</button>
-              <button type="button" class="segmented-btn" data-origin="interchange">Outra Unimed / Intercâmbio</button>
-            </div>
-          </div>
-
-          <div class="form-section">
-            <label class="group-label">Identificação:</label>
-            <div class="segmented compact-segmented" id="methodRow">
-              <button class="segmented-btn selected" data-method="card" type="button">Carteirinha</button>
-              <button class="segmented-btn" data-method="cpf" type="button">CPF</button>
-            </div>
-          </div>
-
-          <label class="field" id="cardField">Número da carteirinha
-            <input id="cardNumber" inputmode="numeric" placeholder="0144.4295.00081234-6" autocomplete="off">
-          </label>
-          <label class="field hidden" id="cpfField">CPF
-            <input id="cpfNumber" inputmode="numeric" placeholder="000.000.000-00" autocomplete="off">
-          </label>
-          <label class="field hidden" id="originUnimedField">Unimed de origem
-            <input id="originUnimed" type="text" placeholder="Ex.: Unimed BH" autocomplete="off">
-          </label>
-          <label class="field">Data de nascimento
-            <input id="birthDate" type="date">
-          </label>
-
-          <div class="third-party-alert hidden" id="thirdPartyAlert">
-            <b>Agendamento realizado por terceiro</b>
-            <p>O agendamento pode ser feito por outra pessoa. Porém, o atendimento presencial e o fornecimento de informações serão realizados diretamente ao <strong>beneficiário agendado</strong> ou ao <strong>responsável pelo plano</strong>. No atendimento, será necessária a apresentação de documento de identificação e carteirinha.</p>
-            <label class="consent-line"><input type="checkbox" id="lgpdConsent"> <span>Li e estou ciente das condições de atendimento e acesso às informações.</span></label>
-          </div>
-
-          <div class="minor-alert hidden" id="minorAlert">
-            <b>Beneficiário menor de idade</b>
-            <span>O atendimento deverá ocorrer com o responsável pelo plano ou responsável autorizado, com a documentação necessária.</span>
-          </div>
-
-          <button class="primary-btn full" id="loginBtn" type="button">Continuar</button>
-          <button class="demo-link" id="demoBtn" type="button">Preencher com dados de exemplo</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="screen" id="screen-service">
-      <div class="content-card wide-card">
-        <div class="screen-head">
-          <span class="eyebrow">ASSUNTOS DO ATENDIMENTO</span>
-          <h2>O que você precisa resolver?</h2>
-          <p class="muted">Nossos guichês atendem os assuntos de forma geral. Selecione o que precisa tratar para reservarmos o tempo adequado.</p>
-        </div>
-
-        <div class="digital-route online-route" id="onlineDigitalTip">
-          <div>
-            <b>Talvez você não precise agendar</b>
-            <span>Antes de escolher um horário, confira se existe uma opção online que resolva o que você precisa de forma mais rápida e prática.</span>
-          </div>
-          <button class="online-route-btn" id="openOnlineService" type="button">Consultar serviços online</button>
-        </div>
-
-        <div class="online-services-panel service-online-panel hidden" id="onlineServicePanel">
-          <div class="online-panel-head">
-            <div>
-              <span class="eyebrow">RESOLVA ONLINE</span>
-              <h3>Serviços disponíveis para você resolver online</h3>
-            </div>
-            <button class="online-close-btn" id="closeOnlineService" type="button">Continuar com agendamento</button>
-          </div>
-          <div class="online-services-grid" id="onlineServiceList"></div>
-        </div>
-        <div class="interchange-route hidden" id="interchangeRouting"><b>Intercâmbio</b><span>O protótipo apresenta apenas assuntos compatíveis com atendimento a beneficiários de outra Unimed.</span></div>
-
-        <h3 class="section-title">1º assunto</h3>
-        <div class="service-grid" id="serviceOptions"></div>
-        <label class="field">Motivo específico
+<div class="workflow-shell"><aside class="workflow-brand-panel">
+<div class="semfila-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</div>
+<h2>Seu atendimento começa aqui.</h2>
+<p>Siga as etapas para organizar seu atendimento com segurança e praticidade.</p>
+<div class="workflow-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside><div class="content-card wide-card">
+<div class="screen-head">
+<span class="eyebrow">ASSUNTOS DO ATENDIMENTO</span>
+<h2>O que você precisa resolver?</h2>
+<p class="muted">Nossos guichês atendem os assuntos de forma geral. Selecione o que precisa tratar para reservarmos o tempo adequado.</p>
+</div>
+<div class="digital-route online-route" id="onlineDigitalTip">
+<div>
+<b>Talvez você não precise agendar</b>
+<span>Antes de escolher um horário, confira se existe uma opção online que resolva o que você precisa de forma mais rápida e prática.</span>
+</div>
+<button class="online-route-btn" id="openOnlineService" type="button">Consultar serviços online</button>
+</div>
+<div class="online-services-panel service-online-panel hidden" id="onlineServicePanel">
+<div class="online-panel-head">
+<div>
+<span class="eyebrow">RESOLVA ONLINE</span>
+<h3>Serviços disponíveis para você resolver online</h3>
+</div>
+<button class="online-close-btn" id="closeOnlineService" type="button">Continuar com agendamento</button>
+</div>
+<div class="online-services-grid" id="onlineServiceList"></div>
+</div>
+<div class="interchange-route hidden" id="interchangeRouting"><b>Intercâmbio</b><span>O protótipo apresenta apenas assuntos compatíveis com atendimento a beneficiários de outra Unimed.</span></div>
+<h3 class="section-title">1º assunto</h3>
+<div class="service-grid" id="serviceOptions"></div>
+<label class="field">Motivo específico
           <select id="reasonSelect"><option value="">Selecione primeiro um assunto</option></select>
-        </label>
-
-        <div class="payment-area hidden" id="paymentArea">
-          <label class="group-label">Em caso de negociação, como pretende pagar?</label>
-          <div class="payment-options">
-            <button class="payment-btn" data-payment="Boleto" type="button"><span>▤</span><b>Boleto</b><small>Preferência para adiantar o processo</small></button>
-            <button class="payment-btn" data-payment="Cartão" type="button"><span>▣</span><b>Cartão</b><small>Preferência para adiantar o processo</small></button>
-          </div>
-        </div>
-
-        <div class="extra-service-panel">
-          <div class="extra-title"><div><span class="eyebrow">TEM MAIS ALGUMA DEMANDA?</span><h3>Deseja incluir outro assunto neste mesmo atendimento?</h3></div><div class="duration-badge"><span>Tempo reservado</span><b id="durationBadge">20 min</b></div></div>
-          <div class="segmented" id="extraChoiceRow">
-            <button class="segmented-btn selected" data-extra="no" type="button">Não, apenas este</button>
-            <button class="segmented-btn" data-extra="yes" type="button">Sim, adicionar outro assunto</button>
-          </div>
-          <div class="second-service hidden" id="extraServiceArea">
-            <h3 class="section-title">2º assunto</h3>
-            <label class="field">Assunto
+</label>
+<div class="payment-area hidden" id="paymentArea">
+<label class="group-label">Em caso de negociação, como pretende pagar?</label>
+<div class="payment-options">
+<button class="payment-btn" data-payment="Boleto" type="button"><span>▤</span><b>Boleto</b><small>Preferência para adiantar o processo</small></button>
+<button class="payment-btn" data-payment="Cartão" type="button"><span>▣</span><b>Cartão</b><small>Preferência para adiantar o processo</small></button>
+</div>
+</div>
+<div class="extra-service-panel">
+<div class="extra-title"><div><span class="eyebrow">TEM MAIS ALGUMA DEMANDA?</span><h3>Deseja incluir outro assunto neste mesmo atendimento?</h3></div><div class="duration-badge"><span>Tempo reservado</span><b id="durationBadge">20 min</b></div></div>
+<div class="segmented" id="extraChoiceRow">
+<button class="segmented-btn selected" data-extra="no" type="button">Não, apenas este</button>
+<button class="segmented-btn" data-extra="yes" type="button">Sim, adicionar outro assunto</button>
+</div>
+<div class="second-service hidden" id="extraServiceArea">
+<h3 class="section-title">2º assunto</h3>
+<label class="field">Assunto
               <select id="extraServiceSelect"><option value="">Selecione o segundo assunto</option></select>
-            </label>
-            <label class="field">Motivo específico
+</label>
+<label class="field">Motivo específico
               <select id="extraReasonSelect"><option value="">Selecione o motivo</option></select>
-            </label>
-          </div>
-        </div>
+</label>
+</div>
+</div>
+<div class="step-actions"><button class="secondary-btn" id="backToId" type="button">Voltar</button><button class="primary-btn" disabled="" id="toSchedule" type="button">Escolher data e horário</button></div>
+</div></div></section>
+<section class="screen" id="screen-schedule">
 
-        <div class="step-actions"><button class="secondary-btn" id="backToId" type="button">Voltar</button><button class="primary-btn" id="toSchedule" type="button" disabled>Escolher data e horário</button></div>
-      </div>
-    </section>
+<div class="workflow-shell"><aside class="workflow-brand-panel">
+<div class="semfila-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</div>
+<h2>Seu atendimento começa aqui.</h2>
+<p>Siga as etapas para organizar seu atendimento com segurança e praticidade.</p>
+<div class="workflow-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside><div class="content-card wide-card">
+<div class="screen-head schedule-head-row"><div><span class="eyebrow">DATA E HORÁRIO</span><h2>Escolha o melhor horário</h2><p class="muted">A agenda verifica se existe capacidade contínua para todo o tempo reservado.</p></div><div class="duration-badge larger"><span>Tempo reservado</span><b id="scheduleDuration">20 min</b></div></div>
+<div class="date-caption" id="dateCaption"></div>
+<div class="date-strip" id="dateStrip"></div>
+<div class="slots-panel">
+<div class="slots" id="slots"></div>
+<div class="legend"><span><i class="dot selected-dot"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occupied-dot"></i>Ocupado</span></div>
+</div>
+<div class="step-actions"><button class="secondary-btn" id="backService" type="button">Voltar</button><button class="primary-btn" disabled="" id="toReview" type="button">Revisar agendamento</button></div>
+</div></div></section>
+<section class="screen" id="screen-review">
 
-    <section class="screen" id="screen-schedule">
-      <div class="content-card wide-card">
-        <div class="screen-head schedule-head-row"><div><span class="eyebrow">DATA E HORÁRIO</span><h2>Escolha o melhor horário</h2><p class="muted">A agenda verifica se existe capacidade contínua para todo o tempo reservado.</p></div><div class="duration-badge larger"><span>Tempo reservado</span><b id="scheduleDuration">20 min</b></div></div>
-        <div class="date-caption" id="dateCaption"></div>
-        <div class="date-strip" id="dateStrip"></div>
-        <div class="slots-panel">
-          <div class="slots" id="slots"></div>
-          <div class="legend"><span><i class="dot selected-dot"></i>Selecionado</span><span><i class="dot"></i>Disponível</span><span><i class="dot occupied-dot"></i>Ocupado</span></div>
-        </div>
-        <div class="step-actions"><button class="secondary-btn" id="backService" type="button">Voltar</button><button class="primary-btn" id="toReview" type="button" disabled>Revisar agendamento</button></div>
-      </div>
-    </section>
+<div class="workflow-shell"><aside class="workflow-brand-panel">
+<div class="semfila-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</div>
+<h2>Seu atendimento começa aqui.</h2>
+<p>Siga as etapas para organizar seu atendimento com segurança e praticidade.</p>
+<div class="workflow-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside><div class="content-card review-card">
+<div class="screen-head"><span class="eyebrow">CONFIRMAÇÃO</span><h2>Confira seu agendamento</h2><p class="muted">Revise as informações antes de confirmar.</p></div>
+<div class="summary" id="reviewSummary"></div>
+<div class="attendance-rule"><b>Para o atendimento</b><span>O atendimento e o repasse de informações serão realizados ao beneficiário agendado ou ao responsável pelo plano. Leve documento de identificação e carteirinha.</span></div>
+<div class="cancel-rule"><b>Cancelamento</b><span>Se precisar cancelar, faça isso com no mínimo <strong>2 horas de antecedência</strong>.</span></div>
+<div class="step-actions"><button class="secondary-btn" id="backSchedule" type="button">Alterar horário</button><button class="primary-btn" id="confirmBtn" type="button">Confirmar agendamento</button></div>
+</div></div></section>
+<section class="screen" id="screen-success">
 
-    <section class="screen" id="screen-review">
-      <div class="content-card review-card">
-        <div class="screen-head"><span class="eyebrow">CONFIRMAÇÃO</span><h2>Confira seu agendamento</h2><p class="muted">Revise as informações antes de confirmar.</p></div>
-        <div class="summary" id="reviewSummary"></div>
-        <div class="attendance-rule"><b>Para o atendimento</b><span>O atendimento e o repasse de informações serão realizados ao beneficiário agendado ou ao responsável pelo plano. Leve documento de identificação e carteirinha.</span></div>
-        <div class="cancel-rule"><b>Cancelamento</b><span>Se precisar cancelar, faça isso com no mínimo <strong>2 horas de antecedência</strong>.</span></div>
-        <div class="step-actions"><button class="secondary-btn" id="backSchedule" type="button">Alterar horário</button><button class="primary-btn" id="confirmBtn" type="button">Confirmar agendamento</button></div>
-      </div>
-    </section>
+<div class="workflow-shell"><aside class="workflow-brand-panel">
+<div class="semfila-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</div>
+<h2>Seu atendimento começa aqui.</h2>
+<p>Siga as etapas para organizar seu atendimento com segurança e praticidade.</p>
+<div class="workflow-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside><div class="content-card success-card">
+<div class="success-check">✓</div>
+<span class="eyebrow">AGENDAMENTO CONCLUÍDO</span>
+<h2>Seu horário foi reservado</h2>
+<p class="muted">Guarde o protocolo e observe as orientações para o atendimento.</p>
+<div class="protocol-box"><span>Protocolo</span><b id="protocol">—</b></div>
+<div class="summary" id="successSummary"></div>
+<div class="attendance-rule"><b>Importante</b><span>Atendimento e informações somente ao beneficiário agendado ou responsável pelo plano, mediante documentação e carteirinha. Cancelamentos: mínimo de 2 horas de antecedência.</span></div>
+<div class="step-actions"><button class="secondary-btn" id="newSchedule" type="button">Novo agendamento</button><button class="primary-btn" id="goMy" type="button">Meus agendamentos</button></div>
+</div></div></section>
+<section class="screen" id="screen-my">
 
-    <section class="screen" id="screen-success">
-      <div class="content-card success-card">
-        <div class="success-check">✓</div>
-        <span class="eyebrow">AGENDAMENTO CONCLUÍDO</span>
-        <h2>Seu horário foi reservado</h2>
-        <p class="muted">Guarde o protocolo e observe as orientações para o atendimento.</p>
-        <div class="protocol-box"><span>Protocolo</span><b id="protocol">—</b></div>
-        <div class="summary" id="successSummary"></div>
-        <div class="attendance-rule"><b>Importante</b><span>Atendimento e informações somente ao beneficiário agendado ou responsável pelo plano, mediante documentação e carteirinha. Cancelamentos: mínimo de 2 horas de antecedência.</span></div>
-        <div class="step-actions"><button class="secondary-btn" id="newSchedule" type="button">Novo agendamento</button><button class="primary-btn" id="goMy" type="button">Meus agendamentos</button></div>
-      </div>
-    </section>
-
-    <section class="screen" id="screen-my">
-      <div class="content-card wide-card">
-        <div class="screen-head"><span class="eyebrow">MINHA AGENDA</span><h2>Meus agendamentos</h2><p class="muted">Consulte e cancele seus horários. O cancelamento online é permitido até 2 horas antes.</p></div>
-        <div class="appointments-list" id="myAppointments"></div>
-        <div class="step-actions single"><button class="secondary-btn" id="backMy" type="button">Voltar</button></div>
-      </div>
-    </section>
-  </main>
-
-  <div class="app-toast" id="toast"></div>
-  <script src="app.js"></script>
+<div class="workflow-shell"><aside class="workflow-brand-panel">
+<div class="semfila-logo-card">
+<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
+</div>
+<h2>Seu atendimento começa aqui.</h2>
+<p>Siga as etapas para organizar seu atendimento com segurança e praticidade.</p>
+<div class="workflow-info-card">
+<b>Antes de continuar</b>
+<span>O agendamento pode ser realizado por outra pessoa, mas o atendimento e o repasse de informações serão feitos ao beneficiário agendado ou ao responsável pelo plano.</span>
+</div>
+</aside><div class="content-card wide-card">
+<div class="screen-head"><span class="eyebrow">MINHA AGENDA</span><h2>Meus agendamentos</h2><p class="muted">Consulte e cancele seus horários. O cancelamento online é permitido até 2 horas antes.</p></div>
+<div class="appointments-list" id="myAppointments"></div>
+<div class="step-actions single"><button class="secondary-btn" id="backMy" type="button">Voltar</button></div>
+</div></div></section>
+</main>
+<div class="app-toast" id="toast"></div>
+<script src="app.js"></script>
 </body>
 </html>

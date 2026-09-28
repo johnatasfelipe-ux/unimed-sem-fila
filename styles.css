@@ -722,3 +722,297 @@ body.high-contrast{filter:contrast(1.12)}
   .digital-performance-grid{grid-template-columns:1fr}
   .digital-bar-row{grid-template-columns:90px 1fr 25px 30px}
 }
+
+
+/* =========================================================
+   V8 — Integração visual da marca Unimed Sem Fila
+   ========================================================= */
+
+.app-brand{
+  min-width:180px;
+}
+.app-sem-fila-logo{
+  width:176px!important;
+  max-height:54px;
+  object-fit:contain;
+}
+
+.semfila-logo-card{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  border-radius:14px;
+  padding:12px 15px;
+  width:max-content;
+  max-width:100%;
+  box-shadow:0 5px 15px rgba(18,80,54,.08);
+}
+.semfila-logo{
+  display:block;
+  width:245px!important;
+  max-width:100%;
+  height:auto;
+  background:transparent!important;
+  padding:0!important;
+  border-radius:0!important;
+}
+
+/* Tela inicial */
+.entry-brand-panel .semfila-logo-card{
+  margin-bottom:30px;
+}
+.entry-brand-panel h1{
+  margin-top:0;
+}
+
+/* Telas posteriores */
+.workflow-shell{
+  display:grid;
+  grid-template-columns:34% 66%;
+  max-width:1040px;
+  margin:auto;
+  border:1px solid #d7e4dd;
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.workflow-brand-panel{
+  min-height:610px;
+  padding:34px;
+  color:#fff;
+  background:linear-gradient(155deg,#04985b 0%,#17a963 50%,#70c76e 100%);
+}
+.workflow-brand-panel .semfila-logo-card{
+  margin-bottom:38px;
+}
+.workflow-brand-panel h2{
+  margin:0 0 15px;
+  max-width:260px;
+  font-size:31px;
+  line-height:1.08;
+}
+.workflow-brand-panel>p{
+  max-width:260px;
+  margin:0;
+  font-size:15px;
+  line-height:1.55;
+}
+.workflow-info-card{
+  margin-top:34px;
+  max-width:270px;
+  padding:17px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:14px;
+  background:rgba(255,255,255,.12);
+}
+.workflow-info-card b{
+  display:block;
+  margin-bottom:7px;
+  font-size:15px;
+}
+.workflow-info-card span{
+  display:block;
+  font-size:12px;
+  line-height:1.55;
+}
+.workflow-shell>.content-card{
+  width:100%;
+  max-width:none!important;
+  min-width:0;
+  margin:0;
+  padding:34px 38px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.workflow-shell>.success-card{
+  text-align:left;
+}
+.workflow-shell>.success-card .success-check{
+  margin-left:0;
+}
+.workflow-shell>.success-card .protocol-box{
+  margin-left:0;
+}
+.workflow-shell>.success-card .summary{
+  text-align:left;
+}
+
+/* Painel gerencial com identidade do Sem Fila */
+.dashboard-page{
+  min-height:100vh;
+}
+.dashboard-shell{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:245px minmax(0,1fr);
+}
+.dashboard-sidebar{
+  position:sticky;
+  top:0;
+  align-self:start;
+  min-height:100vh;
+  padding:26px 18px 24px;
+  display:flex;
+  flex-direction:column;
+  color:#fff;
+  background:linear-gradient(180deg,#04985b 0%,#0ba35f 58%,#61c46d 100%);
+}
+.dashboard-sidebar-logo{
+  display:block;
+  color:inherit;
+  text-decoration:none;
+}
+.dashboard-logo-card{
+  width:100%;
+  padding:10px 12px;
+}
+.dashboard-logo-card .semfila-logo{
+  width:195px!important;
+}
+.dashboard-nav{
+  display:grid;
+  gap:8px;
+  margin-top:26px;
+}
+.dashboard-nav a{
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 12px;
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+}
+.dashboard-nav a span{
+  width:22px;
+  text-align:center;
+  font-size:18px;
+}
+.dashboard-nav a:hover,
+.dashboard-nav a.active{
+  background:rgba(255,255,255,.16);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);
+}
+.dashboard-sidebar-footer{
+  margin-top:auto;
+  padding:18px 10px 0;
+}
+.dashboard-sidebar-footer img{
+  width:155px;
+  max-width:100%;
+  filter:brightness(0) invert(1);
+}
+.dashboard-sidebar-footer small{
+  display:block;
+  max-width:170px;
+  margin-top:10px;
+  color:#effff6;
+  line-height:1.4;
+}
+
+.dashboard-workspace{
+  min-width:0;
+  background:#f2f7f4;
+}
+.dashboard-workspace .dashboard-header{
+  height:70px;
+  padding:0 32px;
+}
+.dashboard-workspace .dashboard-header-inner{
+  height:70px;
+  width:100%;
+  margin:0;
+}
+.dashboard-workspace .dashboard-header-inner>div strong{
+  display:block;
+  color:#173b2d;
+  font-size:15px;
+}
+.dashboard-workspace .dashboard-header-inner>div small{
+  display:block;
+  color:#7a8d84;
+  margin-top:2px;
+  font-size:10px;
+}
+.dashboard-workspace .dashboard-main{
+  width:auto;
+  max-width:none;
+  margin:0;
+  padding:28px 32px 50px;
+}
+.dashboard-workspace .dashboard-title-row h1{
+  font-size:34px;
+}
+
+@media(max-width:1000px){
+  .workflow-shell{
+    grid-template-columns:1fr;
+  }
+  .workflow-brand-panel{
+    min-height:auto;
+    padding:26px;
+  }
+  .workflow-brand-panel .semfila-logo-card{
+    margin-bottom:20px;
+  }
+  .workflow-brand-panel h2{
+    max-width:none;
+    font-size:26px;
+  }
+  .workflow-brand-panel>p,
+  .workflow-info-card{
+    max-width:none;
+  }
+
+  .dashboard-shell{
+    grid-template-columns:1fr;
+  }
+  .dashboard-sidebar{
+    position:static;
+    min-height:auto;
+    padding:18px;
+  }
+  .dashboard-nav{
+    grid-template-columns:repeat(3,1fr);
+    margin-top:18px;
+  }
+  .dashboard-sidebar-footer{
+    display:none;
+  }
+}
+
+@media(max-width:760px){
+  .app-sem-fila-logo{
+    width:145px!important;
+  }
+  .workflow-shell>.content-card{
+    padding:24px;
+  }
+  .workflow-brand-panel{
+    padding:22px;
+  }
+  .workflow-info-card{
+    margin-top:18px;
+  }
+  .dashboard-nav{
+    grid-template-columns:1fr 1fr;
+  }
+  .dashboard-workspace .dashboard-main{
+    padding:22px 18px 40px;
+  }
+  .dashboard-workspace .dashboard-header{
+    padding:0 18px;
+  }
+}
+
+@media(max-width:480px){
+  .dashboard-nav{
+    grid-template-columns:1fr;
+  }
+}
