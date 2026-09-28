@@ -1,86 +1,280 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Sem Fila — Painel de Indicadores</title>
-<link href="styles.css" rel="stylesheet"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sem Fila — Painel de Indicadores</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dashboard-page"><div class="dashboard-shell"><aside class="dashboard-sidebar">
-<a class="dashboard-sidebar-logo" href="index.html">
-<span class="semfila-logo-card dashboard-logo-card">
-<img alt="Unimed Sem Fila" class="semfila-logo" src="assets/unimed-sem-fila-logo.png"/>
-</span>
-</a>
-<nav class="dashboard-nav">
-<a class="active" href="painel.html"><span>▥</span> Painel de indicadores</a>
-<a href="agendamento.html"><span>▣</span> Agendamentos</a>
-<a href="#ageBars"><span>◎</span> Beneficiários</a>
-<a href="#digitalPerformance"><span>▤</span> Serviços online</a>
-<a href="#appointmentsTable"><span>▧</span> Relatórios</a>
-</nav>
-<div class="dashboard-sidebar-footer">
-<img alt="Unimed Divinópolis" src="assets/unimed-logo.png"/>
-<small>Cuidado de verdade para uma vida melhor.</small>
-</div>
-</aside><div class="dashboard-workspace"><header class="dashboard-header dashboard-topbar">
-<div class="dashboard-header-inner">
-<div>
-<strong>Painel de indicadores</strong>
-<small>Acompanhamento da modalidade</small>
-</div>
-<a href="index.html">← Voltar ao protótipo</a>
-</div>
-</header><main class="dashboard-container dashboard-main">
-<div class="dashboard-title-row"><div><span class="eyebrow">GESTÃO DO ATENDIMENTO</span><h1>Indicadores do agendamento online</h1><p>Acompanhe adesão, perfil dos beneficiários, capacidade e comportamento da modalidade.</p></div><div class="dashboard-filters">
-<input id="dashDate" type="date"/>
-<select id="sectorFilter">
-<option value="Todos">Todos os setores</option>
-<option value="Financeiro">Financeiro</option>
-<option value="Cadastro">Cadastro</option>
-<option value="Autorizações">Autorizações</option>
-<option value="Intercâmbio">Intercâmbio</option>
-<option value="Atendimento Geral">Atendimento Geral</option>
-</select>
-</div></div>
-<section class="kpi-grid" id="kpis"></section>
-<section class="dashboard-card digital-performance-card">
-<div class="digital-performance-head">
-<div>
-<span class="eyebrow">CANAIS DIGITAIS</span>
-<h3>Eficiência dos direcionamentos digitais</h3>
-<p>Acompanhe quantas demandas foram orientadas para serviços online e quantas tiveram resolução registrada.</p>
-</div>
-</div>
-<div class="digital-performance-grid" id="digitalPerformance"></div>
-<div class="digital-detail-grid">
-<div>
-<h4>Direcionamentos por serviço</h4>
-<div class="bar-chart" id="digitalServiceBars"></div>
-</div>
-<div>
-<h4>Origem do direcionamento</h4>
-<div class="profile-grid" id="digitalSourceGrid"></div>
-</div>
-</div>
-<p class="digital-note">No protótipo, os resultados de resolução são demonstrativos. Em produção, a confirmação de resolução dependerá do retorno ou integração do canal digital utilizado.</p>
-</section>
-<section class="dashboard-grid">
-<article class="dashboard-card age-card"><h3>Adesão por faixa etária</h3><p>Perfil dos beneficiários que utilizam o agendamento online.</p><div class="bar-chart" id="ageBars"></div></article>
-<article class="dashboard-card"><h3>Origem dos beneficiários</h3><p>Participação de beneficiários locais e de intercâmbio.</p><div class="profile-grid" id="profileGrid"></div></article>
-</section>
-<section class="dashboard-grid">
-<article class="dashboard-card"><h3>Assuntos mais procurados</h3><p>Ajuda a entender quais demandas mais utilizam a modalidade.</p><div class="bar-chart" id="serviceBars"></div></article>
-<article class="dashboard-card"><h3>Horários mais demandados</h3><p>Volume de procura ao longo do dia.</p><div class="bar-chart" id="hourBars"></div></article>
-</section>
-<section class="dashboard-grid">
-<article class="dashboard-card"><h3>Utilização da capacidade</h3><p>Relação entre horários programados e tempo efetivamente reservado.</p><div class="capacity-panel" id="capacityPanel"></div></article>
-<article class="dashboard-card"><h3>Negociações financeiras</h3><p>Preferência informada previamente para acelerar o atendimento.</p><div class="profile-grid" id="paymentGrid"></div></article>
-</section>
-<section class="dashboard-card table-card"><h3>Próximos atendimentos</h3><p>Visão operacional por setor, horário e tempo reservado.</p><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Origem</th><th>Assunto</th><th>Tempo</th><th>Status</th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></section>
-</main></div></div>
+<body class="dashboard-page">
+  <div class="dashboard-shell modular-dashboard">
 
+    <aside class="dashboard-sidebar">
+      <a class="dashboard-sidebar-logo" href="index.html">
+        <span class="semfila-logo-card dashboard-logo-card">
+          <img class="semfila-logo" src="assets/unimed-sem-fila-logo.png" alt="Unimed Sem Fila">
+        </span>
+      </a>
 
-<script src="dashboard.js"></script>
+      <nav class="dashboard-nav dashboard-module-nav" aria-label="Navegação do painel">
+        <button class="dashboard-nav-item active" data-module="overview" type="button">
+          <span>▥</span><b>Visão geral</b>
+        </button>
+        <button class="dashboard-nav-item" data-module="agenda" type="button">
+          <span>▣</span><b>Agenda</b>
+        </button>
+        <button class="dashboard-nav-item" data-module="profile" type="button">
+          <span>◎</span><b>Perfil de utilização</b>
+        </button>
+        <button class="dashboard-nav-item" data-module="digital" type="button">
+          <span>▤</span><b>Serviços online</b>
+        </button>
+        <button class="dashboard-nav-item" data-module="reports" type="button">
+          <span>▧</span><b>Relatórios</b>
+        </button>
+      </nav>
+
+      <div class="dashboard-sidebar-footer">
+        <img src="assets/unimed-logo.png" alt="Unimed Divinópolis">
+        <small>Cuidado de verdade para uma vida melhor.</small>
+      </div>
+    </aside>
+
+    <div class="dashboard-workspace">
+      <header class="dashboard-header dashboard-topbar">
+        <div class="dashboard-header-inner">
+          <div>
+            <strong id="moduleHeaderTitle">Visão geral</strong>
+            <small id="moduleHeaderSubtitle">Acompanhamento executivo da modalidade</small>
+          </div>
+          <a href="index.html">← Voltar ao protótipo</a>
+        </div>
+      </header>
+
+      <main class="dashboard-main modular-main">
+
+        <div class="dashboard-control-bar">
+          <div class="period-switch" id="periodSwitch">
+            <button class="active" data-period="today" type="button">Hoje</button>
+            <button data-period="7" type="button">7 dias</button>
+            <button data-period="30" type="button">30 dias</button>
+            <button data-period="custom" type="button">Personalizado</button>
+          </div>
+
+          <div class="custom-period hidden" id="customPeriod">
+            <input id="startDate" type="date" aria-label="Data inicial">
+            <span>até</span>
+            <input id="endDate" type="date" aria-label="Data final">
+          </div>
+
+          <select id="sectorFilter" class="compact-filter" aria-label="Filtrar por setor">
+            <option value="Todos">Todos os setores</option>
+            <option value="Financeiro">Financeiro</option>
+            <option value="Cadastro">Cadastro</option>
+            <option value="Autorizações">Autorizações</option>
+            <option value="Intercâmbio">Intercâmbio</option>
+            <option value="Atendimento Geral">Atendimento Geral</option>
+          </select>
+        </div>
+
+        <!-- VISÃO GERAL -->
+        <section class="dashboard-module active" id="module-overview">
+          <div class="module-title">
+            <span class="eyebrow">GESTÃO DO ATENDIMENTO</span>
+            <h1>Visão geral</h1>
+            <p>O essencial para entender rapidamente como está a utilização do agendamento online.</p>
+          </div>
+
+          <section class="executive-kpis" id="overviewKpis"></section>
+
+          <section class="overview-grid">
+            <article class="dashboard-card">
+              <div class="card-heading-row">
+                <div>
+                  <h3>Atendimentos por setor</h3>
+                  <p>Onde está concentrada a procura no período.</p>
+                </div>
+                <button class="text-action" data-open-module="agenda" type="button">Ver agenda →</button>
+              </div>
+              <div class="bar-chart" id="overviewSectorBars"></div>
+            </article>
+
+            <article class="dashboard-card insights-card">
+              <div class="card-heading-row">
+                <div>
+                  <h3>Alertas e oportunidades</h3>
+                  <p>Leitura rápida dos pontos que merecem atenção.</p>
+                </div>
+              </div>
+              <div id="managementInsights" class="management-insights"></div>
+            </article>
+          </section>
+        </section>
+
+        <!-- AGENDA -->
+        <section class="dashboard-module" id="module-agenda">
+          <div class="module-title">
+            <span class="eyebrow">OPERAÇÃO</span>
+            <h1>Agenda e capacidade</h1>
+            <p>Ocupação, horários procurados e comportamento operacional.</p>
+          </div>
+
+          <section class="module-kpis" id="agendaKpis"></section>
+
+          <section class="dashboard-grid">
+            <article class="dashboard-card">
+              <h3>Horários mais demandados</h3>
+              <p>Volume de procura ao longo do dia.</p>
+              <div class="bar-chart" id="agendaHourBars"></div>
+            </article>
+
+            <article class="dashboard-card">
+              <h3>Utilização da capacidade</h3>
+              <p>Relação entre blocos disponíveis e tempo reservado.</p>
+              <div class="capacity-panel" id="agendaCapacity"></div>
+            </article>
+          </section>
+
+          <section class="dashboard-card compact-table-card">
+            <div class="card-heading-row">
+              <div>
+                <h3>Próximos atendimentos</h3>
+                <p>Uma visão curta dos próximos horários.</p>
+              </div>
+              <button class="text-action" data-open-module="reports" type="button">Ver relatório completo →</button>
+            </div>
+            <div class="table-wrap">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>Data</th><th>Horário</th><th>Setor</th><th>Assunto</th><th>Tempo</th><th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="agendaPreviewTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- PERFIL -->
+        <section class="dashboard-module" id="module-profile">
+          <div class="module-title">
+            <span class="eyebrow">ADESÃO</span>
+            <h1>Perfil de utilização</h1>
+            <p>Quem está aderindo à modalidade, sem transformar o painel em uma consulta individual.</p>
+          </div>
+
+          <section class="dashboard-grid profile-dashboard-grid">
+            <article class="dashboard-card">
+              <h3>Adesão por faixa etária</h3>
+              <p>Distribuição dos beneficiários que utilizaram o agendamento online.</p>
+              <div class="bar-chart" id="profileAgeBars"></div>
+            </article>
+
+            <article class="dashboard-card">
+              <h3>Origem dos beneficiários</h3>
+              <p>Participação de beneficiários locais e de intercâmbio.</p>
+              <div class="profile-grid" id="profileOriginGrid"></div>
+            </article>
+          </section>
+
+          <section class="dashboard-card profile-note-card">
+            <strong>Como interpretar</strong>
+            <p>Este módulo ajuda a avaliar a adesão ao canal digital por perfil. A faixa etária é usada somente para análise gerencial e não aparece na confirmação do beneficiário.</p>
+          </section>
+        </section>
+
+        <!-- DIGITAL -->
+        <section class="dashboard-module" id="module-digital">
+          <div class="module-title">
+            <span class="eyebrow">CANAIS DIGITAIS</span>
+            <h1>Serviços online</h1>
+            <p>Direcionamentos realizados e resultados dos serviços digitais.</p>
+          </div>
+
+          <section class="digital-performance-grid" id="digitalKpis"></section>
+
+          <section class="dashboard-grid">
+            <article class="dashboard-card">
+              <h3>Direcionamentos por serviço</h3>
+              <p>Quais serviços digitais são mais utilizados no fluxo.</p>
+              <div class="bar-chart" id="digitalServiceBars"></div>
+            </article>
+
+            <article class="dashboard-card">
+              <h3>Origem do direcionamento</h3>
+              <p>Em que momento do fluxo o beneficiário encontrou a solução digital.</p>
+              <div class="profile-grid" id="digitalSourceGrid"></div>
+            </article>
+          </section>
+
+          <section class="dashboard-card digital-explanation">
+            <strong>Importante</strong>
+            <p>No protótipo, a confirmação de resolução é demonstrativa. Em produção, a taxa real dependerá do retorno ou integração com o canal digital utilizado.</p>
+          </section>
+        </section>
+
+        <!-- RELATÓRIOS -->
+        <section class="dashboard-module" id="module-reports">
+          <div class="module-title reports-title-row">
+            <div>
+              <span class="eyebrow">ANÁLISE DETALHADA</span>
+              <h1>Relatórios</h1>
+              <p>Use quando precisar aprofundar, filtrar ou exportar dados.</p>
+            </div>
+            <div class="report-actions">
+              <button id="exportCsv" class="secondary-btn" type="button">Exportar CSV</button>
+              <button id="printReport" class="primary-btn" type="button">Imprimir / salvar PDF</button>
+            </div>
+          </div>
+
+          <section class="dashboard-card report-filter-card">
+            <div class="report-filter-grid">
+              <label>Status
+                <select id="reportStatus">
+                  <option value="Todos">Todos</option>
+                  <option value="Agendado">Agendado</option>
+                  <option value="Concluído">Concluído</option>
+                  <option value="Falta">Falta</option>
+                  <option value="Cancelado">Cancelado</option>
+                </select>
+              </label>
+              <label>Assunto
+                <select id="reportService">
+                  <option value="Todos">Todos</option>
+                  <option value="Negociação">Negociação</option>
+                  <option value="Troca de plano">Troca de plano</option>
+                  <option value="Autorizações">Autorizações</option>
+                  <option value="Intercâmbio">Intercâmbio</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </label>
+              <div class="report-count">
+                <span>Registros exibidos</span>
+                <strong id="reportCount">0</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="dashboard-card table-card report-table-card">
+            <div class="table-wrap">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>Data</th><th>Horário</th><th>Beneficiário</th><th>Setor</th><th>Origem</th><th>Assunto</th><th>Tempo</th><th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="reportTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="site-toast" id="dashboardToast"></div>
+  <script src="dashboard.js"></script>
 </body>
 </html>
