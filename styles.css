@@ -616,3 +616,109 @@ body.high-contrast{filter:contrast(1.12)}
     width:100%;
   }
 }
+
+
+/* v8.9 — destaque dos direcionamentos e resolução digital no painel */
+.digital-performance-card{
+  margin-top:14px;
+  border-top:3px solid #00995d;
+}
+.digital-performance-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+.digital-performance-head h3{
+  margin:5px 0 4px;
+  font-size:20px;
+}
+.digital-performance-head p{
+  margin:0;
+  color:#758980;
+  font-size:11px;
+}
+.digital-performance-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.digital-metric{
+  min-height:104px;
+  border:1px solid #d7e5de;
+  border-radius:12px;
+  padding:13px;
+  background:#fbfdfc;
+}
+.digital-metric span{
+  display:block;
+  color:#6e8379;
+  font-size:10px;
+  font-weight:700;
+}
+.digital-metric strong{
+  display:block;
+  color:#173b2d;
+  font-size:28px;
+  line-height:1;
+  margin:8px 0 6px;
+}
+.digital-metric small{
+  color:#81938a;
+  font-size:9px;
+  line-height:1.35;
+}
+.digital-metric.featured{
+  background:#edf8f2;
+  border-color:#bfe2d0;
+}
+.digital-metric.success{
+  background:#f3fbf6;
+  border-color:#cbe9d8;
+}
+.digital-metric.rate{
+  background:#e4f6ec;
+  border-color:#9fd4b7;
+}
+.digital-metric.rate strong{
+  color:#007a47;
+}
+.digital-metric.neutral{
+  background:#f7faf8;
+}
+.digital-detail-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:22px;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid #e4ece8;
+}
+.digital-detail-grid h4{
+  margin:0 0 12px;
+  color:#173b2d;
+  font-size:13px;
+}
+.digital-bar-row{
+  grid-template-columns:145px 1fr 28px 34px;
+}
+.digital-note{
+  margin:16px 0 0!important;
+  padding-top:12px;
+  border-top:1px solid #edf2ef;
+  color:#889a91!important;
+  font-size:9px!important;
+  line-height:1.45;
+}
+@media(max-width:1000px){
+  .digital-performance-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .digital-detail-grid{grid-template-columns:1fr}
+  .digital-bar-row{grid-template-columns:110px 1fr 28px 34px}
+}
+@media(max-width:480px){
+  .digital-performance-grid{grid-template-columns:1fr}
+  .digital-bar-row{grid-template-columns:90px 1fr 25px 30px}
+}

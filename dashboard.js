@@ -14,27 +14,27 @@ function savedDigital(){
 
 function seededDigital(date){
   const services=[
-    ['2ª via de boleto','Financeiro'],
-    ['Autorização de guias','Autorizações'],
-    ['Guia Médico','Atendimento Geral'],
-    ['Extrato de utilização','Atendimento Geral'],
-    ['Orçamento de exames','Atendimento Geral'],
-    ['2ª via de boleto','Financeiro'],
-    ['Guia Médico','Atendimento Geral']
+    ['2ª via de boleto','Financeiro','resolved','identificacao'],
+    ['Autorização de guias','Autorizações','resolved','assuntos'],
+    ['Guia Médico','Atendimento Geral','resolved','identificacao'],
+    ['Extrato de utilização','Atendimento Geral','resolved','assuntos'],
+    ['Orçamento de exames','Atendimento Geral','pending','assuntos'],
+    ['2ª via de boleto','Financeiro','resolved','identificacao'],
+    ['Guia Médico','Atendimento Geral','not_resolved','assuntos']
   ];
   return services.map((x,i)=>({
     id:'DG'+i,
     date,
     service:x[0],
     sector:x[1],
-    source:i%2?'assuntos':'identificacao'
+    status:x[2],
+    source:x[3]
   }));
 }
-
 function digitalFor(date){
   return [
     ...seededDigital(date),
-    ...savedDigital().filter(x=>x.date===date)
+    ...savedDigital().filter(x=>x.date===date).map(x=>({...x,status:x.status||'pending'}))
   ];
 }
 
@@ -127,7 +127,8 @@ function render(){
     digital=digital.filter(x=>String(x.sector||'').includes(sector));
   }
 
-  renderKpis(data,digital);
+  renderKpis(data);
+  renderDigital(digital);
   renderAge(data);
   renderProfile(data);
   renderServices(data);
@@ -137,7 +138,7 @@ function render(){
   renderTable(data);
 }
 
-function renderKpis(data,digital){
+function renderKpis(data){
   const active=data.filter(x=>x.status!=='Cancelado');
   const multi=active.filter(x=>(x.duration||20)>20);
   const cancel=data.filter(x=>x.status==='Cancelado').length;
@@ -150,8 +151,7 @@ function renderKpis(data,digital){
     ['Múltiplos assuntos',pct(multi.length,active.length)+'%',multi.length+' atendimento(s)'],
     ['Tempo médio',avg+' min','tempo reservado'],
     ['Faltas',pct(noShow,active.length)+'%',noShow+' ocorrência(s)'],
-    ['Cancelamentos',cancel,'vagas liberadas'],
-    ['Direcionamentos digitais',digital.length,'demandas encaminhadas a serviços online']
+    ['Cancelamentos',cancel,'vagas liberadas']
   ];
 
   $('#kpis').innerHTML=k.map(x=>`
@@ -161,6 +161,60 @@ function renderKpis(data,digital){
       <small>${x[2]}</small>
     </article>
   `).join('');
+}
+
+function renderDigital(digital){
+  const total=digital.length;
+  const resolved=digital.filter(x=>x.status==='resolved').length;
+  const notResolved=digital.filter(x=>x.status==='not_resolved').length;
+  const pending=digital.filter(x=>x.status==='pending').length;
+  const rate=pct(resolved,total);
+
+  $('#digitalPerformance').innerHTML=`
+    <div class="digital-metric featured">
+      <span>Direcionamentos digitais</span>
+      <strong>${total}</strong>
+      <small>demandas encaminhadas aos canais online</small>
+    </div>
+    <div class="digital-metric success">
+      <span>Resolvidas online</span>
+      <strong>${resolved}</strong>
+      <small>resoluções registradas</small>
+    </div>
+    <div class="digital-metric rate">
+      <span>Taxa de resolução online</span>
+      <strong>${rate}%</strong>
+      <small>${resolved} de ${total} direcionamento(s)</small>
+    </div>
+    <div class="digital-metric neutral">
+      <span>Sem confirmação de resolução</span>
+      <strong>${pending+notResolved}</strong>
+      <small>${pending} pendente(s) • ${notResolved} não resolvido(s)</small>
+    </div>`;
+
+  const serviceNames=['2ª via de boleto','Autorização de guias','Guia Médico','Extrato de utilização','Orçamento de exames'];
+  const counts=serviceNames.map(name=>[name,digital.filter(x=>x.service===name).length]);
+  const max=Math.max(1,...counts.map(x=>x[1]));
+
+  $('#digitalServiceBars').innerHTML=counts.map(x=>`
+    <div class="bar-row digital-bar-row">
+      <span>${x[0]}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${x[1]/max*100}%"></div></div>
+      <b>${x[1]}</b>
+      <small>${pct(x[1],total)}%</small>
+    </div>`).join('');
+
+  const intro=digital.filter(x=>x.source==='identificacao').length;
+  const subjects=digital.filter(x=>x.source==='assuntos').length;
+  $('#digitalSourceGrid').innerHTML=[
+    ['Antes da identificação',intro,pct(intro,total)],
+    ['Na escolha do assunto',subjects,pct(subjects,total)]
+  ].map(x=>`
+    <div class="profile-card">
+      <span>${x[0]}</span>
+      <strong>${x[1]}</strong>
+      <em>${x[2]}%</em>
+    </div>`).join('');
 }
 
 function renderAge(data){
