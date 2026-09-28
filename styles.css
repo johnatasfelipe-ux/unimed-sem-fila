@@ -47,3 +47,107 @@ body.high-contrast{filter:contrast(1.12)}
 .app-header-actions{display:flex;align-items:center;gap:10px}
 @media(max-width:900px){.portal-cta-card{flex-direction:column;align-items:flex-start}.portal-cta-card h2{font-size:24px}}
 @media(max-width:760px){.accessibility-stack{top:180px;right:4px}.accessibility-btn:hover,.accessibility-btn:focus{max-width:170px;min-width:170px}.portal-cta-panel{padding-bottom:36px}.portal-cta-card h2{font-size:22px}.iva-chat{bottom:74px;max-height:min(640px,80vh)}.iva-character{width:88px;height:86px}}
+
+/* v8.2 — botão de envio da IVA conforme referência */
+.iva-send{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  border:1px solid transparent;
+  background:linear-gradient(180deg,#45d26b,#23b75e);
+  color:#fff;
+  font-size:24px;
+  box-shadow:0 8px 24px rgba(9,146,76,.24);
+  transition:background .18s ease,color .18s ease,border-color .18s ease,
+             transform .18s ease,box-shadow .18s ease;
+}
+.iva-send.ready{
+  background:linear-gradient(180deg,#45d26b,#23b75e);
+  color:#fff;
+  transform:none;
+}
+.iva-send:hover,
+.iva-send:focus-visible,
+.iva-send.ready:hover,
+.iva-send.ready:focus-visible{
+  background:#fff;
+  color:#00995d;
+  border-color:#e0eee6;
+  transform:scale(1.03);
+  box-shadow:0 10px 28px rgba(9,146,76,.18);
+  outline:none;
+}
+
+
+/* v8.3 — botões laterais de acessibilidade conforme referência */
+.accessibility-stack{
+  position:fixed;
+  right:0;
+  top:246px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  z-index:85;
+}
+.accessibility-btn{
+  position:relative;
+  height:42px;
+  width:42px;
+  margin-left:auto;
+  padding:0 10px 0 12px;
+  border:1px solid #ffffff;
+  border-right:0;
+  border-radius:12px 0 0 12px;
+  background:#0644a4;
+  color:#ffffff;
+  box-shadow:0 6px 14px rgba(0,0,0,.16);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  overflow:hidden;
+  cursor:pointer;
+  transition:width .22s ease, box-shadow .18s ease, background .18s ease;
+}
+.accessibility-btn:hover,
+.accessibility-btn:focus-visible{
+  width:170px;
+  background:#0644a4;
+  box-shadow:0 8px 18px rgba(0,0,0,.2);
+  outline:none;
+}
+.access-label{
+  position:absolute;
+  left:14px;
+  right:44px;
+  white-space:nowrap;
+  text-align:left;
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+  opacity:0;
+  transition:opacity .15s ease;
+  pointer-events:none;
+}
+.accessibility-btn:hover .access-label,
+.accessibility-btn:focus-visible .access-label{
+  opacity:1;
+}
+.access-symbol{
+  position:relative;
+  z-index:1;
+  width:22px;
+  min-width:22px;
+  height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  line-height:1;
+  margin-left:auto;
+}
+@media (max-width:760px){
+  .accessibility-stack{top:212px;}
+  .accessibility-btn:hover,
+  .accessibility-btn:focus-visible{width:158px;}
+  .access-label{font-size:11px;left:12px;right:42px;}
+}
